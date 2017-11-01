@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://bot_ai.gd" type="Script" id=2]
+[ext_resource path="res://player.gd" type="Script" id=3]
+
+[node name="game" type="Node2D"]
+
+[node name="Sprite 2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 795.007, 121.923 )
+texture = ExtResource( 1 )
+script/script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 270.57, 422.556 )
+texture = ExtResource( 1 )
+script/script = ExtResource( 2 )
+
+[node name="Sprite 3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 928.622, 439.258 )
+texture = ExtResource( 1 )
+script/script = ExtResource( 3 )
+
+
