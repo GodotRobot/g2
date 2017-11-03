@@ -1,27 +1,96 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://bot_ai.gd" type="Script" id=2]
-[ext_resource path="res://player.gd" type="Script" id=3]
+[ext_resource path="res://game.gd" type="Script" id=1]
+[ext_resource path="res://Entities/Ship/Ship.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 
 [node name="game" type="Node2D"]
 
-[node name="Sprite 2" type="Sprite" parent="."]
+script/script = ExtResource( 1 )
 
-transform/pos = Vector2( 795.007, 121.923 )
-texture = ExtResource( 1 )
-script/script = ExtResource( 2 )
+[node name="Game_CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Sprite" type="Sprite" parent="."]
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
 
-transform/pos = Vector2( 270.57, 422.556 )
-texture = ExtResource( 1 )
-script/script = ExtResource( 2 )
+[node name="Ship" parent="Game_CanvasLayer" instance=ExtResource( 2 )]
 
-[node name="Sprite 3" type="Sprite" parent="."]
+transform/pos = Vector2( 579, 414 )
 
-transform/pos = Vector2( 928.622, 439.258 )
-texture = ExtResource( 1 )
-script/script = ExtResource( 3 )
+[node name="HUD_CanvasLayer" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="HUD" type="Container" parent="HUD_CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 8.0
+margin/top = 491.0
+margin/right = 337.0
+margin/bottom = 593.0
+
+[node name="LivesLeft" type="HBoxContainer" parent="HUD_CanvasLayer/HUD"]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 6.0
+margin/top = 47.0
+margin/right = 761.0
+margin/bottom = 111.0
+alignment = 0
+
+[node name="Life" type="TextureFrame" parent="HUD_CanvasLayer/HUD/LivesLeft"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 64.0
+margin/bottom = 64.0
+texture = ExtResource( 3 )
+stretch_mode = 0
+
+[node name="Sep" type="VSeparator" parent="HUD_CanvasLayer/HUD/LivesLeft"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 68.0
+margin/top = 0.0
+margin/right = 71.0
+margin/bottom = 64.0
+
+[node name="TimeLeft" type="ProgressBar" parent="HUD_CanvasLayer/HUD"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 4.0
+margin/top = 83.0
+margin/right = 313.0
+margin/bottom = 99.0
+range/min = 0.0
+range/max = 1000.0
+range/step = 1.0
+range/page = 0.0
+range/value = 1000.0
+range/exp_edit = false
+range/rounded = false
+percent/visible = false
 
 

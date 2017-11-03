@@ -1,6 +1,5 @@
-extends Sprite
+extends RigidBody2D
 
-# class member variables go here, for example:
 var time_to_course
 var course
 
@@ -8,7 +7,7 @@ func init_course():
 	time_to_course = randf() * 5.0 # 0..10 secs
 	course = Vector2(rand_range(-1, 1), rand_range(-1, 1))
 	course *= 2.0 * rand_range(1.0, 5.0)
-	
+
 func _ready():
 	init_course()
 	rotate(PI)
@@ -35,4 +34,3 @@ func _process(delta):
 		new_pos.y = get_viewport_rect().size.y
 		course.y = -course.y
 	set_pos(new_pos)
-	

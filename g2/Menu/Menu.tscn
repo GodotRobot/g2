@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Menu/StartButton.gd" type="Script" id=1]
+
+[node name="Menu" type="Node2D"]
+
+[node name="Button" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 206.0
+margin/top = 164.0
+margin/right = 247.0
+margin/bottom = 184.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Start"
+flat = false
+script/script = ExtResource( 1 )
+
+
