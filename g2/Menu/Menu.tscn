@@ -18,26 +18,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
+margin/left = -1.0
 margin/top = 0.0
-margin/right = 1024.0
+margin/right = 1023.0
 margin/bottom = 600.0
-
-[node name="StartButton" type="Button" parent="."]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 206.0
-margin/top = 164.0
-margin/right = 247.0
-margin/bottom = 184.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Start"
-flat = false
 
 [node name="Particles2D" type="Particles2D" parent="."]
 
@@ -62,6 +46,35 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 
-[connection signal="pressed" from="StartButton" to="." method="_on_Start_Button_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 331.0
+margin/top = 315.0
+margin/right = 683.0
+margin/bottom = 393.0
+alignment = 0
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 352.0
+margin/bottom = 40.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Start"
+flat = false
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_Start_Button_pressed"]
 
 

@@ -17,7 +17,7 @@ scale = Vector2( 1, 1 )
 
 [node name="Ship" parent="Game_CanvasLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 579, 414 )
+transform/pos = Vector2( 579, 415.228 )
 
 [node name="HUD_CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -92,5 +92,12 @@ range/value = 1000.0
 range/exp_edit = false
 range/rounded = false
 percent/visible = false
+
+[node name="GameTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 60.0
+one_shot = false
+autostart = true
 
 

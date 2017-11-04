@@ -1,11 +1,12 @@
 extends CanvasLayer
 
 onready var game = get_tree().get_root().get_node("game")
+onready var start_button = get_node("VBoxContainer/StartButton")
 var pause_menu = false
 
 func _ready():
 	if pause_menu:
-		get_node("StartButton").set_text("Continue")
+		start_button.set_text("Continue")
 	set_process_input(true)
 
 func _input(event):
