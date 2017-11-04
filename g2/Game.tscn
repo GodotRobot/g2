@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://game.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Ship/Ship.tscn" type="PackedScene" id=2]
-[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=2]
 
 [node name="game" type="Node2D"]
 
@@ -15,9 +14,7 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="Ship" parent="Game_CanvasLayer" instance=ExtResource( 2 )]
-
-transform/pos = Vector2( 579, 415.228 )
+[node name="Enemies" type="Node" parent="Game_CanvasLayer"]
 
 [node name="HUD_CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -60,7 +57,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 64.0
 margin/bottom = 64.0
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 stretch_mode = 0
 
 [node name="Sep" type="VSeparator" parent="HUD_CanvasLayer/HUD/LivesLeft"]

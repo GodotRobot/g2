@@ -1,16 +1,18 @@
 extends Node2D
 
 onready var enemy = preload("res://Entities/Enemy/enemy.tscn")
+onready var ship = preload("res://Entities/Ship/Ship.tscn")
 onready var menu = preload("res://Menu/Menu.tscn")
 onready var game_layer = get_node("Game_CanvasLayer")
-onready var ship = get_node("Game_CanvasLayer/Ship")
+onready var enemies_group = get_node("Game_CanvasLayer/Enemies")
 onready var game_timer = get_node("GameTimer")
+
+var enemies = []
 
 func end_game(won):
 	# no pause:
 	#get_tree().set_pause(true)
 	set_process_input(false)
-	ship.set_process_input(false)
 	var new_menu = menu.instance()
 	if won:
 		new_menu.mode = new_menu.win
@@ -37,9 +39,15 @@ func ship_destroyed():
 	if not can_continue:
 		end_game(false)
 
+func setup_ship():
+	var new_ship = ship.instance()
+	new_ship.set_global_pos(Vector2(512, 300))
+	game_layer.add_child(new_ship)
+
 func _ready():
 	setup_hud()
 	setup_bots()
+	setup_ship()
 	set_process(true)
 	set_process_input(true)
 
@@ -62,7 +70,8 @@ func setup_hud():
 
 func setup_bots():
 	for i in range(0, 5):
-		game_layer.add_child(enemy.instance())
+		var e = enemy.instance()
+		enemies_group.add_child(e)
 
 func update_hud(delta):
 	var prog = get_node("HUD_CanvasLayer/HUD/TimeLeft")
@@ -71,6 +80,13 @@ func update_hud(delta):
 
 func _process(delta):
 	update_hud(delta)
+
+	var enemies_in_scene = enemies_group.get_child_count()
+	for e in enemies_group.get_children():
+		if e.is_dead():
+			enemies_in_scene -= 1
+	if enemies_in_scene == 0:
+		end_game(true)
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel") and not event.is_echo():

@@ -13,6 +13,9 @@ onready var flowing_particle_effect = get_node("EnemyParticles2D")
 onready var sprite = get_node("EnemySprite")
 onready var col = get_node("EnemyCollisionShape2D")
 
+func is_dead():
+	return dead_timestamp > 0
+
 func init_course():
 	time_to_course = randf() * max_time_to_course # 0..10 secs
 	course = Vector2(rand_range(-1, 1), rand_range(-1, 1))

@@ -5,6 +5,7 @@ onready var game = get_tree().get_root().get_node("game")
 func ship_destroyed(area):
 	game.ship_destroyed()
 	#print(get_name(), " <-> ", area.get_name())
+	#trigger kill effect TODO
 
 func _ready():
 	set_process(true)
