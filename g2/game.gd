@@ -80,13 +80,16 @@ func update_hud(delta):
 
 func _process(delta):
 	update_hud(delta)
-
+	# end game: no more enemies
 	var enemies_in_scene = enemies_group.get_child_count()
 	for e in enemies_group.get_children():
 		if e.is_dead():
 			enemies_in_scene -= 1
 	if enemies_in_scene == 0:
 		end_game(true)
+	# end game: time's up
+	if game_timer.get_time_left() <= 0.0:
+		end_game(false)
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel") and not event.is_echo():

@@ -94,7 +94,7 @@ percent/visible = false
 
 process_mode = 1
 wait_time = 60.0
-one_shot = false
+one_shot = true
 autostart = true
 
 
