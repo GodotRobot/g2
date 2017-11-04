@@ -1,5 +1,11 @@
 extends RigidBody2D
 
+onready var game = get_tree().get_root().get_node("game")
+
+func death(area):
+	game.death()
+	#print(get_name(), " <-> ", area.get_name())
+
 func _ready():
 	set_process(true)
 
@@ -27,6 +33,5 @@ func _process(delta):
 	set_pos(new_pos)
 	rotate(delta_rad)
 
-
 func _on_ShipArea2D_area_enter( area ):
-	print(get_name(), " <-> ", area.get_name())
+	death(area)
