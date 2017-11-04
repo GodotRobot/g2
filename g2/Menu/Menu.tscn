@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
+
+[sub_resource type="ColorRamp" id=1]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 1, 1, 0.93913, 1, 1, 1, 0 )
 
 [node name="Menu" type="CanvasLayer"]
 
@@ -18,33 +23,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -1.0
-margin/top = 0.0
-margin/right = 1023.0
-margin/bottom = 600.0
-
-[node name="Particles2D" type="Particles2D" parent="."]
-
-transform/pos = Vector2( 307, 176 )
-config/amount = 32
-config/lifetime = 2.0
-config/process_mode = 1
-params/direction = 0.0
-params/spread = 10.0
-params/linear_velocity = 20.0
-params/spin_velocity = 0.0
-params/orbit_velocity = 0.0
-params/gravity_direction = 0.0
-params/gravity_strength = 9.8
-params/radial_accel = 0.0
-params/tangential_accel = 0.0
-params/damping = 0.0
-params/initial_angle = 0.0
-params/initial_size = 1.0
-params/final_size = 1.0
-params/hue_variation = 0.0
-params/anim_speed_scale = 1.0
-params/anim_initial_pos = 0.0
+margin/left = 0.0
+margin/top = 1.0
+margin/right = 1024.0
+margin/bottom = 601.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 
@@ -52,13 +34,13 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 331.0
-margin/top = 315.0
-margin/right = 683.0
-margin/bottom = 393.0
+margin/left = 335.0
+margin/top = 185.0
+margin/right = 687.0
+margin/bottom = 521.0
 alignment = 0
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer"]
 
 rect/min_size = Vector2( 0, 40 )
 focus/ignore_mouse = false
@@ -69,12 +51,156 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 352.0
 margin/bottom = 40.0
+text = "G2 Game"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Particles2D1" type="Particles2D" parent="VBoxContainer"]
+
+transform/pos = Vector2( 138.425, 6.42401 )
+config/amount = 120
+config/lifetime = 1.0
+config/process_mode = 1
+params/direction = -90.0
+params/spread = 10.0
+params/linear_velocity = 135.0
+params/spin_velocity = 1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 1.0
+params/initial_angle = 0.0
+params/initial_size = 3.0
+params/final_size = 15.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 0.4
+randomness/initial_size = -1.0
+randomness/final_size = -1.0
+color/color_ramp = SubResource( 1 )
+
+[node name="Particles2D" type="Particles2D" parent="VBoxContainer"]
+
+transform/pos = Vector2( 213.551, 6.54294 )
+config/amount = 120
+config/lifetime = 1.0
+config/process_mode = 1
+params/direction = 90.0
+params/spread = 10.0
+params/linear_velocity = 135.0
+params/spin_velocity = 1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 1.0
+params/initial_angle = 0.0
+params/initial_size = 3.0
+params/final_size = 15.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 0.4
+randomness/initial_size = -1.0
+randomness/final_size = -1.0
+color/color_ramp = SubResource( 1 )
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 44.0
+margin/right = 352.0
+margin/bottom = 84.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Start"
 flat = false
 
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 88.0
+margin/right = 352.0
+margin/bottom = 128.0
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Options"
+flat = false
+
+[node name="LoadGameButton" type="Button" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 132.0
+margin/right = 352.0
+margin/bottom = 172.0
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Load Game"
+flat = false
+
+[node name="SaveGameButton" type="Button" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 176.0
+margin/right = 352.0
+margin/bottom = 216.0
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Save Game"
+flat = false
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 220.0
+margin/right = 352.0
+margin/bottom = 260.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Quit"
+flat = false
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_Start_Button_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 
 

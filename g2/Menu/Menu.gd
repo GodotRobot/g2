@@ -17,4 +17,7 @@ func _on_Start_Button_pressed():
 	if pause_menu:
 		game.unpause(self)
 	else:
-		get_tree().change_scene("res:///Level1.tscn")
+		get_tree().change_scene("res://Game.tscn")
+
+func _on_QuitButton_pressed():
+	get_tree().quit()
