@@ -7,8 +7,6 @@ onready var game_layer = get_node("Game_CanvasLayer")
 onready var enemies_group = get_node("Game_CanvasLayer/Enemies")
 onready var game_timer = get_node("GameTimer")
 
-var enemies = []
-
 func end_game(won):
 	# no pause:
 	#get_tree().set_pause(true)
@@ -52,16 +50,16 @@ func _ready():
 	set_process_input(true)
 
 func add_life():
-	get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Life").duplicate())
-	get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Sep").duplicate())
+	get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Life").duplicate()) # icon
+	get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Sep").duplicate()) # separator
 
 func remove_life():
 	var lives_container = get_node("HUD_CanvasLayer/HUD/LivesLeft")
 	var children = lives_container.get_children()
 	if children.empty():
 		return false
-	lives_container.remove_child(children[children.size()-1])
-	lives_container.remove_child(children[children.size()-2])
+	lives_container.remove_child(children[children.size()-1]) # icon
+	lives_container.remove_child(children[children.size()-2]) # separator
 	return true
 
 func setup_hud():
