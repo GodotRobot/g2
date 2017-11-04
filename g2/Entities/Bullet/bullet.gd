@@ -14,3 +14,4 @@ func _process(delta):
 
 func _on_BulletArea2D_area_enter( area ):
 	print(get_name(), " <-> ", area.get_name())
+	queue_free()
