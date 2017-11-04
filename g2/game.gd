@@ -13,7 +13,10 @@ func end_game():
 func pause():
 	get_tree().set_pause(true)
 	set_process_input(false)
-	add_child(menu.instance())
+	var new_menu = menu.instance()
+	new_menu.pause_menu = true
+	add_child(new_menu)
+	new_menu.raise()
 
 func unpause(menu_instance):
 	remove_child(menu_instance)
