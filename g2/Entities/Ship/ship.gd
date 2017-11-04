@@ -2,8 +2,8 @@ extends Area2D
 
 onready var game = get_tree().get_root().get_node("game")
 
-func death(area):
-	game.death()
+func ship_destroyed(area):
+	game.ship_destroyed()
 	#print(get_name(), " <-> ", area.get_name())
 
 func _ready():
@@ -34,4 +34,4 @@ func _process(delta):
 	rotate(delta_rad)
 
 func _on_ShipArea2D_area_enter( area ):
-	death(area)
+	ship_destroyed(area)

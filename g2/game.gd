@@ -3,17 +3,27 @@ extends Node2D
 onready var enemy = preload("res://Entities/Enemy/enemy.tscn")
 onready var menu = preload("res://Menu/Menu.tscn")
 onready var game_layer = get_node("Game_CanvasLayer")
+onready var ship = get_node("Game_CanvasLayer/Ship")
 onready var game_timer = get_node("GameTimer")
 
-func end_game():
-	print("game ended TODO")
-	pass
+func end_game(won):
+	# no pause:
+	#get_tree().set_pause(true)
+	set_process_input(false)
+	ship.set_process_input(false)
+	var new_menu = menu.instance()
+	if won:
+		new_menu.mode = new_menu.win
+	else:
+		new_menu.mode = new_menu.game_over
+	add_child(new_menu)
+	new_menu.raise()
 
 func pause():
 	get_tree().set_pause(true)
 	set_process_input(false)
 	var new_menu = menu.instance()
-	new_menu.pause_menu = true
+	new_menu.mode = new_menu.pause
 	add_child(new_menu)
 	new_menu.raise()
 
@@ -22,10 +32,10 @@ func unpause(menu_instance):
 	set_process_input(true)
 	get_tree().set_pause(false)
 
-func death():
+func ship_destroyed():
 	var can_continue = remove_life()
 	if not can_continue:
-		end_game()
+		end_game(false)
 
 func _ready():
 	setup_hud()
