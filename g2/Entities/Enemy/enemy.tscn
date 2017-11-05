@@ -13,7 +13,7 @@ extents = Vector2( 5.22989, 8.85841 )
 offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
 colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
 
-[sub_resource type="ColorRamp" id=4]
+[sub_resource type="ColorRamp" id=3]
 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -70,6 +70,7 @@ color/color_ramp = SubResource( 2 )
 config/amount = 64
 config/lifetime = 3.0
 config/process_mode = 1
+config/half_extents = Vector2( 32, 32 )
 config/local_space = false
 params/direction = 0.0
 params/spread = 180.0
@@ -91,7 +92,7 @@ randomness/linear_velocity = 0.22
 randomness/damping = 0.51
 randomness/initial_size = 0.25
 randomness/final_size = 0.22
-color/color_ramp = SubResource( 4 )
+color/color_ramp = SubResource( 3 )
 
 [node name="EnemySprite" type="Sprite" parent="."]
 

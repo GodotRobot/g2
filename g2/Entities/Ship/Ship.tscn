@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://Entities/Ship/ship.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -7,6 +7,11 @@
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
+
+[sub_resource type="ColorRamp" id=3]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="ShipArea2D" type="Area2D"]
 
@@ -27,6 +32,35 @@ transform/scale = Vector2( 3.11538, 3.15385 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Particles2D" type="Particles2D" parent="."]
+
+config/amount = 64
+config/lifetime = 3.0
+config/process_mode = 1
+config/half_extents = Vector2( 32, 32 )
+config/local_space = false
+params/direction = 0.0
+params/spread = 180.0
+params/linear_velocity = 20.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 180.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.7
+params/initial_angle = 0.0
+params/initial_size = 2.0
+params/final_size = 7.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/linear_velocity = 0.22
+randomness/damping = 0.51
+randomness/initial_size = 0.25
+randomness/final_size = 0.22
+color/color_ramp = SubResource( 3 )
 
 [node name="ShipSprite" type="Sprite" parent="."]
 
