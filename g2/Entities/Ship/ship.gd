@@ -11,6 +11,8 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
+	if game.menu_displayed:
+		return
 	var v = Vector2(0.0, -1.0).rotated(get_rot())
 	var new_pos = get_pos()
 	var delta_rad = 0.0

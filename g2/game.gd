@@ -7,28 +7,34 @@ onready var game_layer = get_node("Game_CanvasLayer")
 onready var enemies_group = get_node("Game_CanvasLayer/Enemies")
 onready var game_timer = get_node("GameTimer")
 
+var menu_displayed = null
+
 func end_game(won):
+	if menu_displayed:
+		return
 	# no pause:
 	#get_tree().set_pause(true)
 	set_process_input(false)
-	var new_menu = menu.instance()
+	menu_displayed = menu.instance()
 	if won:
-		new_menu.mode = new_menu.win
+		menu_displayed.mode = menu_displayed.win
 	else:
-		new_menu.mode = new_menu.game_over
-	add_child(new_menu)
-	new_menu.raise()
+		menu_displayed.mode = menu_displayed.game_over
+	add_child(menu_displayed)
+	menu_displayed.raise()
 
 func pause():
 	get_tree().set_pause(true)
 	set_process_input(false)
-	var new_menu = menu.instance()
-	new_menu.mode = new_menu.pause
-	add_child(new_menu)
-	new_menu.raise()
+	menu_displayed = menu.instance()
+	menu_displayed.mode = menu_displayed.pause
+	add_child(menu_displayed)
+	menu_displayed.raise()
 
 func unpause(menu_instance):
 	remove_child(menu_instance)
+	assert menu_displayed == menu_instance
+	menu_displayed = null
 	set_process_input(true)
 	get_tree().set_pause(false)
 
