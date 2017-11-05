@@ -107,12 +107,21 @@ _update_shape_index = 0
 [node name="ShipActivationTimer" type="Timer" parent="."]
 
 process_mode = 1
-wait_time = 3.0
+wait_time = 1.0
 one_shot = true
 autostart = true
+
+[node name="ActivationBlinkTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.2
+one_shot = false
+autostart = false
 
 [connection signal="area_enter" from="." to="." method="_on_ShipArea2D_area_enter"]
 
 [connection signal="timeout" from="ShipActivationTimer" to="." method="_on_ShipActivationTimer_timeout"]
+
+[connection signal="timeout" from="ActivationBlinkTimer" to="." method="_on_ActivationBlinkTimer_timeout"]
 
 

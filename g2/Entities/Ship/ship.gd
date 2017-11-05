@@ -8,6 +8,7 @@ onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
 onready var timer = get_node("ShipActivationTimer")
+onready var blink_timer = get_node("ActivationBlinkTimer")
 
 func active():
 	return timer.get_time_left() <= 0.0
@@ -18,7 +19,8 @@ func ship_destroyed(area):
 	#trigger kill effect TODO
 
 func _ready():
-	sprite.set_modulate(Color(0.5, 0.5, 0.5))
+	sprite.set_modulate(Color(0.1, 0.4, 0.7))
+	blink_timer.start()
 	set_process(true)
 
 func _process(delta):
@@ -65,6 +67,12 @@ func _on_ShipArea2D_area_enter( area ):
 	set_collision_mask(0)
 	ship_destroyed(area)
 
-
 func _on_ShipActivationTimer_timeout():
+	blink_timer.stop()
 	sprite.set_modulate(Color(1, 1, 1))
+
+func _on_ActivationBlinkTimer_timeout():
+	var mod = sprite.get_modulate()
+	var new_mod = Color(1 - mod.r, 1 - mod.g, 1 - mod.b)
+	print(new_mod)
+	sprite.set_modulate(new_mod)
