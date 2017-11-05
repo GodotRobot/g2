@@ -7,6 +7,10 @@ onready var death_particle_effect = get_node("ShipDeathParticles2D")
 onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
+onready var timer = get_node("ShipActivationTimer")
+
+func active():
+	return timer.get_time_left() <= 0.0
 
 func ship_destroyed(area):
 	game.ship_destroyed()
@@ -14,6 +18,7 @@ func ship_destroyed(area):
 	#trigger kill effect TODO
 
 func _ready():
+	sprite.set_modulate(Color(0.5, 0.5, 0.5))
 	set_process(true)
 
 func _process(delta):
@@ -50,6 +55,8 @@ func _process(delta):
 	rotate(delta_rad)
 
 func _on_ShipArea2D_area_enter( area ):
+	if not active():
+		return
 	dead_timestamp = OS.get_ticks_msec()
 	death_particle_effect.set_emitting(true)
 	flowing_particle_effect.set_emitting(false)
@@ -57,3 +64,7 @@ func _on_ShipArea2D_area_enter( area ):
 	set_layer_mask(0)
 	set_collision_mask(0)
 	ship_destroyed(area)
+
+
+func _on_ShipActivationTimer_timeout():
+	sprite.set_modulate(Color(1, 1, 1))
