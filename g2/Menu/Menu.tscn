@@ -57,6 +57,23 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="sep" type="Label" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 10 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 44.0
+margin/right = 352.0
+margin/bottom = 58.0
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Context" type="Label" parent="VBoxContainer"]
 
 rect/min_size = Vector2( 0, 40 )
@@ -65,9 +82,26 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 44.0
+margin/top = 62.0
 margin/right = 352.0
-margin/bottom = 84.0
+margin/bottom = 102.0
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="sep1" type="Label" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 10 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 106.0
+margin/right = 352.0
+margin/bottom = 120.0
 align = 1
 valign = 1
 percent_visible = 1.0
@@ -136,13 +170,31 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 88.0
+margin/top = 124.0
 margin/right = 352.0
-margin/bottom = 128.0
+margin/bottom = 164.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Start"
+flat = false
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+
+visibility/visible = false
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 168.0
+margin/right = 352.0
+margin/bottom = 208.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Restart"
 flat = false
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer"]
@@ -153,9 +205,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 132.0
+margin/top = 168.0
 margin/right = 352.0
-margin/bottom = 172.0
+margin/bottom = 208.0
 disabled = true
 toggle_mode = false
 enabled_focus_mode = 2
@@ -171,9 +223,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 176.0
+margin/top = 212.0
 margin/right = 352.0
-margin/bottom = 216.0
+margin/bottom = 252.0
 disabled = true
 toggle_mode = false
 enabled_focus_mode = 2
@@ -189,9 +241,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 220.0
+margin/top = 256.0
 margin/right = 352.0
-margin/bottom = 260.0
+margin/bottom = 296.0
 disabled = true
 toggle_mode = false
 enabled_focus_mode = 2
@@ -207,9 +259,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 264.0
+margin/top = 300.0
 margin/right = 352.0
-margin/bottom = 304.0
+margin/bottom = 340.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -217,6 +269,8 @@ text = "Quit"
 flat = false
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_Start_Button_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 
