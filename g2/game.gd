@@ -40,7 +40,9 @@ func unpause(menu_instance):
 
 func ship_destroyed():
 	var can_continue = remove_life()
-	if not can_continue:
+	if can_continue:
+		setup_ship()
+	else:
 		end_game(false)
 
 func setup_ship():
