@@ -3,6 +3,7 @@ extends Area2D
 var dead_timestamp = -1
 
 onready var game = get_tree().get_root().get_node("game")
+onready var bullet = preload("res://Entities/Bullet/Bullet.tscn")
 onready var death_particle_effect = get_node("ShipDeathParticles2D")
 onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
@@ -48,10 +49,10 @@ func _process(delta):
 		delta_rad -= delta * f2
 
 	if Input.is_action_pressed("ui_select"):
-		var bullet = preload("../Bullet/bullet.tscn").instance()
-		get_parent().add_child(bullet)
-		bullet.v_ = v * delta * f1 * 1.3
-		bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
+		var new_bullet = bullet.instance()
+		get_parent().add_child(new_bullet)
+		new_bullet.v_ = v * delta * f1 * 1.3
+		new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
 
 	set_pos(new_pos)
 	rotate(delta_rad)
@@ -74,5 +75,5 @@ func _on_ShipActivationTimer_timeout():
 func _on_ActivationBlinkTimer_timeout():
 	var mod = sprite.get_modulate()
 	var new_mod = Color(1 - mod.r, 1 - mod.g, 1 - mod.b)
-	print(new_mod)
+	#print(new_mod)
 	sprite.set_modulate(new_mod)
