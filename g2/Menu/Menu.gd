@@ -1,9 +1,10 @@
 extends CanvasLayer
 
-onready var game = get_tree().get_root().get_node("game")
+var game = null
 onready var start_button = get_node("VBoxContainer/StartButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
 onready var context = get_node("VBoxContainer/Context")
+onready var sfx = get_node("SamplePlayer")
 
 enum MODE {
 	start,
@@ -15,6 +16,10 @@ enum MODE {
 var mode = MODE.start
 
 func _ready():
+	sfx.play("human_music")
+	var root = get_tree().get_root()
+	if root.has_node("game"):
+		game = root.get_node("game")
 	if mode == MODE.pause:
 		context.set_text("Paused")
 		start_button.set_text("Continue")
