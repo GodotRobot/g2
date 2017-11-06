@@ -1,6 +1,9 @@
 extends Area2D
 
+const LASER_RECOVERY_MS = 200
+
 var dead_timestamp = -1
+var last_laser_timestamp = -1.0
 
 onready var game = get_tree().get_root().get_node("game")
 onready var bullet = preload("res://Entities/Bullet/Bullet.tscn")
@@ -10,6 +13,7 @@ onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
 onready var timer = get_node("ShipActivationTimer")
 onready var blink_timer = get_node("ActivationBlinkTimer")
+onready var sfx = get_node("SamplePlayer")
 
 func active():
 	return timer.get_time_left() <= 0.0
@@ -49,10 +53,14 @@ func _process(delta):
 		delta_rad -= delta * f2
 
 	if Input.is_action_pressed("ui_select"):
-		var new_bullet = bullet.instance()
-		get_parent().add_child(new_bullet)
-		new_bullet.v_ = v * delta * f1 * 1.3
-		new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
+		var now = OS.get_ticks_msec()
+		if now - last_laser_timestamp > LASER_RECOVERY_MS:
+			last_laser_timestamp = now
+			var new_bullet = bullet.instance()
+			get_parent().add_child(new_bullet)
+			new_bullet.v_ = v * delta * f1 * 1.3
+			new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
+			sfx.play("laser")
 
 	set_pos(new_pos)
 	rotate(delta_rad)

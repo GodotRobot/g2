@@ -12,6 +12,7 @@ onready var death_particle_effect = get_node("EnemyDeathParticles2D")
 onready var flowing_particle_effect = get_node("EnemyParticles2D")
 onready var sprite = get_node("EnemySprite")
 onready var col = get_node("EnemyCollisionShape2D")
+onready var sfx = get_node("SamplePlayer")
 
 func is_dead():
 	return dead_timestamp > 0
@@ -67,3 +68,4 @@ func _on_EnemyArea2D_area_enter( area ):
 	sprite.hide()
 	set_layer_mask(0)
 	set_collision_mask(0)
+	sfx.play("explosion1")
