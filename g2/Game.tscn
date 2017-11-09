@@ -9,6 +9,7 @@ script/script = ExtResource( 1 )
 
 [node name="Game_CanvasLayer" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -77,10 +78,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 4.0
-margin/top = 83.0
-margin/right = 313.0
-margin/bottom = 99.0
+margin/left = 5.0
+margin/top = 80.0
+margin/right = 314.0
+margin/bottom = 96.0
 range/min = 0.0
 range/max = 1000.0
 range/step = 1.0
@@ -89,6 +90,23 @@ range/value = 1000.0
 range/exp_edit = false
 range/rounded = false
 percent/visible = false
+
+[node name="Level" type="Label" parent="HUD_CanvasLayer/HUD"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 193.0
+margin/top = 58.0
+margin/right = 313.0
+margin/bottom = 78.0
+text = "Level: 1"
+align = 2
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="GameTimer" type="Timer" parent="."]
 

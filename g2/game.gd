@@ -6,22 +6,28 @@ onready var menu = preload("res://Menu/Menu.tscn")
 onready var game_layer = get_node("Game_CanvasLayer")
 onready var enemies_group = get_node("Game_CanvasLayer/Enemies")
 onready var game_timer = get_node("GameTimer")
+onready var level_text = get_node("HUD_CanvasLayer/HUD/Level")
 
+var current_level = 1
+var max_level = 2
 var menu_displayed = null
 
-func end_game(won):
+
+func end_level(won):
 	if menu_displayed:
 		return
 	# no pause:
 	#get_tree().set_pause(true)
-	set_process_input(false)
-	menu_displayed = menu.instance()
-	if won:
-		menu_displayed.mode = menu_displayed.win
-	else:
+	if won == false or current_level > max_level:
+		set_process_input(false)
+		menu_displayed = menu.instance()
 		menu_displayed.mode = menu_displayed.game_over
-	add_child(menu_displayed)
-	menu_displayed.raise()
+		add_child(menu_displayed)
+		menu_displayed.raise()
+		level_text.hide()
+	else:
+		current_level += 1
+		init_level()
 
 func pause():
 	get_tree().set_pause(true)
@@ -43,19 +49,29 @@ func ship_destroyed():
 	if can_continue:
 		setup_ship()
 	else:
-		end_game(false)
+		end_level(false)
 
 func setup_ship():
 	var new_ship = ship.instance()
 	new_ship.set_global_pos(Vector2(512, 300))
 	game_layer.add_child(new_ship)
-
-func _ready():
+	
+func init_level():
 	setup_hud()
-	setup_bots()
 	setup_ship()
 	set_process(true)
 	set_process_input(true)
+	level_text.set_text("Level: " + String(current_level))
+	level_text.show()
+	
+	if (current_level == 1):
+		setup_bots(4)
+	elif (current_level == 2):
+		setup_bots(8)
+
+func _ready():
+	current_level = 1;
+	init_level()
 
 func add_life():
 	get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Life").duplicate()) # icon
@@ -74,8 +90,8 @@ func setup_hud():
 	add_life()
 	add_life()
 
-func setup_bots():
-	for i in range(0, 5):
+func setup_bots(count):
+	for i in range(0, count):
 		var e = enemy.instance()
 		enemies_group.add_child(e)
 
@@ -92,10 +108,10 @@ func _process(delta):
 		if e.is_dead():
 			enemies_in_scene -= 1
 	if enemies_in_scene == 0:
-		end_game(true)
+		end_level(true)
 	# end game: time's up
 	if game_timer.get_time_left() <= 0.0:
-		end_game(false)
+		end_level(false)
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel") and not event.is_echo():
