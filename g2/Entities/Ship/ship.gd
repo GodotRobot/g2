@@ -4,6 +4,7 @@ const LASER_RECOVERY_MS = 200
 
 enum AMMO_TYPE {
 	regular = 0
+	physical_pusher = 1
 }
 
 var dead_timestamp = -1
@@ -33,6 +34,8 @@ func ship_destroyed(area):
 func bullet_instance():
 	if ammo_type_ == AMMO_TYPE.regular:
 		return bullet.instance()
+	elif ammo_type_ == AMMO_TYPE.physical_pusher:
+		return bullet_physical.instance()
 	return null
 
 func _ready():
@@ -70,9 +73,9 @@ func _process(delta):
 			last_laser_timestamp = now
 			var new_bullet = bullet_instance()
 			if new_bullet:
-				get_parent().add_child(new_bullet)
 				new_bullet.v_ = v * delta * f1 * 1.3
 				new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
+				get_parent().add_child(new_bullet)
 				sfx.play("laser")
 
 	set_pos(new_pos)

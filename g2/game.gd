@@ -9,9 +9,9 @@ onready var game_timer = get_node("GameTimer")
 onready var level_text = get_node("HUD_CanvasLayer/HUD/Level")
 
 var current_level = 1
-var max_level = 2
+var max_level = 3
 var menu_displayed = null
-
+var current_ship = null
 
 func end_level(won):
 	if menu_displayed:
@@ -47,21 +47,27 @@ func unpause(menu_instance):
 func ship_destroyed():
 	var can_continue = remove_life()
 	if can_continue:
-		setup_ship(0, 99999)
+		setup_ship()
 	else:
 		end_level(false)
 
-func setup_ship(ammo_type, ammo_count):
-	var new_ship = ship.instance()
-	new_ship.ammo_type_ = ammo_type
-	new_ship.ammo_count_ = ammo_count
-	new_ship.set_global_pos(Vector2(512, 300)) # TODO replace with viewport code
-	game_layer.add_child(new_ship)
+func setup_ship():
+	if current_ship:
+		current_ship.queue_free()
+	current_ship = ship.instance()
+	if current_level == 1 or current_level == 2:
+		current_ship.ammo_type_ = 0
+		current_ship.ammo_count_ = 9999
+	elif current_level == 3:
+		current_ship.ammo_type_ = 1
+		current_ship.ammo_count_ = 10
+	current_ship.set_global_pos(Vector2(512, 300)) # TODO replace with viewport code
+	game_layer.add_child(current_ship)
 
 func init_level():
 	if current_level == 1:
 		setup_hud()
-		setup_ship(0, 99999)
+	setup_ship()
 	set_process(true)
 	set_process_input(true)
 	level_text.set_text("Level: " + String(current_level))
@@ -71,6 +77,8 @@ func init_level():
 		setup_bots(4)
 	elif (current_level == 2):
 		setup_bots(8)
+	else:
+		setup_bots(2)
 
 func _ready():
 	current_level = 1;
