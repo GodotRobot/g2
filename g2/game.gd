@@ -47,19 +47,21 @@ func unpause(menu_instance):
 func ship_destroyed():
 	var can_continue = remove_life()
 	if can_continue:
-		setup_ship()
+		setup_ship(0, 99999)
 	else:
 		end_level(false)
 
-func setup_ship():
+func setup_ship(ammo_type, ammo_count):
 	var new_ship = ship.instance()
-	new_ship.set_global_pos(Vector2(512, 300))
+	new_ship.ammo_type_ = ammo_type
+	new_ship.ammo_count_ = ammo_count
+	new_ship.set_global_pos(Vector2(512, 300)) # TODO replace with viewport code
 	game_layer.add_child(new_ship)
 
 func init_level():
 	if current_level == 1:
 		setup_hud()
-		setup_ship()
+		setup_ship(0, 99999)
 	set_process(true)
 	set_process_input(true)
 	level_text.set_text("Level: " + String(current_level))

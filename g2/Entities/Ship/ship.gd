@@ -2,11 +2,18 @@ extends Area2D
 
 const LASER_RECOVERY_MS = 200
 
+enum AMMO_TYPE {
+	regular = 0
+}
+
 var dead_timestamp = -1
 var last_laser_timestamp = -1.0
+var ammo_type_ = AMMO_TYPE.regular
+var ammo_count_ = 99999
 
 onready var game = get_tree().get_root().get_node("game")
 onready var bullet = preload("res://Entities/Bullet/Bullet.tscn")
+onready var bullet_physical = preload("res://Entities/Bullet/BulletPhysical.tscn")
 onready var death_particle_effect = get_node("ShipDeathParticles2D")
 onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
@@ -22,6 +29,11 @@ func ship_destroyed(area):
 	game.ship_destroyed()
 	#print(get_name(), " <-> ", area.get_name())
 	#trigger kill effect TODO
+
+func bullet_instance():
+	if ammo_type_ == AMMO_TYPE.regular:
+		return bullet.instance()
+	return null
 
 func _ready():
 	sprite.set_modulate(Color(0.1, 0.4, 0.7))
@@ -56,11 +68,12 @@ func _process(delta):
 		var now = OS.get_ticks_msec()
 		if now - last_laser_timestamp > LASER_RECOVERY_MS:
 			last_laser_timestamp = now
-			var new_bullet = bullet.instance()
-			get_parent().add_child(new_bullet)
-			new_bullet.v_ = v * delta * f1 * 1.3
-			new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
-			sfx.play("laser")
+			var new_bullet = bullet_instance()
+			if new_bullet:
+				get_parent().add_child(new_bullet)
+				new_bullet.v_ = v * delta * f1 * 1.3
+				new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
+				sfx.play("laser")
 
 	set_pos(new_pos)
 	rotate(delta_rad)
