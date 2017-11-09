@@ -62,6 +62,7 @@ func _process(delta):
 func _on_EnemyArea2D_area_enter( area ):
 	if area.has_method("active") and not area.active():
 		return
+	area.queue_free() # kill the bullet
 	dead_timestamp = OS.get_ticks_msec()
 	death_particle_effect.set_emitting(true)
 	flowing_particle_effect.set_emitting(false)
