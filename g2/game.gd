@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var enemy = preload("res://Entities/Enemy/enemy.tscn")
+onready var enemy_physical = preload("res://Entities/Enemy/EnemyPhysical.tscn")
 onready var ship = preload("res://Entities/Ship/Ship.tscn")
 onready var menu = preload("res://Menu/Menu.tscn")
 onready var game_layer = get_node("Game_CanvasLayer")
@@ -65,23 +66,14 @@ func setup_ship():
 	game_layer.add_child(current_ship)
 
 func init_level():
-	if current_level == 1:
-		setup_hud()
 	setup_ship()
+	setup_bots()
 	set_process(true)
 	set_process_input(true)
-	level_text.set_text("Level: " + String(current_level))
-	level_text.show()
-
-	if (current_level == 1):
-		setup_bots(4)
-	elif (current_level == 2):
-		setup_bots(8)
-	else:
-		setup_bots(2)
 
 func _ready():
 	current_level = 1;
+	setup_hud()
 	init_level()
 
 func add_life():
@@ -98,12 +90,24 @@ func remove_life():
 	return true
 
 func setup_hud():
+	level_text.set_text("Level: " + String(current_level))
+	level_text.show()
 	add_life()
 	add_life()
 
-func setup_bots(count):
+func setup_bots():
+	var count = 2
+	var bot_class = enemy
+	if current_level == 1:
+		count = 4
+	elif current_level == 2:
+		count = 8
+	elif current_level == 3:
+		count = 2
+		bot_class = enemy_physical
+
 	for i in range(0, count):
-		var e = enemy.instance()
+		var e = bot_class.instance()
 		enemies_group.add_child(e)
 
 func update_hud(delta):

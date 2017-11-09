@@ -1,12 +1,14 @@
-extends Area2D
+extends RigidBody2D
 
 const max_time_to_course = 35.0
 const max_course_speed = 1.0
 const course_added_noise = 0.0
+const MAX_LIVES = 3
 
 var time_to_course
 var course
 var dead_timestamp = -1
+var lives = 3
 
 onready var death_particle_effect = get_node("EnemyDeathParticles2D")
 onready var flowing_particle_effect = get_node("EnemyParticles2D")
@@ -18,8 +20,9 @@ func is_dead():
 
 func init_course():
 	time_to_course = randf() * max_time_to_course # 0..10 secs
-	course = Vector2(rand_range(-1, 1), rand_range(-1, 1))
-	course *= 2.0 * rand_range(1.0, max_course_speed)
+	var v = Vector2(rand_range(-1, 1), rand_range(-1, 1))
+	v *= 200.0 * rand_range(1.0, max_course_speed)
+	set_linear_velocity(v)
 
 func _ready():
 	print("enemy ready")
@@ -40,32 +43,40 @@ func _process(delta):
 	time_to_course -= delta
 	if time_to_course < 0.0:
 		init_course()
-	var local_change = delta * course_added_noise * Vector2(rand_range(-1, 1), rand_range(-1, 1))
-	var new_pos = get_pos() + course + local_change
-	if new_pos.x < 0:
-		new_pos.x = 0
-		course.x = -course.x
-	if new_pos.y < 0:
-		new_pos.y = 0
-		course.y = -course.y
-	if new_pos.x > get_viewport_rect().size.x:
-		new_pos.x = get_viewport_rect().size.x
-		course.x = -course.x
-	if new_pos.y > get_viewport_rect().size.y:
-		new_pos.y = get_viewport_rect().size.y
-		course.y = -course.y
-	var dir = new_pos - get_pos()
-	flowing_particle_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(dir.angle()))
-	set_pos(new_pos)
+	var p = get_pos()
+	var v = get_linear_velocity()
+	if p.x < 0 and v.x < 0:
+		v.x = -v.x
+	if p.y < 0 and v.y < 0:
+		v.y = -v.y
+	if p.x > get_viewport_rect().size.x and v.x > 0:
+		v.x = -v.x
+	if p.y > get_viewport_rect().size.y and v.y > 0:
+		v.y = -v.y
+	if v != get_linear_velocity():
+		set_linear_velocity(v)
 
-func _on_EnemyArea2D_area_enter( area ):
-	if area.has_method("active") and not area.active():
-		return
-	area.queue_free() # kill the bullet
+func start_death_sequence():
 	dead_timestamp = OS.get_ticks_msec()
 	death_particle_effect.set_emitting(true)
 	flowing_particle_effect.set_emitting(false)
 	sprite.hide()
 	set_layer_mask(0)
 	set_collision_mask(0)
-	sfx.play("explosion1")
+
+func _on_EnemyArea2D_area_enter( area ):
+	if area.has_method("active") and not area.active():
+		return
+	start_death_sequence()
+
+func reduce_life():
+	lives -= 1
+	var m = float(lives) / MAX_LIVES
+	sprite.set_modulate(Color(m, m, m))
+	if lives == 0:
+		start_death_sequence()
+
+func _on_EnemyArea2D_body_enter( body ):
+	body.start_death_sequence(get_pos())
+	reduce_life()
+	print("enemy ", get_name(), " got hit by ", body.get_name())
