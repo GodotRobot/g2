@@ -11,7 +11,7 @@ onready var level_text = get_node("HUD_CanvasLayer/HUD/Level")
 var current_level = 1
 var max_level = 2
 var menu_displayed = null
- 
+
 
 func end_level(won):
 	if menu_displayed:
@@ -55,15 +55,16 @@ func setup_ship():
 	var new_ship = ship.instance()
 	new_ship.set_global_pos(Vector2(512, 300))
 	game_layer.add_child(new_ship)
-	
+
 func init_level():
-	setup_hud()
-	setup_ship()
+	if current_level == 1:
+		setup_hud()
+		setup_ship()
 	set_process(true)
 	set_process_input(true)
 	level_text.set_text("Level: " + String(current_level))
 	level_text.show()
-	
+
 	if (current_level == 1):
 		setup_bots(4)
 	elif (current_level == 2):
