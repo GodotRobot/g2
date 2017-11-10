@@ -1,13 +1,13 @@
 [gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://Entities/Enemy/EnemyPhysical.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Enemy/enemyRed4.png" type="Texture" id=2]
 [ext_resource path="res://sfx/explosion1.smp" type="Sample" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 5.22989, 8.85841 )
+extents = Vector2( 6.50609, 11.7828 )
 
 [sub_resource type="ColorRamp" id=2]
 

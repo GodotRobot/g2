@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://game.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Ship/playerLife1_blue.png" type="Texture" id=2]
 
 [node name="game" type="Node2D"]
 
@@ -44,12 +44,13 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 6.0
 margin/top = 47.0
-margin/right = 761.0
+margin/right = 493.0
 margin/bottom = 111.0
 alignment = 0
 
 [node name="Life" type="TextureFrame" parent="HUD_CanvasLayer/HUD/LivesLeft"]
 
+rect/min_size = Vector2( 64, 64 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -59,10 +60,12 @@ margin/top = 0.0
 margin/right = 64.0
 margin/bottom = 64.0
 texture = ExtResource( 2 )
+expand = true
 stretch_mode = 0
 
 [node name="Sep" type="VSeparator" parent="HUD_CanvasLayer/HUD/LivesLeft"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2

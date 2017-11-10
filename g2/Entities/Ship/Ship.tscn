@@ -1,13 +1,13 @@
 [gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://Entities/Ship/ship.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Ship/playerShip1_blue.png" type="Texture" id=2]
 [ext_resource path="res://sfx/laser.smp" type="Sample" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 15.8659, 12.0446 )
 
 [sub_resource type="ColorRamp" id=2]
 
@@ -32,7 +32,7 @@ samples/laser = {
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 3.11538, 0, 0, 3.15385, 0.309998, 0.262299 )
+shapes/0/transform = Matrix32( 3.11534, -0.0165017, 0.0167055, 3.15381, 0.309998, 0.262299 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -109,6 +109,7 @@ texture = ExtResource( 2 )
 [node name="ShipCollisionShape2D" type="CollisionShape2D" parent="."]
 
 transform/pos = Vector2( 0.309998, 0.262299 )
+transform/rot = 0.303488
 transform/scale = Vector2( 3.11538, 3.15385 )
 shape = SubResource( 1 )
 trigger = false
