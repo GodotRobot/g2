@@ -10,7 +10,8 @@ onready var game_timer = get_node("GameTimer")
 onready var level_text = get_node("HUD_CanvasLayer/HUD/Level")
 
 var current_level = 1
-var max_level = 3
+const max_level = 3
+
 var menu_displayed = null
 var current_ship = null
 
@@ -66,6 +67,8 @@ func setup_ship():
 	game_layer.add_child(current_ship)
 
 func init_level():
+	level_text.set_text("Level: " + String(current_level))
+	level_text.show()
 	setup_ship()
 	setup_bots()
 	set_process(true)
@@ -73,12 +76,13 @@ func init_level():
 
 func _ready():
 	current_level = 1;
-	setup_hud()
+	add_life(2)
 	init_level()
 
-func add_life():
-	get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Life").duplicate()) # icon
-	get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Sep").duplicate()) # separator
+func add_life(num):
+	for i in range(num - 1):
+		get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Life").duplicate()) # icon
+		get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Sep").duplicate()) # separator
 
 func remove_life():
 	var lives_container = get_node("HUD_CanvasLayer/HUD/LivesLeft")
@@ -88,12 +92,6 @@ func remove_life():
 	lives_container.remove_child(children[children.size()-1]) # icon
 	lives_container.remove_child(children[children.size()-2]) # separator
 	return true
-
-func setup_hud():
-	level_text.set_text("Level: " + String(current_level))
-	level_text.show()
-	add_life()
-	add_life()
 
 func setup_bots():
 	var count = 2
