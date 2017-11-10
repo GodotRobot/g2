@@ -78,6 +78,17 @@ func _process(delta):
 				get_parent().add_child(new_bullet)
 				sfx.play("laser")
 
+	# if the ship flies out of the viewport, move it to the opposite side
+	var ship_rad = sprite.get_texture().get_width() / 2.0
+	if new_pos.x - ship_rad > get_viewport_rect().size.x:
+		new_pos.x = 1
+	if new_pos.x + ship_rad < 0:
+		new_pos.x = get_viewport_rect().size.x - 1
+	if new_pos.y + ship_rad < 0:
+		new_pos.y = get_viewport_rect().size.y - 1
+	if new_pos.y - ship_rad > get_viewport_rect().size.y:
+		new_pos.y = 1
+	
 	set_pos(new_pos)
 	rotate(delta_rad)
 
