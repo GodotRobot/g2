@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://Entities/Bullet/bullet.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Bullet/bullet.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Bullet/laserRed08.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 8.316
+radius = 12.5925
 
 [node name="BulletArea2D" type="Area2D"]
 
@@ -24,6 +24,8 @@ script/script = ExtResource( 1 )
 
 [node name="BulletSprite" type="Sprite" parent="."]
 
+transform/pos = Vector2( 0, -4.76837e-07 )
+transform/scale = Vector2( 0.625, 0.652174 )
 texture = ExtResource( 2 )
 
 [node name="BulletCollisionShape2D" type="CollisionShape2D" parent="."]

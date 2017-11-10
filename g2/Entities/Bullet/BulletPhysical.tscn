@@ -1,12 +1,12 @@
 [gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://Entities/Bullet/BulletPhysical.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Bullet/bullet.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Bullet/laserGreen14.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 8.316
+radius = 11.0379
 
 [sub_resource type="ColorRamp" id=2]
 
@@ -17,7 +17,7 @@ colors = ColorArray( 1, 0, 0, 1, 1, 0, 0, 0 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.08035, -0.387424, -0.122211 )
 shapes/0/trigger = false
 collision/layers = 2
 collision/mask = 4
@@ -69,13 +69,16 @@ color/color_ramp = SubResource( 2 )
 
 [node name="BulletCollisionShape2D" type="CollisionShape2D" parent="."]
 
+transform/pos = Vector2( -0.387424, -0.122211 )
+transform/scale = Vector2( 1, 1.08035 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="BulletSprite" type="Sprite" parent="."]
 
+transform/pos = Vector2( -0.270269, -0.270269 )
+transform/scale = Vector2( 0.540541, 0.540541 )
 texture = ExtResource( 2 )
-modulate = Color( 0, 0, 0, 1 )
 
 
