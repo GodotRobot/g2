@@ -4,10 +4,10 @@
 [ext_resource path="res://Entities/Enemy/enemyRed4.png" type="Texture" id=2]
 [ext_resource path="res://sfx/explosion1.smp" type="Sample" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 6.50609, 11.7828 )
+points = Vector2Array( 0.0954373, 0.946199, 0.341531, 0.709979, 0.750094, 0.709979, 0.999248, 0.957522, 1.00097, 1.81609, 0.673638, 2.18729, 0.422766, 2.18729, 0.100216, 1.79734 )
 
 [sub_resource type="ColorRamp" id=2]
 
@@ -32,7 +32,7 @@ samples/explosion1 = {
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 6.31844, 0, 0, 3.58395, -0.189998, -0.2377 )
+shapes/0/transform = Matrix32( 89.8349, 0, 0, 57.2444, -49.3227, -83.2269 )
 shapes/0/trigger = false
 collision/layers = 4
 collision/mask = 3
@@ -119,13 +119,14 @@ color/color_ramp = SubResource( 3 )
 
 texture = ExtResource( 2 )
 
-[node name="EnemyCollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="EnemyCollisionShape2D" type="CollisionPolygon2D" parent="."]
 
-transform/pos = Vector2( -0.189998, -0.2377 )
-transform/scale = Vector2( 6.31844, 3.58395 )
-shape = SubResource( 1 )
+transform/pos = Vector2( -49.3227, -83.2269 )
+transform/scale = Vector2( 89.8349, 57.2444 )
+build_mode = 0
+polygon = Vector2Array( 0.100216, 1.79734, 0.422766, 2.18729, 0.673638, 2.18729, 1.00097, 1.81609, 0.999248, 0.957522, 0.750094, 0.709979, 0.341531, 0.709979, 0.0954373, 0.946199 )
+shape_range = Vector2( 0, 0 )
 trigger = false
-_update_shape_index = 0
 
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 

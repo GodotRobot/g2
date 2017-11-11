@@ -94,8 +94,10 @@ func remove_life():
 	return true
 
 func setup_bots():
+	# defaults
 	var count = 2
 	var bot_class = enemy
+	# level-based enemy defs.
 	if current_level == 1:
 		count = 4
 	elif current_level == 2:
@@ -103,7 +105,7 @@ func setup_bots():
 	elif current_level == 3:
 		count = 2
 		bot_class = enemy_physical
-
+	# create
 	for i in range(0, count):
 		var e = bot_class.instance()
 		enemies_group.add_child(e)
