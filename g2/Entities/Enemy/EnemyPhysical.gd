@@ -15,6 +15,9 @@ onready var flowing_particle_effect = get_node("EnemyParticles2D")
 onready var sprite = get_node("EnemySprite")
 onready var sfx = get_node("SamplePlayer")
 
+func set_behavior(behavior):
+	pass
+
 func is_dead():
 	return dead_timestamp > 0
 

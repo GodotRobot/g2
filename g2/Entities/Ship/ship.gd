@@ -32,11 +32,14 @@ func ship_destroyed(area):
 	#trigger kill effect TODO
 
 func bullet_instance():
-	if ammo_type_ == AMMO_TYPE.regular:
-		return bullet.instance()
-	elif ammo_type_ == AMMO_TYPE.physical_pusher:
-		return bullet_physical.instance()
-	return null
+	if ammo_count_ > 0:
+		ammo_count_ -= 1
+		if ammo_type_ == AMMO_TYPE.regular:
+			return bullet.instance()
+		elif ammo_type_ == AMMO_TYPE.physical_pusher:
+			return bullet_physical.instance()
+	else:
+		return null
 
 func _ready():
 	sprite.set_modulate(Color(0.1, 0.4, 0.7))
@@ -54,6 +57,7 @@ func _process(delta):
 	if game.menu_displayed:
 		return
 	var v = Vector2(0.0, -1.0).rotated(get_rot())
+	var vn = Vector2(0.0, -1.0).rotated(get_rot() + PI/2.0)
 	var new_pos = get_pos()
 	var delta_rad = 0.0
 	var f1 = 280.0
@@ -63,9 +67,15 @@ func _process(delta):
 	if Input.is_action_pressed("ui_down"):
 		new_pos -= v * delta * f1
 	if Input.is_action_pressed("ui_left"):
-		delta_rad += delta * f2
+		if Input.is_action_pressed("ui_starfe"):
+			new_pos += vn * delta * f1
+		else:
+			delta_rad += delta * f2
 	if Input.is_action_pressed("ui_right"):
-		delta_rad -= delta * f2
+		if Input.is_action_pressed("ui_starfe"):
+			new_pos -= vn * delta * f1
+		else:
+			delta_rad -= delta * f2
 
 	if Input.is_action_pressed("ui_select"):
 		var now = OS.get_ticks_msec()
@@ -88,7 +98,7 @@ func _process(delta):
 		new_pos.y = get_viewport_rect().size.y - 1
 	if new_pos.y - ship_rad > get_viewport_rect().size.y:
 		new_pos.y = 1
-	
+
 	set_pos(new_pos)
 	rotate(delta_rad)
 

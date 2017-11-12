@@ -8,9 +8,12 @@ onready var game_layer = get_node("Game_CanvasLayer")
 onready var enemies_group = get_node("Game_CanvasLayer/Enemies")
 onready var game_timer = get_node("GameTimer")
 onready var level_text = get_node("HUD_CanvasLayer/HUD/Level")
+onready var ammo_text = get_node("HUD_CanvasLayer/HUD/Ammo")
 
 var current_level = 1
-const max_level = 3
+const max_level = 4
+
+var LEVEL_NAME = ['kill', 'kill', 'bounce', 'survive']
 
 var menu_displayed = null
 var current_ship = null
@@ -20,7 +23,7 @@ func end_level(won):
 		return
 	# no pause:
 	#get_tree().set_pause(true)
-	if won == false or current_level > max_level:
+	if won == false or current_level >= max_level:
 		set_process_input(false)
 		menu_displayed = menu.instance()
 		menu_displayed.mode = menu_displayed.game_over
@@ -57,17 +60,20 @@ func setup_ship():
 	if current_ship:
 		current_ship.queue_free()
 	current_ship = ship.instance()
-	if current_level == 1 or current_level == 2:
+	if current_level in [1, 2]:
 		current_ship.ammo_type_ = 0
 		current_ship.ammo_count_ = 9999
 	elif current_level == 3:
 		current_ship.ammo_type_ = 1
 		current_ship.ammo_count_ = 10
+	elif current_level == 4:
+		current_ship.ammo_type_ = 0
+		current_ship.ammo_count_ = 0
 	current_ship.set_global_pos(Vector2(512, 300)) # TODO replace with viewport code
 	game_layer.add_child(current_ship)
 
 func init_level():
-	level_text.set_text("Level: " + String(current_level))
+	level_text.set_text("Level " + String(current_level) + ": " + LEVEL_NAME[current_level-1])
 	level_text.show()
 	setup_ship()
 	setup_bots()
@@ -75,7 +81,7 @@ func init_level():
 	set_process_input(true)
 
 func _ready():
-	current_level = 1;
+	current_level = 1
 	add_life(2)
 	init_level()
 
@@ -96,6 +102,7 @@ func remove_life():
 func setup_bots():
 	# defaults
 	var count = 2
+	var behavior = 0
 	var bot_class = enemy
 	# level-based enemy defs.
 	if current_level == 1:
@@ -105,15 +112,22 @@ func setup_bots():
 	elif current_level == 3:
 		count = 2
 		bot_class = enemy_physical
+	elif current_level == 4:
+		count = 40
+		bot_class = enemy
+		behavior = 1
 	# create
 	for i in range(0, count):
 		var e = bot_class.instance()
+		e.set_behavior(behavior)
 		enemies_group.add_child(e)
 
 func update_hud(delta):
 	var prog = get_node("HUD_CanvasLayer/HUD/TimeLeft")
 	var left_ratio = game_timer.get_time_left() / game_timer.get_wait_time()
 	prog.set_value(prog.get_max() * left_ratio)
+	if current_ship:
+		ammo_text.set_text(String(current_ship.ammo_count_))
 
 func _process(delta):
 	update_hud(delta)

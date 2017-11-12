@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://Entities/Ship/ship.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Ship/playerShip1_blue.png" type="Texture" id=2]
-[ext_resource path="res://sfx/laser.smp" type="Sample" id=3]
+[ext_resource path="res://Entities/Ship/playerShip1_blue_normal.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Ship/playerShip1_blue.png" type="Texture" id=3]
+[ext_resource path="res://sfx/laser.smp" type="Sample" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -19,13 +20,31 @@ colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="SampleLibrary" id=4]
+[sub_resource type="CanvasItemShader" id=4]
+
+_code = {
+"fragment": "uniform texture normal;
+NORMAL = tex(normal, UV).rgb * vec3(2.0, -2.0, 1.0) - vec3(1.0, -1.0, 0.0);",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+
+[sub_resource type="CanvasItemMaterial" id=5]
+
+shader/shader = SubResource( 4 )
+shader/shading_mode = 0
+shader_param/normal = ExtResource( 2 )
+
+[sub_resource type="SampleLibrary" id=6]
 
 samples/laser = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 3 )
+"sample": ExtResource( 4 )
 }
 
 [node name="ShipArea2D" type="Area2D"]
@@ -42,6 +61,7 @@ script/script = ExtResource( 1 )
 
 [node name="ShipDeathParticles2D" type="Particles2D" parent="."]
 
+visibility/visible = false
 config/amount = 64
 config/lifetime = 1.46025
 config/emit_timeout = 1.0
@@ -75,6 +95,7 @@ color/color_ramp = SubResource( 2 )
 
 [node name="ShipParticles2D" type="Particles2D" parent="."]
 
+visibility/visible = false
 config/amount = 64
 config/lifetime = 3.0
 config/process_mode = 1
@@ -104,10 +125,13 @@ color/color_ramp = SubResource( 3 )
 
 [node name="ShipSprite" type="Sprite" parent="."]
 
-texture = ExtResource( 2 )
+visibility/light_mask = 2
+material/material = SubResource( 5 )
+texture = ExtResource( 3 )
 
 [node name="ShipCollisionShape2D" type="CollisionShape2D" parent="."]
 
+visibility/visible = false
 transform/pos = Vector2( 0.309998, 0.262299 )
 transform/rot = 0.303488
 transform/scale = Vector2( 3.11538, 3.15385 )
@@ -132,7 +156,7 @@ autostart = false
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 4 )
+config/samples = SubResource( 6 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0

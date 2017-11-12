@@ -4,32 +4,47 @@ const max_time_to_course = 35.0
 const max_course_speed = 1.0
 const course_added_noise = 0.0
 
+enum BEHAVIOR {
+	random = 0,
+	fall_from_sky = 1
+}
+
 var time_to_course
 var course
 var dead_timestamp = -1
+var behavior_ = BEHAVIOR.random
+var wake_up = -1
 
 onready var death_particle_effect = get_node("EnemyDeathParticles2D")
 onready var flowing_particle_effect = get_node("EnemyParticles2D")
 onready var sprite = get_node("EnemySprite")
 onready var sfx = get_node("SamplePlayer")
 
+func set_behavior(behavior):
+	behavior_ = behavior
+
 func is_dead():
 	return dead_timestamp > 0
 
 func init_course():
-	time_to_course = randf() * max_time_to_course # 0..10 secs
-	course = Vector2(rand_range(-1, 1), rand_range(-1, 1))
-	course *= 2.0 * rand_range(1.0, max_course_speed)
+	if behavior_ == BEHAVIOR.random:
+		time_to_course = randf() * max_time_to_course # 0..10 secs
+		course = Vector2(rand_range(-1, 1), rand_range(-1, 1))
+		course *= 2.0 * rand_range(1.0, max_course_speed)
+	elif behavior_ == BEHAVIOR.fall_from_sky:
+		set_pos(Vector2(randf() * 1024, 0)) # override position TODO viewport width
+		time_to_course = 99999.9
+		var sec_to_wait = (randf() * 10.0)
+		wake_up = OS.get_ticks_msec() + 1000.0 * sec_to_wait
+		course = Vector2(0.0, 1.0)
 
 func _ready():
-	print("enemy ready")
 	init_course()
-	rotate(PI)
-	# Called every time the node is added to the scene.
-	# Initialization here
 	set_process(true)
 
 func _process(delta):
+	if OS.get_ticks_msec() < wake_up:
+		return
 	if dead_timestamp > 0:
 		var secs_since_death = (OS.get_ticks_msec() - dead_timestamp) / 1000.0
 		var death_anim_ended = secs_since_death > death_particle_effect.get_lifetime()
@@ -52,8 +67,11 @@ func _process(delta):
 		new_pos.x = get_viewport_rect().size.x
 		course.x = -course.x
 	if new_pos.y > get_viewport_rect().size.y:
-		new_pos.y = get_viewport_rect().size.y
-		course.y = -course.y
+		if behavior_ == BEHAVIOR.random:
+			new_pos.y = get_viewport_rect().size.y
+			course.y = -course.y
+		elif behavior_ == BEHAVIOR.fall_from_sky:
+			new_pos.y = 0
 	var dir = new_pos - get_pos()
 	flowing_particle_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(dir.angle()))
 	set_pos(new_pos)
