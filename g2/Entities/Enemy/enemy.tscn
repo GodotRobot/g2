@@ -132,11 +132,11 @@ texture = ExtResource( 3 )
 [node name="Beam" type="Light2D" parent="EnemySprite"]
 
 visibility/light_mask = 3
-transform/pos = Vector2( 0.529816, 184.799 )
+transform/pos = Vector2( 0.529816, 37.799 )
 enabled = true
 editor_only = false
 texture = ExtResource( 4 )
-offset = Vector2( 0, 0 )
+offset = Vector2( 0, 150 )
 scale = 1.0
 color = Color( 1, 1, 1, 1 )
 energy = 5.0
@@ -147,7 +147,7 @@ range/z_max = 1024
 range/layer_min = 0
 range/layer_max = 1
 range/item_mask = 3
-shadow/enabled = false
+shadow/enabled = true
 shadow/color = Color( 0, 0, 0, 0 )
 shadow/buffer_size = 2048
 shadow/esm_multiplier = 80.0
