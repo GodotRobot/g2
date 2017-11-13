@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://Entities/Enemy/enemy.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Enemy/enemyBlack4.png" type="Texture" id=2]
-[ext_resource path="res://sfx/explosion1.smp" type="Sample" id=3]
+[ext_resource path="res://Entities/Enemy/enemyRed4_normal.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Enemy/enemyBlack4.png" type="Texture" id=3]
+[ext_resource path="res://Entities/Enemy/headlight.png" type="Texture" id=4]
+[ext_resource path="res://sfx/explosion1.smp" type="Sample" id=5]
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=7]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0.0954373, 0.946199, 0.341531, 0.709979, 0.750094, 0.709979, 0.999248, 0.957522, 1.00097, 1.81609, 0.673638, 2.18729, 0.422766, 2.18729, 0.100216, 1.79734 )
@@ -19,19 +21,37 @@ colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="SampleLibrary" id=4]
+[sub_resource type="CanvasItemShader" id=4]
+
+_code = {
+"fragment": "uniform texture normal;
+NORMAL = tex(normal, UV).rgb * vec3(2.0, -2.0, 1.0) - vec3(1.0, -1.0, 0.0);",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+
+[sub_resource type="CanvasItemMaterial" id=5]
+
+shader/shader = SubResource( 4 )
+shader/shading_mode = 0
+shader_param/normal = ExtResource( 2 )
+
+[sub_resource type="SampleLibrary" id=6]
 
 samples/explosion1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 3 )
+"sample": ExtResource( 5 )
 }
 
 [node name="EnemyArea2D" type="Area2D"]
 
 input/pickable = true
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 7 )
 shapes/0/transform = Matrix32( 89.8349, 0, 0, 57.2444, -49.3227, -83.2269 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -106,7 +126,32 @@ color/color_ramp = SubResource( 3 )
 
 [node name="EnemySprite" type="Sprite" parent="."]
 
-texture = ExtResource( 2 )
+material/material = SubResource( 5 )
+texture = ExtResource( 3 )
+
+[node name="Beam" type="Light2D" parent="EnemySprite"]
+
+visibility/light_mask = 3
+transform/pos = Vector2( 0.529816, 184.799 )
+enabled = true
+editor_only = false
+texture = ExtResource( 4 )
+offset = Vector2( 0, 0 )
+scale = 1.0
+color = Color( 1, 1, 1, 1 )
+energy = 5.0
+mode = 0
+range/height = 0.0
+range/z_min = -1024
+range/z_max = 1024
+range/layer_min = 0
+range/layer_max = 1
+range/item_mask = 3
+shadow/enabled = false
+shadow/color = Color( 0, 0, 0, 0 )
+shadow/buffer_size = 2048
+shadow/esm_multiplier = 80.0
+shadow/item_mask = 1
 
 [node name="EnemyCollisionShape2D" type="CollisionPolygon2D" parent="."]
 
@@ -120,7 +165,7 @@ trigger = false
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 4 )
+config/samples = SubResource( 6 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0

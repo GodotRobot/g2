@@ -103,6 +103,7 @@ func _process(delta):
 	rotate(delta_rad)
 
 func _on_ShipArea2D_area_enter( area ):
+	print(get_name(), " collision with ", area.get_name())
 	if not active():
 		return
 	dead_timestamp = OS.get_ticks_msec()

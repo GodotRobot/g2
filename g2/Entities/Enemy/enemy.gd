@@ -74,9 +74,11 @@ func _process(delta):
 			new_pos.y = 0
 	var dir = new_pos - get_pos()
 	flowing_particle_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(dir.angle()))
+	sprite.set_rot(dir.angle())
 	set_pos(new_pos)
 
 func _on_EnemyArea2D_area_enter( area ):
+	print(get_name(), " collision with ", area.get_name())
 	if area.has_method("active") and not area.active():
 		return
 	area.queue_free() # kill the bullet
