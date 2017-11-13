@@ -77,11 +77,11 @@ func _process(delta):
 	sprite.set_rot(dir.angle())
 	set_pos(new_pos)
 
-func _on_EnemyArea2D_area_enter( area ):
-	print(get_name(), " collision with ", area.get_name())
-	if area.has_method("active") and not area.active():
-		return
-	area.queue_free() # kill the bullet
+func _exit_tree():
+	if dead_timestamp == -1:
+		start_death()
+
+func start_death():
 	dead_timestamp = OS.get_ticks_msec()
 	death_particle_effect.set_emitting(true)
 	flowing_particle_effect.set_emitting(false)
@@ -89,3 +89,10 @@ func _on_EnemyArea2D_area_enter( area ):
 	set_layer_mask(0)
 	set_collision_mask(0)
 	sfx.play("explosion1")
+
+func _on_EnemyArea2D_area_enter( area ):
+	print(get_name(), " collision with ", area.get_name())
+	if area.has_method("active") and not area.active():
+		return
+	area._exit_tree()
+	start_death()

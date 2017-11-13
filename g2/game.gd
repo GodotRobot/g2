@@ -76,7 +76,6 @@ func setup_ship():
 func init_level():
 	level_text.set_text("Level " + String(current_level) + ": " + LEVEL_NAME[current_level-1])
 	level_text.show()
-	setup_ship()
 	setup_bots()
 	set_process(true)
 	set_process_input(true)
@@ -84,6 +83,7 @@ func init_level():
 func _ready():
 	current_level = 1
 	add_life(2)
+	setup_ship()
 	init_level()
 
 func add_life(num):

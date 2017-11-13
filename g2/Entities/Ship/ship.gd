@@ -26,11 +26,6 @@ onready var sfx = get_node("SamplePlayer")
 func active():
 	return timer.get_time_left() <= 0.0
 
-func ship_destroyed(area):
-	game.ship_destroyed()
-	#print(get_name(), " <-> ", area.get_name())
-	#trigger kill effect TODO
-
 func bullet_instance():
 	if ammo_count_ > 0:
 		ammo_count_ -= 1
@@ -102,17 +97,24 @@ func _process(delta):
 	set_pos(new_pos)
 	rotate(delta_rad)
 
-func _on_ShipArea2D_area_enter( area ):
-	print(get_name(), " collision with ", area.get_name())
-	if not active():
-		return
+func start_death():
 	dead_timestamp = OS.get_ticks_msec()
 	death_particle_effect.set_emitting(true)
 	flowing_particle_effect.set_emitting(false)
 	sprite.hide()
 	set_layer_mask(0)
 	set_collision_mask(0)
-	ship_destroyed(area)
+	game.ship_destroyed()
+
+func _exit_tree():
+	if dead_timestamp == -1:
+		start_death()
+
+func _on_ShipArea2D_area_enter( area ):
+	print(get_name(), " collision with ", area.get_name())
+	if not active():
+		return
+	start_death()
 
 func _on_ShipActivationTimer_timeout():
 	blink_timer.stop()

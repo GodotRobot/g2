@@ -21,9 +21,16 @@ func _process(delta):
 	var v = get_pos()
 	set_pos(v + v_)
 	if v.y < 0 or v.y > get_viewport_rect().size.y or v.x < 0 or v.x > get_viewport_rect().size.x:
-		dead_timestamp = OS.get_ticks_msec()
-		effect.set_emitting(false)
-		light.set_enabled(false)
-		sprite.hide()
-		set_layer_mask(0)
-		set_collision_mask(0)
+		start_death()
+
+func start_death():
+	dead_timestamp = OS.get_ticks_msec()
+	effect.set_emitting(false)
+	light.set_enabled(false)
+	sprite.hide()
+	set_layer_mask(0)
+	set_collision_mask(0)
+
+func _exit_tree():
+	if dead_timestamp == -1:
+		start_death()
