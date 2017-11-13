@@ -60,6 +60,7 @@ samples/laser = {
 
 [node name="ShipArea2D" type="Area2D"]
 
+visibility/light_mask = 2
 input/pickable = true
 shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )

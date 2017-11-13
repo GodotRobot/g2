@@ -59,6 +59,7 @@ func ship_destroyed():
 func setup_ship():
 	if current_ship:
 		current_ship.queue_free()
+		current_ship = null
 	current_ship = ship.instance()
 	if current_level in [1, 2]:
 		current_ship.ammo_type_ = 0
