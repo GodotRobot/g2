@@ -17,6 +17,7 @@ var mode = MODE.start
 
 func _ready():
 	sfx.play("human_music")
+	start_button.grab_focus()
 	var root = get_tree().get_root()
 	if root.has_node("game"):
 		game = root.get_node("game")
