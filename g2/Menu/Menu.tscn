@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
+[ext_resource path="res://Menu/Camera2D.gd" type="Script" id=2]
+[ext_resource path="res://Menu/blue.tex" type="Texture" id=3]
+[ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=4]
 
 [sub_resource type="ColorRamp" id=1]
 
@@ -41,20 +44,71 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
 
-[node name="Panel" type="Panel" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = true
+
+[node name="Camera2D" type="Camera2D" parent="ParallaxBackground"]
+
+anchor_mode = 0
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+script/script = ExtResource( 2 )
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+
+editor/display_folded = true
+motion/scale = Vector2( 1, 1 )
+motion/offset = Vector2( 1, 0 )
+motion/mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+
+texture = ExtResource( 3 )
+centered = false
+region = true
+region_rect = Rect2( 0, 0, 1024, 600 )
+
+[node name="Background2" type="ParallaxLayer" parent="ParallaxBackground"]
+
+editor/display_folded = true
 visibility/opacity = 0.5
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 1.0
-margin/right = 1024.0
-margin/bottom = 601.0
+motion/scale = Vector2( 1, 1 )
+motion/offset = Vector2( 0.4, 0 )
+motion/mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background2"]
+
+texture = ExtResource( 3 )
+centered = false
+region = true
+region_rect = Rect2( 0, 0, 1024, 600 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -76,6 +130,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 352.0
 margin/bottom = 40.0
+custom_fonts/font = ExtResource( 4 )
 text = "G2 Game"
 align = 1
 percent_visible = 1.0
@@ -118,7 +173,7 @@ max_lines_visible = -1
 
 [node name="Particles2D1" type="Particles2D" parent="VBoxContainer"]
 
-transform/pos = Vector2( 138.425, 6.42401 )
+transform/pos = Vector2( 104.516, 8.33057 )
 config/amount = 120
 config/lifetime = 1.0
 config/process_mode = 1
@@ -145,7 +200,7 @@ color/color_ramp = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="VBoxContainer"]
 
-transform/pos = Vector2( 213.551, 6.54294 )
+transform/pos = Vector2( 240.43, 8.17194 )
 config/amount = 120
 config/lifetime = 1.0
 config/process_mode = 1
@@ -181,6 +236,7 @@ margin/left = 0.0
 margin/top = 106.0
 margin/right = 352.0
 margin/bottom = 146.0
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -216,47 +272,12 @@ margin/left = 0.0
 margin/top = 150.0
 margin/right = 352.0
 margin/bottom = 190.0
+custom_fonts/font = ExtResource( 4 )
 disabled = true
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Options"
-flat = false
-
-[node name="LoadGameButton" type="Button" parent="VBoxContainer"]
-
-rect/min_size = Vector2( 0, 40 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 194.0
-margin/right = 352.0
-margin/bottom = 234.0
-disabled = true
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Load Game"
-flat = false
-
-[node name="SaveGameButton" type="Button" parent="VBoxContainer"]
-
-rect/min_size = Vector2( 0, 40 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 238.0
-margin/right = 352.0
-margin/bottom = 278.0
-disabled = true
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Save Game"
 flat = false
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
@@ -267,9 +288,10 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 282.0
+margin/top = 194.0
 margin/right = 352.0
-margin/bottom = 322.0
+margin/bottom = 234.0
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

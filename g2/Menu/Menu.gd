@@ -5,6 +5,7 @@ onready var start_button = get_node("VBoxContainer/StartButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
 onready var context = get_node("VBoxContainer/Context")
 onready var sfx = get_node("SamplePlayer")
+onready var menu_camera = get_node("Camera2D")
 
 enum MODE {
 	start,
