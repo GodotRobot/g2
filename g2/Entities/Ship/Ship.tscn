@@ -6,12 +6,12 @@
 [ext_resource path="res://Entities/Ship/playerShip1_blue.png" type="Texture" id=4]
 [ext_resource path="res://sfx/sfx_laser1.wav" type="Sample" id=5]
 
-[sub_resource type="ConvexPolygonShape2D" id=8]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 1.11069, 1.02079, 0.572356, 1.23139, 0.38305, 1.21735, -0.131624, 1.03483, -0.20853, 0.550451, 0.323892, 0.445151, 0.63743, 0.424091, 1.15802, 0.515351 )
 
-[sub_resource type="ConvexPolygonShape2D" id=9]
+[sub_resource type="ConvexPolygonShape2D" id=2]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0.323892, 0.445151, 0.353472, 0.0169337, 0.613767, 0.0239536, 0.63743, 0.424091 )
@@ -32,7 +32,7 @@ shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/normal = ExtResource( 3 )
 
-[sub_resource type="SampleLibrary" id=7]
+[sub_resource type="SampleLibrary" id=6]
 
 samples/sfx_laser1 = {
 "db": 0.0,
@@ -45,10 +45,10 @@ samples/sfx_laser1 = {
 
 visibility/light_mask = 2
 input/pickable = true
-shapes/0/shape = SubResource( 8 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 9 )
+shapes/1/shape = SubResource( 2 )
 shapes/1/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
 shapes/1/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -153,7 +153,7 @@ autostart = false
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
 config/polyphony = 10
-config/samples = SubResource( 7 )
+config/samples = SubResource( 6 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0

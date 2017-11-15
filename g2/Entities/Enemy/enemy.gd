@@ -1,7 +1,5 @@
 extends Area2D
 
-const max_time_to_course = 35.0
-const max_course_speed = 1.0
 const course_added_noise = 0.0
 
 enum BEHAVIOR {
@@ -9,10 +7,16 @@ enum BEHAVIOR {
 	fall_from_sky = 1
 }
 
+export(String, "Random", "Fall from Sky") var personality = "Random"
+export(float, 0, 20, 0.5) var speed_min = 1.0
+export(float, 0, 20, 0.5) var speed_max = 2.0
+export(float, 0, 20, 0.5) var course_time_min = 10.0
+export(float, 0, 20, 0.5) var course_time_max = 10.0
+
 var time_to_course
 var course
 var dead_timestamp = -1
-var behavior_ = BEHAVIOR.random
+var behavior
 var wake_up = -1
 
 onready var death_particle_effect = get_node("EnemyDeathParticles2D")
@@ -20,25 +24,29 @@ onready var flowing_particle_effect = get_node("EnemyParticles2D")
 onready var sprite = get_node("EnemySprite")
 onready var sfx = get_node("SamplePlayer")
 
-func set_behavior(behavior):
-	behavior_ = behavior
-
 func is_dead():
 	return dead_timestamp > 0
 
 func init_course():
-	if behavior_ == BEHAVIOR.random:
-		time_to_course = randf() * max_time_to_course # 0..10 secs
+	if behavior == BEHAVIOR.random:
+		time_to_course = rand_range(course_time_min, course_time_max)
 		course = Vector2(rand_range(-1, 1), rand_range(-1, 1))
-		course *= 2.0 * rand_range(1.0, max_course_speed)
-	elif behavior_ == BEHAVIOR.fall_from_sky:
+		course *= 2.0 * rand_range(speed_min, speed_max)
+	elif behavior == BEHAVIOR.fall_from_sky:
 		set_pos(Vector2(randf() * 1024, 0)) # override position TODO viewport width
 		time_to_course = 99999.9
 		var sec_to_wait = (randf() * 10.0)
 		wake_up = OS.get_ticks_msec() + 1000.0 * sec_to_wait
 		course = Vector2(0.0, 1.0)
 
+func init_behavior():
+	if personality == "Random":
+		behavior = BEHAVIOR.random
+	if personality == "Fall from Sky":
+		behavior = BEHAVIOR.fall_from_sky
+
 func _ready():
+	init_behavior()
 	init_course()
 	set_process(true)
 
@@ -67,10 +75,10 @@ func _process(delta):
 		new_pos.x = get_viewport_rect().size.x
 		course.x = -course.x
 	if new_pos.y > get_viewport_rect().size.y:
-		if behavior_ == BEHAVIOR.random:
+		if behavior == BEHAVIOR.random:
 			new_pos.y = get_viewport_rect().size.y
 			course.y = -course.y
-		elif behavior_ == BEHAVIOR.fall_from_sky:
+		elif behavior == BEHAVIOR.fall_from_sky:
 			new_pos.y = 0
 	var dir = new_pos - get_pos()
 	flowing_particle_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(dir.angle()))
