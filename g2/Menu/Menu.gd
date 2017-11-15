@@ -54,4 +54,5 @@ func _on_QuitButton_pressed():
 
 func _on_RestartButton_pressed():
 	get_tree().change_scene("res://Game.tscn")
+	assert game
 	game.unpause(self)

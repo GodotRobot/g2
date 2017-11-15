@@ -7,13 +7,10 @@ onready var menu = preload("res://Menu/Menu.tscn")
 onready var game_layer = get_node("Game_CanvasLayer")
 onready var enemies_group = get_node("Game_CanvasLayer/Enemies")
 onready var game_timer = get_node("GameTimer")
-onready var level_text = get_node("HUD_CanvasLayer/HUD/Level")
-onready var ammo_text = get_node("HUD_CanvasLayer/HUD/Ammo")
+onready var HUD = get_node("HUD")
 
 var current_level = 1
 const max_level = 4
-
-var LEVEL_NAME = ['kill', 'kill', 'bounce', 'survive']
 
 var menu_displayed = null
 var current_ship = null
@@ -29,7 +26,6 @@ func end_level(won):
 		menu_displayed.mode = menu_displayed.game_over
 		add_child(menu_displayed)
 		menu_displayed.raise()
-		level_text.hide()
 	else:
 		current_level += 1
 		init_level()
@@ -74,8 +70,7 @@ func setup_ship():
 	game_layer.add_child(current_ship)
 
 func init_level():
-	level_text.set_text("Level " + String(current_level) + ": " + LEVEL_NAME[current_level-1])
-	level_text.show()
+	HUD.update_level(current_level)
 	setup_bots()
 	set_process(true)
 	set_process_input(true)
@@ -87,18 +82,10 @@ func _ready():
 	init_level()
 
 func add_life(num):
-	for i in range(num - 1):
-		get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Life").duplicate()) # icon
-		get_node("HUD_CanvasLayer/HUD/LivesLeft").add_child(get_node("HUD_CanvasLayer/HUD/LivesLeft/Sep").duplicate()) # separator
+	HUD.add_life(num)
 
 func remove_life():
-	var lives_container = get_node("HUD_CanvasLayer/HUD/LivesLeft")
-	var children = lives_container.get_children()
-	if children.empty():
-		return false
-	lives_container.remove_child(children[children.size()-1]) # icon
-	lives_container.remove_child(children[children.size()-2]) # separator
-	return true
+	return HUD.remove_life()
 
 func setup_bots():
 	# defaults
@@ -124,11 +111,10 @@ func setup_bots():
 		enemies_group.add_child(e)
 
 func update_hud(delta):
-	var prog = get_node("HUD_CanvasLayer/HUD/TimeLeft")
-	var left_ratio = game_timer.get_time_left() / game_timer.get_wait_time()
-	prog.set_value(prog.get_max() * left_ratio)
+	var ratio_left = game_timer.get_time_left() / game_timer.get_wait_time()
+	HUD.update_timer(ratio_left)
 	if current_ship:
-		ammo_text.set_text(String(current_ship.ammo_count_))
+		HUD.update_ammo(current_ship.ammo_count_)
 
 func _process(delta):
 	update_hud(delta)
