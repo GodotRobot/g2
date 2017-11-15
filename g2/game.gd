@@ -142,6 +142,9 @@ func _process(delta):
 	# end game: time's up
 	if game_timer.get_time_left() <= 0.0:
 		end_level(false)
+	var a = -0.05 * current_ship.get_pos()
+	a.x += 700
+	get_node("Sprite").set_pos(a)
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel") and not event.is_echo():

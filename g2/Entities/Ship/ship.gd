@@ -81,7 +81,7 @@ func _process(delta):
 				new_bullet.v_ = v * delta * f1 * 1.3
 				new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
 				get_parent().add_child(new_bullet)
-				sfx.play("laser")
+				sfx.play("sfx_laser1")
 
 	# if the ship flies out of the viewport, move it to the opposite side
 	var ship_rad = sprite.get_texture().get_width() / 2.0

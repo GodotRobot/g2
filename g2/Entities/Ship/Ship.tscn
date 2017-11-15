@@ -4,7 +4,7 @@
 [ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
 [ext_resource path="res://Entities/Ship/playerShip1_blue_normal.png" type="Texture" id=3]
 [ext_resource path="res://Entities/Ship/playerShip1_blue.png" type="Texture" id=4]
-[ext_resource path="res://sfx/laser.smp" type="Sample" id=5]
+[ext_resource path="res://sfx/sfx_laser1.wav" type="Sample" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
 
@@ -34,7 +34,7 @@ shader_param/normal = ExtResource( 3 )
 
 [sub_resource type="SampleLibrary" id=7]
 
-samples/laser = {
+samples/sfx_laser1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
@@ -152,7 +152,7 @@ autostart = false
 
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
-config/polyphony = 1
+config/polyphony = 10
 config/samples = SubResource( 7 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0

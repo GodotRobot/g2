@@ -7,7 +7,7 @@
 [ext_resource path="res://Entities/Enemy/headlight.png" type="Texture" id=5]
 [ext_resource path="res://sfx/explosion1.smp" type="Sample" id=6]
 
-[sub_resource type="ConvexPolygonShape2D" id=6]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0.0954373, 0.946199, 0.341531, 0.709979, 0.750094, 0.709979, 0.999248, 0.957522, 1.00097, 1.81609, 0.673638, 2.18729, 0.422766, 2.18729, 0.100216, 1.79734 )
@@ -41,7 +41,7 @@ samples/explosion1 = {
 
 visibility/light_mask = 4
 input/pickable = true
-shapes/0/shape = SubResource( 6 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 89.8349, 0, 0, 57.2444, -49.3227, -83.2269 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
