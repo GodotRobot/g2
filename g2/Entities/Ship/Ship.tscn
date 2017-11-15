@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://Entities/Ship/ship.gd" type="Script" id=1]
 [ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
@@ -6,12 +6,12 @@
 [ext_resource path="res://Entities/Ship/playerShip1_blue.png" type="Texture" id=4]
 [ext_resource path="res://sfx/laser.smp" type="Sample" id=5]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=8]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 1.11069, 1.02079, 0.572356, 1.23139, 0.38305, 1.21735, -0.131624, 1.03483, -0.20853, 0.550451, 0.323892, 0.445151, 0.63743, 0.424091, 1.15802, 0.515351 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=9]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0.323892, 0.445151, 0.353472, 0.0169337, 0.613767, 0.0239536, 0.63743, 0.424091 )
@@ -32,12 +32,6 @@ shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/normal = ExtResource( 3 )
 
-[sub_resource type="OccluderPolygon2D" id=6]
-
-closed = true
-cull_mode = 0
-polygon = Vector2Array( 20.2388, 9.33646, 6.83439, 12.4872, 3.97575, 18.1745, -2.63036, 18.1745, -5.75325, 12.7809, -19.0856, 9.30976, -19.6141, 11.4191, -21.3113, 11.2157, -22.6518, -4.62965, -20.1295, -4.65635, -18.9044, -1.58574, -16.2252, -0.101731, -4.69946, -7.32654, -3.1349, -20.7044, 4.10613, -20.7044, 6.11373, -7.21813, 17.5003, -0.14238, 20.1187, -1.53083, 21.4639, -4.52133, 23.6019, -4.62814, 22.2326, 11.4725, 21.1276, 11.7395 )
-
 [sub_resource type="SampleLibrary" id=7]
 
 samples/laser = {
@@ -51,10 +45,10 @@ samples/laser = {
 
 visibility/light_mask = 2
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 2 )
+shapes/1/shape = SubResource( 9 )
 shapes/1/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
 shapes/1/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -129,16 +123,8 @@ color/color_ramp = SubResource( 4 )
 
 visibility/light_mask = 3
 material/material = SubResource( 5 )
+z/z = 1
 texture = ExtResource( 4 )
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-
-visibility/visible = false
-visibility/light_mask = 3
-transform/pos = Vector2( -1.19697, 2.56838 )
-transform/scale = Vector2( 2.12499, 1.9118 )
-occluder = SubResource( 6 )
-light_mask = 3
 
 [node name="ShipCollisionShape2D" type="CollisionPolygon2D" parent="."]
 
