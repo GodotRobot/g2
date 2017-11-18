@@ -32,7 +32,7 @@ func level_ready(level):
 	assert(level == current_scene)
 	var hud = current_scene.get_hud()
 	if hud:
-		hud.set_lifes(lives)
+		hud.set_lives(lives)
 
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")

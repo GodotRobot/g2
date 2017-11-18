@@ -12,7 +12,7 @@ func calc_lifes():
 	var children = lives_container.get_children()
 	return children.size() / 2
 
-func set_lifes(count):
+func set_lives(count):
 	var lives_to_add = count - calc_lifes()
 	if lives_to_add == 0:
 		return
