@@ -62,4 +62,5 @@ func _on_QuitButton_pressed():
 	GameManager.quit_game()
 
 func _on_RestartButton_pressed():
-	pass
+	GameManager.unpause(self)
+	GameManager.start_game()
