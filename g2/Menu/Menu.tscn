@@ -57,41 +57,41 @@ script/script = ExtResource( 2 )
 
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 1, 0 )
-motion/mirroring = Vector2( 1024, 0 )
+motion/mirroring = Vector2( 1280, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
 
 texture = ExtResource( 3 )
 centered = false
 region = true
-region_rect = Rect2( 0, 0, 1024, 600 )
+region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="Background2" type="ParallaxLayer" parent="ParallaxBackground"]
 
 motion/scale = Vector2( 2, 1 )
 motion/offset = Vector2( 1, 0 )
-motion/mirroring = Vector2( 1024, 0 )
+motion/mirroring = Vector2( 1280, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background2"]
 
 visibility/opacity = 0.47
+transform/pos = Vector2( 0.96106, -479.73 )
 texture = ExtResource( 3 )
 centered = false
 offset = Vector2( 80, 50 )
 region = true
-region_rect = Rect2( 0, 0, 1024, 600 )
+region_rect = Rect2( 0, 0, 1280, 1440 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 342.0
-margin/top = 149.0
-margin/right = 694.0
-margin/bottom = 489.0
+margin/left = 470.0
+margin/top = 190.0
+margin/right = 822.0
+margin/bottom = 530.0
 alignment = 0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
