@@ -42,9 +42,6 @@ func _process(delta):
 		var meteors = get_tree().get_nodes_in_group("meteors")
 		for m in meteors:
 			m.translate(Vector2(0.0, level_speed * delta))
-		var bg = get_node("starfield")
-		if bg:
-			bg.translate(Vector2(0.0, level_speed * delta))
 
 # called by GameManager
 func level_lost():

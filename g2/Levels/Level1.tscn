@@ -1,49 +1,16 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://Levels/LevelBase.gd" type="Script" id=1]
-[ext_resource path="res://starfield.png" type="Texture" id=2]
-[ext_resource path="res://Entities/Ship/Ship.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Entities/Enemy/enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Levels/LevelBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Enemy/enemy.tscn" type="PackedScene" id=2]
 
-[node name="Level1" type="Node2D"]
+[node name="LevelBase" instance=ExtResource( 1 )]
 
-script/script = ExtResource( 1 )
-level_type = "shooter"
-level_speed = 90.0
+[node name="EnemyArea2D" parent="GameLayer" instance=ExtResource( 2 )]
 
-[node name="starfield" type="Sprite" parent="."]
+transform/pos = Vector2( 60.0469, 55.5479 )
 
-transform/pos = Vector2( 507.611, 390.201 )
-texture = ExtResource( 2 )
+[node name="EnemyArea2D 3" parent="GameLayer" instance=ExtResource( 2 )]
 
-[node name="GameLayer" type="CanvasLayer" parent="."]
-
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-
-[node name="ShipArea2D" parent="GameLayer" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 700.465, 381.57 )
-
-[node name="EnemyArea2D" parent="GameLayer" instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 907.562, 99.0805 )
-
-[node name="EnemyArea2D 2" parent="GameLayer" instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 117.183, 116.765 )
-
-[node name="EnemyArea2D 3" parent="GameLayer" instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 383.817, 197.028 )
-
-[node name="EnemyArea2D 4" parent="GameLayer" instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 564.747, 119.486 )
-
-[node name="HUD" parent="." instance=ExtResource( 5 )]
+transform/pos = Vector2( 1215.01, 63.7101 )
 
 

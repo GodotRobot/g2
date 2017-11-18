@@ -38,10 +38,8 @@ func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")
 	lives -= 1
 	if lives > 0:
-		var new_ship = SHIP.instance();
-		new_ship.set_pos(instance.get_pos())
-		new_ship.set_rot(instance.get_rot())
-		instance.get_parent().add_child(new_ship) # old ship will be deleted once its death animation ends
+		var new_ship = instance.clone(SHIP.instance())
+		instance.get_parent().add_child(new_ship) # old ship will be (self-)deleted once its death animation ends
 	else:
 		game_over()
 	var hud = current_scene.get_hud()

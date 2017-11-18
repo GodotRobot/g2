@@ -7,38 +7,34 @@
 
 [node name="EnemyArea2D" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 84.534, 71.8724 )
-
-[node name="EnemyArea2D 2" parent="GameLayer" instance=ExtResource( 2 )]
-
-transform/pos = Vector2( 753.84, 163.018 )
+transform/pos = Vector2( 53.0734, 62.6193 )
 
 [node name="EnemyArea2D 3" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 280.428, 437.814 )
+transform/pos = Vector2( 60.2039, 656.188 )
 
 [node name="EnemyArea2D 4" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 776.966, 474.544 )
+transform/pos = Vector2( 1215.56, 667.009 )
 
 [node name="EnemyArea2D 5" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 873.553, 275.929 )
+transform/pos = Vector2( 1208.52, 361.058 )
 
 [node name="EnemyArea2D 6" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 250.5, 195.667 )
+transform/pos = Vector2( 58.0353, 395.534 )
 
 [node name="EnemyArea2D 7" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 589.234, 56.9083 )
+transform/pos = Vector2( 641.051, 60.6095 )
 
 [node name="EnemyArea2D 8" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 922.527, 107.242 )
+transform/pos = Vector2( 1209.37, 70.2295 )
 
 [node name="EnemyArea2D 9" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 340.285, 105.882 )
+transform/pos = Vector2( 634.534, 651.816 )
 
 

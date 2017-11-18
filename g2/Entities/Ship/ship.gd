@@ -46,6 +46,15 @@ func set_fake_speed(new_speed):
 		flowing_particle_effect.set_randomness(Particles2D.PARAM_LINEAR_VELOCITY, 0.0)
 	fake_speed = new_speed
 
+# copy important stuff into instance, and return it
+func clone(insatnce):
+	insatnce.set_pos(get_pos())
+	insatnce.set_rot(get_rot())
+	insatnce.free_movement = free_movement
+	insatnce.can_shoot = can_shoot
+	insatnce.fake_speed = fake_speed
+	return insatnce
+
 func _ready():
 	sprite.set_modulate(Color(0.1, 0.4, 0.7))
 	blink_timer.start()

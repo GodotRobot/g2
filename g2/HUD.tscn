@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Ship/playerLife1_blue.png" type="Texture" id=2]
+[ext_resource path="res://sheet/sheet.playerLife1_blue.atex" type="Texture" id=2]
 
 [node name="HUD_CanvasLayer" type="CanvasLayer"]
 
