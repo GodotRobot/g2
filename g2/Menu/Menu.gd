@@ -5,6 +5,7 @@ onready var start_button = get_node("VBoxContainer/StartButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
 onready var context = get_node("VBoxContainer/Context")
 onready var music_player = get_node("StreamPlayer")
+onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
 
 enum MODE {
 	start,
@@ -16,6 +17,9 @@ enum MODE {
 var mode = MODE.start
 
 func _ready():
+	if (mode != MODE.start):
+		parallax_camera.clear_current()
+		
 	music_player.play()
 	start_button.grab_focus()
 	var root = get_tree().get_root()
