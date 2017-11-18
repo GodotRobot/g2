@@ -114,7 +114,8 @@ func update_hud(delta):
 		HUD.update_ammo(current_ship.ammo_count_)
 
 func _process(delta):
-	update_hud(delta)
+	if not menu_displayed:
+		update_hud(delta)	
 	# end game: no more enemies
 	var enemies_in_scene = enemies_group.get_child_count()
 	for e in enemies_group.get_children():
