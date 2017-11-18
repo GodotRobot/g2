@@ -49,10 +49,6 @@ editor/display_folded = true
 transform/pos = Vector2( 480.512, 506.006 )
 transform/rot = -182.063
 personality = "Fall from Sky"
-speed_min = 1.0
-speed_max = 2.0
-course_time_min = 10.0
-course_time_max = 10.0
 
 [node name="BulletArea2D" parent="." instance=ExtResource( 4 )]
 

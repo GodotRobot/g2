@@ -2,6 +2,8 @@ extends Area2D
 
 const course_added_noise = 0.0
 
+const SHIP = preload("res://Entities/Ship/ship.gd")
+
 enum BEHAVIOR {
 	random = 0,
 	fall_from_sky = 1
@@ -10,8 +12,8 @@ enum BEHAVIOR {
 export(String, "Random", "Fall from Sky") var personality = "Random"
 export(float, 0, 20, 0.5) var speed_min = 1.0
 export(float, 0, 20, 0.5) var speed_max = 2.0
-export(float, 0, 20, 0.5) var course_time_min = 10.0
-export(float, 0, 20, 0.5) var course_time_max = 10.0
+export(float, 0, 20, 0.5) var course_time_min = 5.0
+export(float, 0, 20, 0.5) var course_time_max = 15.0
 
 var time_to_course
 var course
@@ -19,6 +21,7 @@ var dead_timestamp = -1
 var behavior
 var wake_up = -1
 
+onready var GameManager = get_node("/root/GameManager")
 onready var death_particle_effect = get_node("EnemyDeathParticles2D")
 onready var flowing_particle_effect = get_node("EnemyParticles2D")
 onready var sprite = get_node("EnemySprite")
@@ -97,10 +100,11 @@ func start_death():
 	set_layer_mask(0)
 	set_collision_mask(0)
 	sfx.play("explosion1")
+	remove_child(get_node("Groups")) #temp
 
 func _on_EnemyArea2D_area_enter( area ):
-	print(get_name(), " collision with ", area.get_name())
-	if area.has_method("active") and not area.active():
-		return
-	area._exit_tree()
+	GameManager.dbg(get_name() + " collision with " + area.get_name())
+	if area extends SHIP:
+		if not area.active():
+			return
 	start_death()

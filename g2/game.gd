@@ -71,7 +71,6 @@ func setup_ship():
 
 func init_level():
 	HUD.update_level(current_level)
-	setup_bots()
 	set_process(true)
 	set_process_input(true)
 
@@ -86,26 +85,6 @@ func add_life(num):
 
 func remove_life():
 	return HUD.remove_life()
-
-func setup_bots():
-	# defaults
-	var count = 2
-	var bot_class = enemy
-	# level-based enemy defs.
-	if current_level == 1:
-		count = 4
-	elif current_level == 2:
-		count = 8
-	elif current_level == 3:
-		count = 2
-		bot_class = enemy_physical
-	elif current_level == 4:
-		count = 40
-		bot_class = enemy
-	# create
-	for i in range(0, count):
-		var e = bot_class.instance()
-		enemies_group.add_child(e)
 
 func update_hud(delta):
 	var ratio_left = game_timer.get_time_left() / game_timer.get_wait_time()

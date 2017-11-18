@@ -11,8 +11,11 @@ var dead_timestamp = -1
 var last_laser_timestamp = -1.0
 var ammo_type_ = AMMO_TYPE.regular
 var ammo_count_ = 99999
+export(bool) var free_movement = true
+export(bool) var can_shoot = true
+export(float) var fake_speed = 0.0 setget set_fake_speed
 
-onready var game = get_tree().get_root().get_node("game")
+onready var GameManager = get_node("/root/GameManager")
 onready var bullet = preload("res://Entities/Bullet/Bullet.tscn")
 onready var bullet_physical = preload("res://Entities/Bullet/BulletPhysical.tscn")
 onready var death_particle_effect = get_node("ShipDeathParticles2D")
@@ -27,7 +30,7 @@ func active():
 	return timer.get_time_left() <= 0.0
 
 func bullet_instance():
-	if ammo_count_ > 0:
+	if can_shoot and (ammo_count_ > 0):
 		ammo_count_ -= 1
 		if ammo_type_ == AMMO_TYPE.regular:
 			return bullet.instance()
@@ -35,6 +38,13 @@ func bullet_instance():
 			return bullet_physical.instance()
 	else:
 		return null
+
+func set_fake_speed(new_speed):
+	if flowing_particle_effect and new_speed != 0.0:
+		flowing_particle_effect.set_param(Particles2D.PARAM_SPREAD, 0.0)
+		flowing_particle_effect.set_param(Particles2D.PARAM_LINEAR_VELOCITY, new_speed)
+		flowing_particle_effect.set_randomness(Particles2D.PARAM_LINEAR_VELOCITY, 0.0)
+	fake_speed = new_speed
 
 func _ready():
 	sprite.set_modulate(Color(0.1, 0.4, 0.7))
@@ -49,7 +59,7 @@ func _process(delta):
 		if death_anim_ended and flowing_anim_ended:
 			queue_free()
 		return
-	if game.menu_displayed:
+	if GameManager.paused:
 		return
 	var v = Vector2(0.0, -1.0).rotated(get_rot())
 	var vn = Vector2(0.0, -1.0).rotated(get_rot() + PI/2.0)
@@ -62,16 +72,15 @@ func _process(delta):
 	if Input.is_action_pressed("ui_down"):
 		new_pos -= v * delta * f1
 	if Input.is_action_pressed("ui_left"):
-		if Input.is_action_pressed("ui_starfe"):
+		if not free_movement or Input.is_action_pressed("ui_starfe"):
 			new_pos += vn * delta * f1
 		else:
 			delta_rad += delta * f2
 	if Input.is_action_pressed("ui_right"):
-		if Input.is_action_pressed("ui_starfe"):
+		if not free_movement or Input.is_action_pressed("ui_starfe"):
 			new_pos -= vn * delta * f1
 		else:
 			delta_rad -= delta * f2
-
 	if Input.is_action_pressed("ui_select"):
 		var now = OS.get_ticks_msec()
 		if now - last_laser_timestamp > LASER_RECOVERY_MS:
@@ -104,14 +113,14 @@ func start_death():
 	sprite.hide()
 	set_layer_mask(0)
 	set_collision_mask(0)
-	game.ship_destroyed()
+	GameManager.ship_destroyed(self)
 
-func _exit_tree():
-	if dead_timestamp == -1:
-		start_death()
+#func _exit_tree():
+#	if dead_timestamp == -1:
+#		start_death()
 
 func _on_ShipArea2D_area_enter( area ):
-	print(get_name(), " collision with ", area.get_name())
+	GameManager.dbg(get_name() + " collision with " + area.get_name())
 	if not active():
 		return
 	start_death()
@@ -123,5 +132,4 @@ func _on_ShipActivationTimer_timeout():
 func _on_ActivationBlinkTimer_timeout():
 	var mod = sprite.get_modulate()
 	var new_mod = Color(1 - mod.r, 1 - mod.g, 1 - mod.b)
-	#print(new_mod)
 	sprite.set_modulate(new_mod)

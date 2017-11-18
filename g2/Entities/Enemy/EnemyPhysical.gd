@@ -10,6 +10,7 @@ var course
 var dead_timestamp = -1
 var lives = 3
 
+onready var GameManager = get_node("/root/GameManager")
 onready var death_particle_effect = get_node("EnemyDeathParticles2D")
 onready var flowing_particle_effect = get_node("EnemyParticles2D")
 onready var sprite = get_node("EnemySprite")
@@ -28,7 +29,7 @@ func init_course():
 	set_linear_velocity(v)
 
 func _ready():
-	print("enemy ready")
+	GameManager.dbg("enemy " + get_name() + " ready")
 	init_course()
 	rotate(PI)
 	# Called every time the node is added to the scene.
@@ -82,4 +83,4 @@ func reduce_life():
 func _on_EnemyArea2D_body_enter( body ):
 	body.start_death_sequence(get_pos())
 	reduce_life()
-	print("enemy ", get_name(), " got hit by ", body.get_name())
+	GameManager.dbg("enemy " + get_name() + " got hit by " + body.get_name())

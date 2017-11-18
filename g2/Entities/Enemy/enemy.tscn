@@ -3,7 +3,7 @@
 [ext_resource path="res://Entities/Enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
 [ext_resource path="res://Entities/Enemy/enemyRed4_normal.png" type="Texture" id=3]
-[ext_resource path="res://Entities/Enemy/enemyBlack4.png" type="Texture" id=4]
+[ext_resource path="res://sheet/sheet.enemyBlack4.atex" type="Texture" id=4]
 [ext_resource path="res://Entities/Enemy/headlight.png" type="Texture" id=5]
 [ext_resource path="res://sfx/explosion1.smp" type="Sample" id=6]
 
@@ -51,6 +51,11 @@ angular_damp = 1.0
 collision/layers = 4
 collision/mask = 3
 script/script = ExtResource( 1 )
+personality = "Random"
+speed_min = 1.0
+speed_max = 2.0
+course_time_min = 5.0
+course_time_max = 15.0
 
 [node name="EnemyCollisionShape2D" type="CollisionPolygon2D" parent="."]
 
@@ -169,6 +174,10 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[node name="Groups" type="Node2D" parent="." groups=[
+"enemies",
+]]
 
 [connection signal="area_enter" from="." to="." method="_on_EnemyArea2D_area_enter"]
 

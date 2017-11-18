@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Menu/Camera2D.gd" type="Script" id=2]
 [ext_resource path="res://Menu/blue.tex" type="Texture" id=3]
 [ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://addons/atlas_importer/importer_gui.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ColorRamp" id=1]
 
@@ -312,6 +313,13 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[node name="Node2D" parent="." instance=ExtResource( 5 )]
+
+margin/left = 179.056
+margin/top = 201.833
+margin/right = 179.056
+margin/bottom = 201.833
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_Start_Button_pressed"]
 

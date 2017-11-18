@@ -3,6 +3,7 @@ extends Area2D
 var v_
 var dead_timestamp = -1
 
+onready var GameManager = get_node("/root/GameManager")
 onready var effect = get_node("Particles2D")
 onready var sprite = get_node("BulletSprite")
 onready var light = get_node("Light2D")
@@ -34,3 +35,6 @@ func start_death():
 func _exit_tree():
 	if dead_timestamp == -1:
 		start_death()
+
+func _on_BulletArea2D_area_enter( area ):
+	start_death()

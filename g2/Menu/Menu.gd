@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var game = null
+onready var GameManager = get_node("/root/GameManager")
 onready var start_button = get_node("VBoxContainer/StartButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
 onready var context = get_node("VBoxContainer/Context")
@@ -15,19 +15,24 @@ enum MODE {
 }
 var mode = MODE.start
 
+# GameManager won't be able to end this level
+func level_won():
+	return false
+func level_lost():
+	return false
+func get_hud():
+	return null
+
 func _ready():
 	sfx.play("human_music")
 	start_button.grab_focus()
-	var root = get_tree().get_root()
-	if root.has_node("game"):
-		game = root.get_node("game")
 	if mode == MODE.pause:
 		context.set_text("Paused")
 		start_button.set_text("Continue")
 		restart_button.show()
 	elif mode == MODE.game_over:
 		context.set_text("GAME OVER")
-		start_button.set_text("Restart")
+		start_button.set_text("Try again")
 		restart_button.hide()
 	elif mode == MODE.next_level:
 		context.set_text("Level Completed")
@@ -41,18 +46,16 @@ func _ready():
 
 func _input(event):
 	if mode == MODE.pause and event.is_action_pressed("ui_cancel"):
-		game.unpause(self)
+		GameManager.unpause(self)
 
 func _on_Start_Button_pressed():
 	if mode == MODE.pause:
-		game.unpause(self)
+		GameManager.unpause(self)
 	else:
-		get_tree().change_scene("res://Game.tscn")
+		GameManager.start_game()
 
 func _on_QuitButton_pressed():
-	get_tree().quit()
+	GameManager.quit_game()
 
 func _on_RestartButton_pressed():
-	get_tree().change_scene("res://Game.tscn")
-	assert game
-	game.unpause(self)
+	pass

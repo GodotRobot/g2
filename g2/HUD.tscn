@@ -1,9 +1,11 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Ship/playerLife1_blue.png" type="Texture" id=2]
+[ext_resource path="res://sheet/sheet.playerLife1_blue.atex" type="Texture" id=2]
 
-[node name="HUD_CanvasLayer" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" groups=[
+"hud",
+]]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -91,7 +93,7 @@ margin/left = 243.0
 margin/top = 58.0
 margin/right = 375.0
 margin/bottom = 78.0
-text = "Level 1: Kill"
+text = "level_text"
 align = 2
 uppercase = true
 percent_visible = 1.0

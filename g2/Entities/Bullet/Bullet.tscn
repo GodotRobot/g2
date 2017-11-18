@@ -2,7 +2,8 @@
 
 [ext_resource path="res://Entities/Bullet/bullet.gd" type="Script" id=1]
 [ext_resource path="res://light.png" type="Texture" id=2]
-[ext_resource path="res://Entities/Bullet/laserRed08.png" type="Texture" id=3]
+[ext_resource path="res://sheet/sheet.laserRed08.atex" type="Texture" id=3]
+
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -87,5 +88,7 @@ shadow/item_mask = 1
 transform/pos = Vector2( 0, -4.76837e-07 )
 transform/scale = Vector2( 0.625, 0.652174 )
 texture = ExtResource( 3 )
+
+[connection signal="area_enter" from="." to="." method="_on_BulletArea2D_area_enter"]
 
 
