@@ -123,7 +123,14 @@ func _deferred_goto_scene(path):
 	current_scene.free()
 	# Load new scene
 	var s = ResourceLoader.load(path)
-	assert(s != null) # LD: next level not found?! FIXME
+	if not s:
+		# level not found - for now assume this is WIN
+		current_scene = MENU.instance()
+		current_scene.mode = current_scene.win
+		get_tree().get_root().add_child(current_scene)
+		get_tree().set_current_scene( current_scene )
+		return
+
 	# Instance the new scene
 	current_scene = s.instance()
 	# Add it to the active scene, as child of root
