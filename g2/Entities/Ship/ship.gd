@@ -1,6 +1,7 @@
 extends Area2D
 
 const LASER_RECOVERY_MS = 200
+const BLINKING_SPEED = 8.0
 
 enum AMMO_TYPE {
 	regular = 0
@@ -23,7 +24,6 @@ onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
 onready var timer = get_node("ShipActivationTimer")
-onready var blink_timer = get_node("ActivationBlinkTimer")
 onready var sfx = get_node("SamplePlayer")
 
 func active():
@@ -56,8 +56,7 @@ func clone(insatnce):
 	return insatnce
 
 func _ready():
-	sprite.set_modulate(Color(0.1, 0.4, 0.7))
-	blink_timer.start()
+	sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
 	set_process(true)
 
 func _process(delta):
@@ -135,10 +134,4 @@ func _on_ShipArea2D_area_enter( area ):
 	start_death()
 
 func _on_ShipActivationTimer_timeout():
-	blink_timer.stop()
-	sprite.set_modulate(Color(1, 1, 1))
-
-func _on_ActivationBlinkTimer_timeout():
-	var mod = sprite.get_modulate()
-	var new_mod = Color(1 - mod.r, 1 - mod.g, 1 - mod.b)
-	sprite.set_modulate(new_mod)
+	sprite.get_material().set_shader_param("BLINKING_SPEED", 0.0)

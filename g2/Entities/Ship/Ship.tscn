@@ -30,6 +30,7 @@ colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
+shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 3 )
 
 [sub_resource type="SampleLibrary" id=6]
@@ -149,13 +150,6 @@ wait_time = 1.0
 one_shot = true
 autostart = true
 
-[node name="ActivationBlinkTimer" type="Timer" parent="."]
-
-process_mode = 1
-wait_time = 0.2
-one_shot = false
-autostart = false
-
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
 config/polyphony = 10
@@ -176,7 +170,5 @@ default/chorus_send = 0.0
 [connection signal="area_enter" from="." to="." method="_on_ShipArea2D_area_enter"]
 
 [connection signal="timeout" from="ShipActivationTimer" to="." method="_on_ShipActivationTimer_timeout"]
-
-[connection signal="timeout" from="ActivationBlinkTimer" to="." method="_on_ActivationBlinkTimer_timeout"]
 
 

@@ -26,6 +26,7 @@ colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
+shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 3 )
 
 [sub_resource type="SampleLibrary" id=5]

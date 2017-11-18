@@ -10,7 +10,11 @@ NORMAL = tex(normal, UV).rgb * vec3(2.0, 2.0, 1.0) - vec3(1.0, 1.0, 0.0);",
 float NdotL = max(0.0, dot(NORMAL, light_dir));
 LIGHT = mix(COLOR * LIGHT_COLOR, COLOR * NdotL * LIGHT_COLOR, 1.0);",
 "light_ofs": 0,
-"vertex": "",
+"vertex": "uniform float BLINKING_SPEED;
+if (BLINKING_SPEED > 0.0)
+{
+	COLOR.a = abs(sin(TIME * BLINKING_SPEED));
+}",
 "vertex_ofs": 0
 }
 
