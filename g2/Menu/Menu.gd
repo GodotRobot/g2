@@ -4,7 +4,8 @@ onready var GameManager = get_node("/root/GameManager")
 onready var start_button = get_node("VBoxContainer/StartButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
 onready var context = get_node("VBoxContainer/Context")
-onready var sfx = get_node("SamplePlayer")
+onready var music_player = get_node("StreamPlayer")
+onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
 
 enum MODE {
 	start,
@@ -24,7 +25,10 @@ func get_hud():
 	return null
 
 func _ready():
-	sfx.play("human_music")
+	if (mode != MODE.start):
+		parallax_camera.clear_current()
+
+	music_player.play()
 	start_button.grab_focus()
 	if mode == MODE.pause:
 		context.set_text("Paused")
