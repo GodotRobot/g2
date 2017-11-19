@@ -1,6 +1,8 @@
 extends Node2D
 
-onready var GameManager = get_node("/root/GameManager")
+# not "onready" so that we can use it in _enter_tree
+#onready var GameManager = get_node("/root/GameManager")
+var GameManager
 
 export(String, "shooter", "obstacles") var level_type = "shooter"
 export(float, 0.0, 1000.0, 10.0) var level_speed = 90.0
@@ -29,6 +31,13 @@ func setup():
 			ship.set_pos(GameManager.ship_pos_on_level_end)
 			ship.set_rot(GameManager.ship_rot_on_level_end)
 	GameManager.level_ready(self)
+
+func _enter_tree():
+	GameManager = get_node("/root/GameManager")
+	var v = get_name();
+	var h = hash(v)
+	GameManager.dbg(v + " starting with seed " + String(h))
+	seed(h)
 
 func _ready():
 	init_type()
