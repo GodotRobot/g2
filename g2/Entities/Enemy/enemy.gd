@@ -100,7 +100,7 @@ func start_death():
 	set_layer_mask(0)
 	set_collision_mask(0)
 	sfx.play("explosion1")
-	remove_child(get_node("Groups")) #temp
+	remove_from_group("enemies")
 
 func _on_EnemyArea2D_area_enter( area ):
 	GameManager.dbg(get_name() + " collision with " + area.get_name())

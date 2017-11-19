@@ -38,7 +38,9 @@ samples/explosion1 = {
 "sample": ExtResource( 6 )
 }
 
-[node name="EnemyArea2D" type="Area2D"]
+[node name="EnemyArea2D" type="Area2D" groups=[
+"enemies",
+]]
 
 visibility/light_mask = 4
 input/pickable = true
@@ -175,10 +177,6 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
-
-[node name="Groups" type="Node2D" parent="." groups=[
-"enemies",
-]]
 
 [connection signal="area_enter" from="." to="." method="_on_EnemyArea2D_area_enter"]
 
