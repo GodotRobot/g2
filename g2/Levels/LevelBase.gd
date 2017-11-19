@@ -58,6 +58,9 @@ func level_lost():
 
 # called by GameManager
 func level_won():
+	var ship = GameManager.get_current_ship()
+	if !ship or !ship.active():
+		return false
 	if type == LEVEL_TYPE.shooter:
 		var enemies = get_tree().get_nodes_in_group("enemies")
 		if enemies.empty():
