@@ -22,20 +22,27 @@ var current_scene = null
 var cur_level = 1
 var lives = INITIAL_LIVES
 var paused = false
+var debug = false
 
-# debug prints. replace the print() with pass to disabled logging
 func dbg(msg):
-	#print(msg)
-	pass
+	if debug:
+		print(msg)
 
 func level_ready(level):
 	assert(level == current_scene)
 	var hud = current_scene.get_hud()
 	if hud:
 		hud.set_lives(lives)
+		hud.get_node("HUD/CkbxDebug").set_pressed(debug)
 
 func collectable_collected(collectable, who):
 	dbg(collectable.get_name() + " was hit by " + who.get_name())
+	if collectable.health > 0:
+		dbg("additional health: " + String(collectable.health))
+	if collectable.warp > 0:
+		dbg("additional warp: " + String(collectable.warp))
+	if collectable.shield > 0:
+		dbg("additional shield: " + String(collectable.shield))
 
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")

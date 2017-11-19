@@ -21,7 +21,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 10.0
 margin/top = 610.0
-margin/right = 339.0
+margin/right = 380.0
 margin/bottom = 712.0
 
 [node name="LivesLeft" type="HBoxContainer" parent="HUD"]
@@ -116,5 +116,24 @@ uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="CkbxDebug" type="CheckBox" parent="HUD"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 379.0
+margin/top = 84.0
+margin/right = 428.0
+margin/bottom = 107.0
+toggle_mode = true
+enabled_focus_mode = 0
+shortcut = null
+text = "dbg"
+flat = false
+align = 0
+
+[connection signal="toggled" from="HUD/CkbxDebug" to="." method="_on_CheckBox_toggled"]
 
 

@@ -40,3 +40,6 @@ func update_timer(left_ratio):
 
 func update_ammo(count):
 	ammo_text.set_text(String(count))
+
+func _on_CheckBox_toggled( pressed ):
+	GameManager.debug = pressed

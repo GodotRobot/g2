@@ -21,6 +21,9 @@ extents = Vector2( 10, 10 )
 material/material = SubResource( 1 )
 texture = ExtResource( 2 )
 script/script = ExtResource( 3 )
+health = 0
+warp = 0
+shield = 0
 
 [node name="Area2D" type="Area2D" parent="."]
 
