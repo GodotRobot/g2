@@ -85,7 +85,7 @@ func _process(delta):
 			new_pos.y = 0
 	var dir = new_pos - get_pos()
 	flowing_particle_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(dir.angle()))
-	sprite.set_rot(dir.angle())
+	sprite.set_global_rot(dir.angle())
 	set_pos(new_pos)
 
 func _exit_tree():
