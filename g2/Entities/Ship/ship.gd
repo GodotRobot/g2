@@ -123,10 +123,6 @@ func start_death():
 	set_collision_mask(0)
 	GameManager.ship_destroyed(self)
 
-#func _exit_tree():
-#	if dead_timestamp == -1:
-#		start_death()
-
 func _on_ShipArea2D_area_enter( area ):
 	GameManager.dbg(get_name() + " collision with " + area.get_name())
 	if not active():
