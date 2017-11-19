@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://Entities/Enemy/EnemyPhysical.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Enemy/enemyRed4.png" type="Texture" id=2]
+[ext_resource path="res://sheet/sheet.enemyRed4.atex" type="Texture" id=2]
 [ext_resource path="res://sfx/explosion1.smp" type="Sample" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
