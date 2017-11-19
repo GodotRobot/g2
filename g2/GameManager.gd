@@ -68,6 +68,7 @@ func game_over():
 	menu_displayed.raise()
 
 func start_game():
+	cur_level = 1
 	lives = INITIAL_LIVES
 	goto_scene(LEVEL_PATH.replace("<N>", "1"))
 
