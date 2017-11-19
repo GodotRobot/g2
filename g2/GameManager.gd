@@ -43,6 +43,7 @@ func collectable_collected(collectable, who):
 		dbg("additional warp: " + String(collectable.warp))
 	if collectable.shield > 0:
 		dbg("additional shield: " + String(collectable.shield))
+		get_current_ship().add_shield(collectable.shield)
 
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")

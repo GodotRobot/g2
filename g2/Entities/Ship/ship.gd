@@ -26,6 +26,9 @@ onready var col = get_node("ShipCollisionShape2D")
 onready var timer = get_node("ShipActivationTimer")
 onready var sfx = get_node("SamplePlayer")
 
+const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
+const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
+
 func active():
 	return timer.get_time_left() <= 0.0
 
@@ -123,10 +126,22 @@ func start_death():
 	set_collision_mask(0)
 	GameManager.ship_destroyed(self)
 
+func add_shield(shield):
+	GameManager.dbg(get_name() + " adding " + String(shield) + " shield")
+	var shield = null
+	if not has_node("shield"):
+		shield = SHIELD.instance()
+		add_child(shield)
+	else:
+		shield = get_node("shield")
+	GameManager.dbg(get_name() + " now has shield at " + String(shield.power))
+
 func _on_ShipArea2D_area_enter( area ):
-	GameManager.dbg(get_name() + " collision with " + area.get_name())
+	if area extends COLLECTABLE_BASE: # FIXME not working!!!!
+		return
 	if not active():
 		return
+	GameManager.dbg(get_name() + " collision with " + area.get_name() + ". Starting death!")
 	start_death()
 
 func _on_ShipActivationTimer_timeout():
