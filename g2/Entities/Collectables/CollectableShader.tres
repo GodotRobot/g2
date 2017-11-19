@@ -1,0 +1,13 @@
+[gd_resource type="CanvasItemShader" format=1]
+
+[resource]
+
+_code = {
+"fragment": "",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "VERTEX = SRC_VERTEX * (1.0 + 0.2 * abs(sin(TIME * 4.0)));",
+"vertex_ofs": 0
+}
+

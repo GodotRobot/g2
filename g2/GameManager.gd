@@ -34,6 +34,9 @@ func level_ready(level):
 	if hud:
 		hud.set_lives(lives)
 
+func collectable_collected(collectable, who):
+	dbg(collectable.get_name() + " was hit by " + who.get_name())
+
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")
 	lives -= 1
