@@ -7,6 +7,7 @@ extends Node
 
 # levels and entities
 const LEVEL_BASE = preload("res://Levels/LevelBase.gd")
+const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
 const MENU = preload("res://Menu/Menu.tscn")
 const MENU_BASE = preload("res://Menu/Menu.gd")
 const LEVEL_PATH = "res://Levels/Level<N>.tscn"
@@ -23,6 +24,7 @@ var cur_level = 1
 var lives = INITIAL_LIVES
 var paused = false
 var debug = false
+var score = 0
 
 func dbg(msg):
 	if debug:
@@ -57,6 +59,16 @@ func ship_destroyed(instance):
 	if hud:
 		hud.remove_life(1)
 
+func enemy_destroyed(instance):
+	dbg("enemy " + instance.get_name() + " destoryed!")
+	if instance.drop_type:
+		dbg("enemy " + instance.get_name() + " had drop type " + String(instance.drop_type))
+		var collectable = COLLECTABLE_BASE.factory(instance.drop_type, instance.drop_value)
+		if collectable:
+			dbg("collectable " + String(instance.drop_type) + "/" + String(instance.drop_value) + " was created")
+			collectable.set_pos(instance.get_pos())
+			instance.get_parent().add_child(collectable)
+
 func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child( root.get_child_count() -1 )
@@ -81,6 +93,7 @@ func game_over():
 func start_game():
 	cur_level = 1
 	lives = INITIAL_LIVES
+	score = 0
 	goto_scene(LEVEL_PATH.replace("<N>", "1"))
 
 func quit_game():
