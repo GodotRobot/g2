@@ -12,7 +12,7 @@ radius = 10.0
 
 texture = ExtResource( 1 )
 script/script = ExtResource( 2 )
-power = 100
+power = 0
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -24,6 +24,8 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+collision/layers = 8
+collision/mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 
@@ -32,5 +34,14 @@ transform/scale = Vector2( 7.25586, 7.25586 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 

@@ -27,6 +27,8 @@ func get_hud():
 func _ready():
 	if (mode != MODE.start):
 		parallax_camera.clear_current()
+		# add a dim background
+		get_node("PauseBG").show()
 
 	music_player.play()
 	start_button.grab_focus()
