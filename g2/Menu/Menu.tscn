@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
-[ext_resource path="res://Menu/Camera2D.gd" type="Script" id=2]
-[ext_resource path="res://Menu/blue.tex" type="Texture" id=3]
+[ext_resource path="res://Menu/blue.tex" type="Texture" id=2]
+[ext_resource path="res://Menu/Camera2D.gd" type="Script" id=3]
 [ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=4]
 [ext_resource path="res://sfx/Light-Years_V001_Looping.ogg" type="AudioStream" id=5]
 
@@ -19,6 +19,15 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
+
+[node name="PauseBG" type="Sprite" parent="."]
+
+visibility/visible = false
+texture = ExtResource( 2 )
+centered = false
+modulate = Color( 1, 1, 1, 0.508196 )
+region = true
+region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -51,18 +60,17 @@ drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
-script/script = ExtResource( 2 )
+script/script = ExtResource( 3 )
 
 [node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
 
-editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 1, 0 )
 motion/mirroring = Vector2( 1280, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
 
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 centered = false
 region = true
 region_rect = Rect2( 0, 0, 1280, 720 )
@@ -77,7 +85,7 @@ motion/mirroring = Vector2( 1280, 0 )
 
 visibility/opacity = 0.47
 transform/pos = Vector2( 0.96106, -479.73 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 centered = false
 offset = Vector2( 80, 50 )
 region = true
