@@ -8,6 +8,12 @@ enum AMMO_TYPE {
 	physical_pusher = 1
 }
 
+enum SHIP_STATE {
+	ready = 0
+	warp = 1
+}
+
+var ship_state = SHIP_STATE.ready
 var dead_timestamp = -1
 var last_laser_timestamp = -1.0
 var ammo_type_ = AMMO_TYPE.regular
@@ -24,6 +30,7 @@ onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
 onready var timer = get_node("ShipActivationTimer")
+onready var warp_particles = get_node("WarpParticles2D")
 onready var sfx = get_node("SamplePlayer")
 
 const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
@@ -59,6 +66,8 @@ func clone(insatnce):
 	return insatnce
 
 func _ready():
+	ship_state = SHIP_STATE.ready
+	randomize()
 	sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
 	set_process(true)
 
@@ -78,6 +87,11 @@ func _process(delta):
 	var delta_rad = 0.0
 	var f1 = 280.0
 	var f2 = 4.0
+	
+	if Input.is_action_pressed("ui_warp") and ship_state != SHIP_STATE.warp:
+		warp_ship()
+		return
+		
 	if Input.is_action_pressed("ui_up"):
 		new_pos += v * delta * f1
 	if Input.is_action_pressed("ui_down"):
@@ -117,6 +131,20 @@ func _process(delta):
 	set_pos(new_pos)
 	rotate(delta_rad)
 
+func warp_ship():
+	ship_state = SHIP_STATE.warp
+	var ship_width = sprite.get_texture().get_width()
+	var ship_height = sprite.get_texture().get_height()
+	var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
+	var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
+	#sprite.hide()
+	print("warping to " + str(rand_x) + "," + str(rand_y))
+	self.set_pos(Vector2(rand_x, rand_y))
+	warp_particles.show()
+
+func is_warping():
+	return ship_state == SHIP_STATE.warp
+
 func start_death():
 	dead_timestamp = OS.get_ticks_msec()
 	death_particle_effect.set_emitting(true)
@@ -139,7 +167,7 @@ func add_shield(shield):
 func _on_ShipArea2D_area_enter( area ):
 	if area extends COLLECTABLE_BASE: # FIXME not working!!!!
 		return
-	if not active():
+	if not active() or ship_state == SHIP_STATE.warp:
 		return
 	GameManager.dbg(get_name() + " collision with " + area.get_name() + ". Starting death!")
 	start_death()
