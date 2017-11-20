@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Menu/blue.tex" type="Texture" id=2]
 [ext_resource path="res://Menu/Camera2D.gd" type="Script" id=3]
 [ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=4]
-[ext_resource path="res://sfx/Light-Years_V001_Looping.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Menu/Highscores.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sfx/Light-Years_V001_Looping.ogg" type="AudioStream" id=6]
 
 [sub_resource type="ColorRamp" id=1]
 
@@ -283,9 +284,32 @@ shortcut = null
 text = "Quit"
 flat = false
 
+[node name="sep1" type="Label" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 10 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 238.0
+margin/right = 352.0
+margin/bottom = 252.0
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Highscores" parent="VBoxContainer" instance=ExtResource( 5 )]
+
+rect/min_size = Vector2( 352, 0 )
+margin/top = 256.0
+margin/bottom = 256.0
+
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 5 )
+stream/stream = ExtResource( 6 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
