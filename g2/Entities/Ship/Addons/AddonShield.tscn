@@ -4,6 +4,6 @@
 
 [node name="AddonBase" instance=ExtResource( 1 )]
 
-power = 100
+power = 0
 
 
