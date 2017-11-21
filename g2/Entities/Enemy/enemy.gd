@@ -120,6 +120,6 @@ func start_death():
 func _on_EnemyArea2D_area_enter( area ):
 	GameManager.dbg(get_name() + " collision with " + area.get_name())
 	if area extends SHIP:
-		if not area.active() or area.is_warping():
+		if not area.active():
 			return
 	start_death()

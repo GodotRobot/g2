@@ -9,11 +9,11 @@ enum AMMO_TYPE {
 }
 
 enum SHIP_STATE {
-	ready = 0
+	active = 0
 	warp = 1
 }
 
-var ship_state = SHIP_STATE.ready
+var ship_state = SHIP_STATE.active
 var dead_timestamp = -1
 var last_laser_timestamp = -1.0
 var ammo_type_ = AMMO_TYPE.regular
@@ -37,7 +37,7 @@ const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
 
 func active():
-	return timer.get_time_left() <= 0.0
+	return ship_state == SHIP_STATE.active and timer.get_time_left() <= 0.0 
 
 func bullet_instance():
 	if can_shoot and (ammo_count_ > 0):
@@ -66,8 +66,7 @@ func clone(insatnce):
 	return insatnce
 
 func _ready():
-	ship_state = SHIP_STATE.ready
-	randomize()
+	ship_state = SHIP_STATE.active
 	sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
 	set_process(true)
 
@@ -88,7 +87,7 @@ func _process(delta):
 	var f1 = 280.0
 	var f2 = 4.0
 	
-	if Input.is_action_pressed("ui_warp") and ship_state != SHIP_STATE.warp:
+	if Input.is_action_pressed("ui_warp") and self.active():
 		warp_ship()
 		return
 		
@@ -141,9 +140,6 @@ func warp_ship():
 	print("warping to " + str(rand_x) + "," + str(rand_y))
 	self.set_pos(Vector2(rand_x, rand_y))
 	warp_particles.show()
-
-func is_warping():
-	return ship_state == SHIP_STATE.warp
 
 func start_death():
 	dead_timestamp = OS.get_ticks_msec()
