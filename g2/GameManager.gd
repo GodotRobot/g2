@@ -12,12 +12,16 @@ const MENU = preload("res://Menu/Menu.tscn")
 const MENU_BASE = preload("res://Menu/Menu.gd")
 const LEVEL_PATH = "res://Levels/Level<N>.tscn"
 const SHIP = preload("res://Entities/Ship/Ship.tscn")
+const HTTP = preload("res://Menu/HTTP.gd")
 
 # game consts
 const INITIAL_LIVES = 2
 
 var ship_pos_on_level_end
 var ship_rot_on_level_end
+
+# singletons
+var http
 
 var current_scene = null
 var cur_level = 1
@@ -35,6 +39,7 @@ func level_ready(level):
 	var hud = current_scene.get_hud()
 	if hud:
 		hud.set_lives(lives)
+		hud.set_score(score)
 		hud.get_node("HUD/CkbxDebug").set_pressed(debug)
 
 func collectable_collected(collectable, who):
@@ -60,6 +65,10 @@ func ship_destroyed(instance):
 		hud.remove_life(1)
 
 func enemy_destroyed(instance):
+	score += 1
+	var hud = current_scene.get_hud()
+	if hud:
+		hud.set_score(score)
 	dbg("enemy " + instance.get_name() + " destoryed!")
 	if instance.drop_type:
 		dbg("enemy " + instance.get_name() + " had drop type " + String(instance.drop_type))
@@ -69,9 +78,28 @@ func enemy_destroyed(instance):
 			collectable.set_pos(instance.get_pos())
 			instance.get_parent().add_child(collectable)
 
+func download_highscores():
+	http.get("http://warpgamehighscores.azurewebsites.net","/",80,false) #domain,url,port,useSSL
+
+func highscores_loaded(result):
+	var result_string = result.get_string_from_ascii()
+	var menu = get_tree().get_nodes_in_group("menu")
+	if not menu.empty():
+		menu[0].update_highscores(result_string)
+
+func set_singletons():
+	http = HTTP.new()
+	#http.connect("loading",self,"_on_loading")
+	http.connect("loaded",self,"highscores_loaded")
+	download_highscores()
+
 func _ready():
+	# discover initial scene
 	var root = get_tree().get_root()
 	current_scene = root.get_child( root.get_child_count() -1 )
+	# set singletons
+	set_singletons()
+	# ready set go
 	set_process(true)
 	set_process_input(true)
 

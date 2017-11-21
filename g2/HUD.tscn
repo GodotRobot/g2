@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://sheet/sheet.playerLife1_blue.atex" type="Texture" id=2]
+[ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=3]
 
 [node name="HUD_CanvasLayer" type="CanvasLayer" groups=[
 "hud",
@@ -95,6 +96,40 @@ margin/right = 367.0
 margin/bottom = 85.0
 text = "level_text"
 align = 2
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 1.0
+margin/top = 29.0
+margin/right = 133.0
+margin/bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Score:"
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Score" type="Label" parent="HUD"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 102.0
+margin/top = 29.0
+margin/right = 221.0
+margin/bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "0"
 uppercase = true
 percent_visible = 1.0
 lines_skipped = 0

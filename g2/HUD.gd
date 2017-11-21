@@ -4,9 +4,13 @@ onready var timer = get_node("HUD/TimeLeft")
 onready var ammo_text = get_node("HUD/Ammo")
 onready var level_text = get_node("HUD/Level")
 onready var lives_container = get_node("HUD/LivesLeft")
+onready var score = get_node("HUD/Score")
 
 func _ready():
 	pass
+
+func set_score(points):
+	score.set_text(str(points))
 
 func calc_lifes():
 	var children = lives_container.get_children()

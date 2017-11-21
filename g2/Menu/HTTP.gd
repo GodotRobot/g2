@@ -35,13 +35,15 @@ func _load(params):
 		"Accept: */*"
 	]
 
-	err = http.request(HTTPClient.METHOD_GET,params.url,headers)
+	err = http.request(HTTPClient.METHOD_GET, params.url, headers)
 	dbg("requested " + String(err))
 
 	while (http.get_status() == HTTPClient.STATUS_REQUESTING):
 		http.poll()
 		dbg("requesting")
 		OS.delay_msec(500)
+
+	dbg("requesting ended")
 #
 	var rb = RawArray()
 	if(http.has_response()):

@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://Menu/Highscores.gd" type="Script" id=1]
 [ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=2]
-[ext_resource path="res://Menu/HTTP.gd" type="Script" id=3]
 
 [node name="Highscores" type="Panel"]
 
@@ -318,9 +317,5 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[node name="HTTP" type="Node" parent="."]
-
-script/script = ExtResource( 3 )
 
 

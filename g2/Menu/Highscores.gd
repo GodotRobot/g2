@@ -1,11 +1,6 @@
 extends Panel
 
-func _on_loading(loaded,total):
-	var percent = loaded*100/total
-
-func _on_loaded(result):
-	var result_string = result.get_string_from_ascii()
-	#print(result_string)
+func update_highscores(result_string):
 	var scores = {}
 	scores.parse_json(result_string)
 	for i in range(5):
@@ -20,10 +15,7 @@ func _on_loaded(result):
 		i += 1
 
 func _ready():
-	var http = get_node("HTTP")
-	http.connect("loading",self,"_on_loading")
-	http.connect("loaded",self,"_on_loaded")
-	http.get("http://warpgamehighscores.azurewebsites.net","/",80,false) #domain,url,port,useSSL
+	pass
 
 func _init():
 	pass

@@ -25,6 +25,7 @@ func get_hud():
 	return null
 
 func _ready():
+	GameManager.download_highscores()
 	if (mode != MODE.start):
 		parallax_camera.clear_current()
 		# add a dim background
@@ -53,6 +54,9 @@ func _ready():
 func _input(event):
 	if mode == MODE.pause and event.is_action_pressed("ui_cancel"):
 		GameManager.unpause(self)
+
+func update_highscores(result_string):
+	get_node("VBoxContainer/Highscores").update_highscores(result_string)
 
 func _on_Start_Button_pressed():
 	if mode == MODE.pause:
