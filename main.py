@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from werkzeug.exceptions import BadRequest
 import sqlite3
 import time
 
@@ -6,15 +7,19 @@ app = Flask(__name__)
 
 @app.route('/', methods = ['POST', 'GET'])
 def add_or_view():
-		if request.method == 'POST':
-			name = request.form['name']
-			score = request.form['score']
-			return post_new_score(name, score)
-		elif request.method == 'GET':
-			return get_table()
-			
+	if request.method == 'POST':
+		name = request.form['name']
+		score = request.form['score']
+		return post_new_score(name, score)
+	elif request.method == 'GET':
+		return get_table()
 
 def post_new_score(name, score):
+	try:
+		if len(name) > 8 or int(score) > 999999:
+			raise BadRequest("invalid parameters (1)")
+	except:
+		raise BadRequest("invalid parameters (1)")
 	try:
 		with sqlite3.connect("highscores.db") as con:
 			cur = con.cursor()
@@ -22,7 +27,7 @@ def post_new_score(name, score):
 			con.commit()
 	except:
 		con.rollback()
-		return 'exception'
+		raise
 	finally:
 		con.close()
 		return get_table()
