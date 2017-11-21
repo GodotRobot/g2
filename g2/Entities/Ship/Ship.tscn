@@ -186,6 +186,13 @@ wait_time = 1.0
 one_shot = true
 autostart = true
 
+[node name="WarpTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.2
+one_shot = false
+autostart = false
+
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
 config/polyphony = 10
@@ -206,5 +213,7 @@ default/chorus_send = 0.0
 [connection signal="area_enter" from="." to="." method="_on_ShipArea2D_area_enter"]
 
 [connection signal="timeout" from="ShipActivationTimer" to="." method="_on_ShipActivationTimer_timeout"]
+
+[connection signal="timeout" from="WarpTimer" to="." method="_on_WarpTimer_timeout"]
 
 
