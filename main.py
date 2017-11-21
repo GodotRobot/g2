@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from werkzeug.exceptions import BadRequest
+import json
 import sqlite3
 import time
 
@@ -40,7 +41,7 @@ def get_table():
 	rows = cur.fetchall()
 	names = [str(row["name"]) for row in rows]
 	scores = [row["score"] for row in rows]
-	return '{"names":%s,"scores":%s}' % (str(names), str(scores))
+	return '{"names":%s,"scores":%s}' % (json.dumps(names), str(scores))
 
 if __name__ == '__main__':
   app.run()
