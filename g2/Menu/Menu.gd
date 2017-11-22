@@ -37,6 +37,8 @@ func _ready():
 		context.set_text("Paused")
 		start_button.set_text("Continue")
 		restart_button.show()
+		show_popup_and_get_name()
+
 	elif mode == MODE.game_over:
 		context.set_text("GAME OVER")
 		start_button.set_text("Try again")
@@ -47,8 +49,10 @@ func _ready():
 		restart_button.hide()
 	elif mode == MODE.win:
 		context.set_text("WIN")
-		start_button.set_text("Restart")
+		start_button.set_text("Play again")
 		restart_button.hide()
+		show_popup_and_get_name()
+
 	set_process_input(true)
 
 func _input(event):
@@ -57,6 +61,9 @@ func _input(event):
 
 func update_highscores(result_string):
 	get_node("VBoxContainer/Highscores").update_highscores(result_string)
+
+func highscores_download_started():
+	get_node("VBoxContainer/Highscores").highscores_download_started()
 
 func _on_Start_Button_pressed():
 	if mode == MODE.pause:
@@ -70,3 +77,13 @@ func _on_QuitButton_pressed():
 func _on_RestartButton_pressed():
 	GameManager.unpause(self)
 	GameManager.start_game()
+
+func _on_NameDialog_confirmed():
+	var name = get_node("NameDialog/LineEdit").get_text()
+	GameManager.download_highscores({"name": name, "score": str(GameManager.score)})
+
+func show_popup_and_get_name():
+	get_node("NameDialog/FinalScore").set_text("Final score: " + str(GameManager.score))
+	get_node("NameDialog").register_text_enter(get_node("NameDialog/LineEdit"))
+	get_node("NameDialog").popup_centered()
+	get_node("NameDialog/LineEdit").grab_focus()

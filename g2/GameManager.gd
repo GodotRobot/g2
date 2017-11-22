@@ -78,8 +78,14 @@ func enemy_destroyed(instance):
 			collectable.set_pos(instance.get_pos())
 			instance.get_parent().add_child(collectable)
 
-func download_highscores():
-	http.get("http://warpgamehighscores.azurewebsites.net","/",80,false) #domain,url,port,useSSL
+func download_highscores(update = null):
+	var menu = get_tree().get_nodes_in_group("menu")
+	if not menu.empty():
+		menu[0].highscores_download_started()
+	if update != null:
+		pass #todo POST
+	else:
+		http.get("http://warpgamehighscores.azurewebsites.net","/",80,false) #domain,url,port,useSSL
 
 func highscores_loaded(result):
 	var result_string = result.get_string_from_ascii()

@@ -1,5 +1,12 @@
 extends Panel
 
+func highscores_download_started():
+	for i in range(5):
+		get_node("VBoxContainer/GridContainer/Pos" + String(i+1)).set_text("")
+		get_node("VBoxContainer/GridContainer/Name" + String(i+1)).set_text("")
+		get_node("VBoxContainer/GridContainer/Score" + String(i+1)).set_text("")
+	get_node("VBoxContainer/GridContainer/Name2").set_text("Loading...")
+
 func update_highscores(result_string):
 	var scores = {}
 	scores.parse_json(result_string)

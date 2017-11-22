@@ -34,7 +34,6 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -88,7 +87,7 @@ motion/mirroring = Vector2( 1280, 0 )
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background2"]
 
 visibility/opacity = 0.47
-transform/pos = Vector2( 0.96106, -479.73 )
+transform/pos = Vector2( 10.8473, -487.298 )
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( 80, 50 )
@@ -321,10 +320,83 @@ stream/paused = false
 stream/loop_restart_time = 0.0
 stream/buffering_ms = 500
 
+[node name="NameDialog" type="AcceptDialog" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 203.0
+margin/top = 287.0
+margin/right = 1058.0
+margin/bottom = 544.0
+popup/exclusive = true
+window/title = "WIN"
+dialog/hide_on_ok = true
+
+[node name="Label 2" type="Label" parent="NameDialog"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 7.0
+margin/top = 42.0
+margin/right = 847.0
+margin/bottom = 101.0
+custom_fonts/font = ExtResource( 4 )
+text = "You won! Enter name for high scores table"
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="FinalScore" type="Label" parent="NameDialog"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 7.0
+margin/top = 87.0
+margin/right = 847.0
+margin/bottom = 146.0
+custom_fonts/font = ExtResource( 4 )
+text = "Final score: "
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="LineEdit" type="LineEdit" parent="NameDialog"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 327.0
+margin/top = 157.0
+margin/right = 526.0
+margin/bottom = 183.0
+custom_fonts/font = ExtResource( 4 )
+placeholder/alpha = 0.6
+align = 1
+max_length = 8
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_Start_Button_pressed"]
 
 [connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+
+[connection signal="confirmed" from="NameDialog" to="." method="_on_NameDialog_confirmed"]
 
 
