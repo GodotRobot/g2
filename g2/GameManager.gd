@@ -83,14 +83,17 @@ func download_highscores(update = null):
 	if not menu.empty():
 		menu[0].highscores_download_started()
 	if update != null:
-		pass #todo POST
+		http.post("http://warpgamehighscores.azurewebsites.net","/",80,false, update) #domain,url,port,useSSL, post
 	else:
 		http.get("http://warpgamehighscores.azurewebsites.net","/",80,false) #domain,url,port,useSSL
 
-func highscores_loaded(result):
-	var result_string = result.get_string_from_ascii()
+func highscores_loaded(code,result):
 	var menu = get_tree().get_nodes_in_group("menu")
 	if not menu.empty():
+		var result_string = result.get_string_from_ascii()
+		if code != 200:
+			dbg("code: " + str(code) + " str: " + result_string)
+			result_string = null
 		menu[0].update_highscores(result_string)
 
 func set_singletons():

@@ -37,8 +37,6 @@ func _ready():
 		context.set_text("Paused")
 		start_button.set_text("Continue")
 		restart_button.show()
-		show_popup_and_get_name()
-
 	elif mode == MODE.game_over:
 		context.set_text("GAME OVER")
 		start_button.set_text("Try again")
