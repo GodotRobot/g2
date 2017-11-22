@@ -1,3 +1,12 @@
+'''Warp game highscore server
+CREATE TABLE scores (
+    name  TEXT,
+    date  INTEGER,
+    score INTEGER,
+    ip    TEXT
+);
+'''
+
 from flask import Flask, render_template, request
 from werkzeug.exceptions import BadRequest
 import json
@@ -11,11 +20,12 @@ def add_or_view():
 	if request.method == 'POST':
 		name = request.form['name']
 		score = request.form['score']
-		return post_new_score(name, score)
+		ip = request.remote_addr
+		return post_new_score(name, ip, score)
 	elif request.method == 'GET':
 		return get_table()
 
-def post_new_score(name, score):
+def post_new_score(name, ip, score):
 	try:
 		if len(name) > 8 or int(score) > 999999:
 			raise BadRequest("invalid parameters (1)")
@@ -24,7 +34,7 @@ def post_new_score(name, score):
 	try:
 		with sqlite3.connect("highscores.db") as con:
 			cur = con.cursor()
-			cur.execute("INSERT INTO scores (name,date,score) VALUES (?,?,?)",(name,int(time.time()),score))
+			cur.execute("INSERT INTO scores (name,date,score,ip) VALUES (?,?,?,?)",(name,int(time.time()),score,ip))
 			con.commit()
 	except:
 		con.rollback()
