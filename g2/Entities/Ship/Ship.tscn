@@ -1,11 +1,20 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=23 format=1]
 
 [ext_resource path="res://Entities/Ship/ship.gd" type="Script" id=1]
-[ext_resource path="res://sheet/sheet.laserBlue08.atex" type="Texture" id=2]
-[ext_resource path="res://DefaultShader.tres" type="Shader" id=3]
-[ext_resource path="res://Entities/Ship/playerShip1_blue_normal.png" type="Texture" id=4]
-[ext_resource path="res://sheet/sheet.playerShip1_blue.atex" type="Texture" id=5]
+[ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
+[ext_resource path="res://Entities/Ship/playerShip1_blue_normal.png" type="Texture" id=3]
+[ext_resource path="res://sheet/sheet.playerShip1_blue.atex" type="Texture" id=4]
+[ext_resource path="res://sfx/WarpDrive_02.wav" type="Sample" id=5]
 [ext_resource path="res://sfx/sfx_laser1.wav" type="Sample" id=6]
+[ext_resource path="res://Particles/warp_frame01.tex" type="Texture" id=7]
+[ext_resource path="res://Particles/warp_frame02.tex" type="Texture" id=8]
+[ext_resource path="res://Particles/warp_frame03.tex" type="Texture" id=9]
+[ext_resource path="res://Particles/warp_frame04.tex" type="Texture" id=10]
+[ext_resource path="res://Particles/warp_frame05.tex" type="Texture" id=11]
+[ext_resource path="res://Particles/warp_frame06.tex" type="Texture" id=12]
+[ext_resource path="res://Particles/warp_frame07.tex" type="Texture" id=13]
+[ext_resource path="res://Particles/warp_frame08.tex" type="Texture" id=14]
+[ext_resource path="res://Particles/warp_frame09.tex" type="Texture" id=15]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -29,19 +38,34 @@ colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="CanvasItemMaterial" id=5]
 
-shader/shader = ExtResource( 3 )
+shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
-shader_param/normal = ExtResource( 4 )
+shader_param/normal = ExtResource( 3 )
 
 [sub_resource type="SampleLibrary" id=6]
 
+samples/WarpDrive = {
+"db": 0.0,
+"pitch": 1.5,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
 samples/sfx_laser1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 6 )
 }
+
+[sub_resource type="SpriteFrames" id=7]
+
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 25.0
+} ]
 
 [node name="ShipArea2D" type="Area2D" groups=[
 "ship",
@@ -99,6 +123,7 @@ color/color_ramp = SubResource( 3 )
 
 [node name="ShipParticles2D" type="Particles2D" parent="."]
 
+visibility/visible = false
 config/amount = 64
 config/lifetime = 3.0
 config/process_mode = 1
@@ -127,47 +152,12 @@ randomness/initial_size = 0.25
 randomness/final_size = 0.22
 color/color_ramp = SubResource( 4 )
 
-[node name="WarpParticles2D" type="Particles2D" parent="."]
-
-visibility/visible = false
-visibility/opacity = 0.86
-transform/pos = Vector2( -0.237701, 6.94388 )
-transform/scale = Vector2( 1.87382, 1.60265 )
-config/amount = 20
-config/lifetime = 0.1
-config/time_scale = 0.262334
-config/process_mode = 1
-config/local_space = false
-config/texture = ExtResource( 2 )
-params/direction = 0.0
-params/spread = 180.0
-params/linear_velocity = 20.0
-params/spin_velocity = 0.0
-params/orbit_velocity = 0.0
-params/gravity_direction = 0.0
-params/gravity_strength = 0.0
-params/radial_accel = 0.0
-params/tangential_accel = 0.0
-params/damping = 0.7
-params/initial_angle = 0.0
-params/initial_size = 2.0
-params/final_size = 7.0
-params/hue_variation = 0.0
-params/anim_speed_scale = 1.0
-params/anim_initial_pos = 0.0
-randomness/linear_velocity = 0.4
-randomness/damping = 0.51
-randomness/initial_size = 0.1
-randomness/final_size = 0.2
-color/color = Color( 0.898438, 0.161438, 0.282352, 1 )
-color/color_ramp = SubResource( 4 )
-
 [node name="ShipSprite" type="Sprite" parent="."]
 
 visibility/light_mask = 3
 material/material = SubResource( 5 )
 z/z = 1
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 
 [node name="ShipCollisionShape2D" type="CollisionPolygon2D" parent="."]
 
@@ -186,10 +176,10 @@ wait_time = 1.0
 one_shot = true
 autostart = true
 
-[node name="WarpTimer" type="Timer" parent="."]
+[node name="WarpTransparencyTimer" type="Timer" parent="."]
 
 process_mode = 1
-wait_time = 0.2
+wait_time = 0.02
 one_shot = false
 autostart = false
 
@@ -210,10 +200,18 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
+[node name="WarpAnimation" type="AnimatedSprite" parent="."]
+
+visibility/visible = false
+frames = SubResource( 7 )
+animation = "default"
+
 [connection signal="area_enter" from="." to="." method="_on_ShipArea2D_area_enter"]
 
 [connection signal="timeout" from="ShipActivationTimer" to="." method="_on_ShipActivationTimer_timeout"]
 
-[connection signal="timeout" from="WarpTimer" to="." method="_on_WarpTimer_timeout"]
+[connection signal="timeout" from="WarpTransparencyTimer" to="." method="_on_WarpTransparencyTimer_timeout"]
+
+[connection signal="finished" from="WarpAnimation" to="." method="_on_WarpAnimation_finished"]
 
 

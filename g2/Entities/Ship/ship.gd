@@ -32,8 +32,8 @@ onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
 onready var ship_activation_timer = get_node("ShipActivationTimer")
-onready var warp_timer = get_node("WarpTimer")
-onready var warp_particles = get_node("WarpParticles2D")
+onready var warp_transparency_timer = get_node("WarpTransparencyTimer")
+onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
 
 const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
@@ -126,31 +126,25 @@ func _process(delta):
 				sfx.play("sfx_laser1")
 
 	# if the ship flies out of the viewport, activate warp
-	var ship_height_rad = (sprite.get_texture().get_height() / 2.0)
-	var ship_width_rad = (sprite.get_texture().get_width() / 2.0)
-	if new_pos.x + ship_width_rad > get_viewport_rect().size.x:
+	if new_pos.x > get_viewport_rect().size.x or new_pos.x < 0 or new_pos.y < 0 or new_pos.y > get_viewport_rect().size.y:
 		warp_ship()
-	elif new_pos.x - ship_width_rad < 0:
-		warp_ship()
-	elif new_pos.y - ship_height_rad  < 0:
-		warp_ship()
-	elif new_pos.y + ship_height_rad > get_viewport_rect().size.y:
-		warp_ship()
-		
+
 	set_pos(new_pos)
 	rotate(delta_rad)
 
 func warp_ship():
-	self.ship_state = SHIP_STATE.warp_start
+	ship_state = SHIP_STATE.warp_start
 	var ship_width = sprite.get_texture().get_width()
 	var ship_height = sprite.get_texture().get_height()
 	var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
 	var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
 	print("warping to " + str(rand_x) + "," + str(rand_y))
 	warp_dest = Vector2(rand_x, rand_y)
-	sprite.hide()
-	self.warp_particles.show()
-	self.warp_timer.start()
+	warp_animation.set_frame(0)
+	warp_animation.show()
+	warp_animation.play()
+	warp_transparency_timer.start()
+	sfx.play("WarpDrive")
 
 func start_death():
 	dead_timestamp = OS.get_ticks_msec()
@@ -184,16 +178,26 @@ func _on_ShipActivationTimer_timeout():
 	sprite.get_material().set_shader_param("BLINKING_SPEED", 0.0)
 
 
-func _on_WarpTimer_timeout():
+func _on_WarpAnimation_finished():
 	if (ship_state == SHIP_STATE.warp_start):
 		set_pos(warp_dest)
 		ship_state = SHIP_STATE.warp_end
+		warp_animation.set_frame(0)
+		warp_animation.show()
+		warp_animation.play()
 	elif (ship_state == SHIP_STATE.warp_end):
-		warp_particles.hide()
-		sprite.show()
-		warp_timer.stop()
 		ship_state = SHIP_STATE.active
+		warp_animation.stop()
+		warp_animation.hide()
 		sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
 		ship_activation_timer.start()
-		
-	
+
+func _on_WarpTransparencyTimer_timeout():
+	var ship_opacity = sprite.get_opacity()
+	if (ship_state == SHIP_STATE.warp_start):
+			if (ship_opacity > 0):
+				ship_opacity -= 0.1
+	if (ship_state == SHIP_STATE.warp_end):
+		if (ship_opacity < 1.0):
+				ship_opacity += 0.1
+	sprite.set_opacity(ship_opacity)
