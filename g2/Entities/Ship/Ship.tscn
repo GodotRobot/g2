@@ -84,6 +84,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+collision/mask = 2
 script/script = ExtResource( 1 )
 free_movement = true
 can_shoot = true
@@ -124,7 +125,6 @@ color/color_ramp = SubResource( 3 )
 
 [node name="ShipParticles2D" type="Particles2D" parent="."]
 
-visibility/visible = false
 config/amount = 64
 config/lifetime = 3.0
 config/process_mode = 1
@@ -206,6 +206,7 @@ default/chorus_send = 0.0
 visibility/visible = false
 frames = SubResource( 7 )
 animation = "default"
+frame = 2
 
 [connection signal="area_enter" from="." to="." method="_on_ShipArea2D_area_enter"]
 

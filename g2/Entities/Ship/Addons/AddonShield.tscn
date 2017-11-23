@@ -4,6 +4,8 @@
 
 [node name="AddonBase" instance=ExtResource( 1 )]
 
-power = 0
+[node name="Area2D" parent="."]
+
+collision/mask = 2
 
 

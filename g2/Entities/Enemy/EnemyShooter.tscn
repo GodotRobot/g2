@@ -1,0 +1,211 @@
+[gd_scene load_steps=13 format=1]
+
+[ext_resource path="res://Entities/Enemy/EnemyBase.gd" type="Script" id=1]
+[ext_resource path="res://sheet/sheet.enemyGreen5.atex" type="Texture" id=2]
+[ext_resource path="res://sfx/explosion1.smp" type="Sample" id=3]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 5.41844, -7.68687, 8.39307, -7.74566, 4.85719, 5.65838, 2.55606, -5.68802 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -4.68407, 5.59959, -8.21995, -7.56929, -5.4137, -7.74566, -2.21457, -5.57044, 4.85719, 5.65838, 1.99481, 7.48086, -1.87782, 7.48086 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -2.21457, -5.57044, 2.55606, -5.68802, 4.85719, 5.65838 )
+
+[sub_resource type="ColorRamp" id=4]
+
+offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
+colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
+
+[sub_resource type="ColorRamp" id=5]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="SampleLibrary" id=6]
+
+samples/explosion1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 3 )
+}
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 5.15975, -7.27281, 7.801, -7.27281, 4.85719, 5.65838, 2.55606, -5.68802 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -4.68407, 5.59959, -7.80194, -7.21808, -4.67157, -7.27281, -2.21457, -5.57044, 4.85719, 5.65838, 1.99481, 7.48086, -1.87782, 7.48086 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -2.21457, -5.57044, 2.55606, -5.68802, 4.85719, 5.65838 )
+
+[node name="EnemyShooter" type="KinematicBody2D" groups=[
+"enemies",
+]]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 4.23745, 0, 0, 4.04539, -0.527582, 0.586169 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 4.23745, 0, 0, 4.04539, -0.527582, 0.586169 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 3 )
+shapes/2/transform = Matrix32( 4.23745, 0, 0, 4.04539, -0.527582, 0.586169 )
+shapes/2/trigger = false
+collision/layers = 4
+collision/mask = 6
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+personality = "Shooter"
+drop = "Nothing"
+drop_value = 10
+speed_min = 1.0
+speed_max = 2.0
+course_time_min = 5.0
+course_time_max = 15.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( -0.527582, 0.586169 )
+transform/scale = Vector2( 4.23745, 4.04539 )
+build_mode = 0
+polygon = Vector2Array( -8.21995, -7.56929, -4.68407, 5.59959, -1.87782, 7.48086, 1.99481, 7.48086, 4.85719, 5.65838, 8.39307, -7.74566, 5.41844, -7.68687, 2.55606, -5.68802, -2.21457, -5.57044, -5.4137, -7.74566 )
+shape_range = Vector2( 0, 2 )
+trigger = false
+
+[node name="DeathEffect" type="Particles2D" parent="."]
+
+config/amount = 64
+config/lifetime = 1.46025
+config/emit_timeout = 1.0
+config/emitting = false
+config/process_mode = 1
+config/local_space = false
+config/explosiveness = 0.15
+params/direction = 0.0
+params/spread = 180.0
+params/linear_velocity = 90.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.1
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 6.0
+params/tangential_accel = 0.0
+params/damping = 26.257
+params/initial_angle = 0.0
+params/initial_size = 5.0
+params/final_size = 0.75
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spread = 0.41
+randomness/linear_velocity = -0.26
+randomness/radial_accel = 0.71
+randomness/damping = 0.61
+randomness/initial_size = 1.0
+color/color = Color( 0, 0, 0, 1 )
+color/color_ramp = SubResource( 4 )
+
+[node name="FlowEffect" type="Particles2D" parent="."]
+
+config/amount = 64
+config/lifetime = 3.0
+config/process_mode = 1
+config/half_extents = Vector2( 24, 3 )
+config/local_space = false
+params/direction = 0.0
+params/spread = 180.0
+params/linear_velocity = 20.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 180.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.7
+params/initial_angle = 0.0
+params/initial_size = 1.5
+params/final_size = 5.25
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/linear_velocity = 0.22
+randomness/damping = 0.51
+randomness/initial_size = 0.25
+randomness/final_size = 0.22
+color/color_ramp = SubResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 2 )
+
+[node name="CourseTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="SamplePlayer" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 6 )
+config/pitch_random = 0.0
+
+[node name="HitBox" type="Area2D" parent="."]
+
+transform/pos = Vector2( 0.33695, -1.44548 )
+transform/scale = Vector2( 1.2034, 1.14533 )
+input/pickable = true
+shapes/0/shape = SubResource( 7 )
+shapes/0/transform = Matrix32( 4.04051, 0, 0, 3.79369, -0.510536, 0.552844 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 8 )
+shapes/1/transform = Matrix32( 4.04051, 0, 0, 3.79369, -0.510536, 0.552844 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 9 )
+shapes/2/transform = Matrix32( 4.04051, 0, 0, 3.79369, -0.510536, 0.552844 )
+shapes/2/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+monitorable = false
+
+[node name="HitBoxCollision" type="CollisionPolygon2D" parent="HitBox"]
+
+visibility/visible = false
+transform/pos = Vector2( -0.510536, 0.552844 )
+transform/scale = Vector2( 4.04051, 3.79369 )
+build_mode = 0
+polygon = Vector2Array( -7.80194, -7.21808, -4.68407, 5.59959, -1.87782, 7.48086, 1.99481, 7.48086, 4.85719, 5.65838, 7.801, -7.27281, 5.15975, -7.27281, 2.55606, -5.68802, -2.21457, -5.57044, -4.67157, -7.27281 )
+shape_range = Vector2( 0, 2 )
+trigger = false
+
+[connection signal="timeout" from="CourseTimer" to="." method="_on_CourseTimer_timeout"]
+
+[connection signal="body_enter" from="HitBox" to="." method="_on_Area2D_body_enter"]
+
+

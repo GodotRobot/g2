@@ -26,7 +26,6 @@ export(float) var fake_speed = 0.0 setget set_fake_speed
 
 onready var GameManager = get_node("/root/GameManager")
 onready var bullet = preload("res://Entities/Bullet/Bullet.tscn")
-onready var bullet_physical = preload("res://Entities/Bullet/BulletPhysical.tscn")
 onready var death_particle_effect = get_node("ShipDeathParticles2D")
 onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
@@ -41,15 +40,13 @@ const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
 
 func active():
-	return ship_state == SHIP_STATE.active and ship_activation_timer.get_time_left() <= 0.0 
+	return ship_state == SHIP_STATE.active and ship_activation_timer.get_time_left() <= 0.0
 
 func bullet_instance():
+	# TODO another type of bullet?
 	if can_shoot and (ammo_count_ > 0):
 		ammo_count_ -= 1
-		if ammo_type_ == AMMO_TYPE.regular:
-			return bullet.instance()
-		elif ammo_type_ == AMMO_TYPE.physical_pusher:
-			return bullet_physical.instance()
+		return bullet.instance()
 	else:
 		return null
 
@@ -61,13 +58,13 @@ func set_fake_speed(new_speed):
 	fake_speed = new_speed
 
 # copy important stuff into instance, and return it
-func clone(insatnce):
-	insatnce.set_pos(get_pos())
-	insatnce.set_rot(get_rot())
-	insatnce.free_movement = free_movement
-	insatnce.can_shoot = can_shoot
-	insatnce.fake_speed = fake_speed
-	return insatnce
+func clone(instance):
+	instance.set_pos(get_pos())
+	instance.set_rot(get_rot())
+	instance.free_movement = free_movement
+	instance.can_shoot = can_shoot
+	instance.fake_speed = fake_speed
+	return instance
 
 func _ready():
 	ship_state = SHIP_STATE.active
@@ -82,25 +79,25 @@ func _process(delta):
 		if death_anim_ended and flowing_anim_ended:
 			queue_free()
 		return
-	
+
 	if GameManager.paused:
 		return
-	
+
 	# if the ship is currently warping let _on_WarpTimer_timeout update ship position
 	if ship_state in [SHIP_STATE.warp_start, SHIP_STATE.warp_end]:
 		return
-		
+
 	var v = Vector2(0.0, -1.0).rotated(get_rot())
 	var vn = Vector2(0.0, -1.0).rotated(get_rot() + PI/2.0)
 	var new_pos = get_pos()
 	var delta_rad = 0.0
 	var f1 = 280.0
 	var f2 = 4.0
-	
+
 	if Input.is_action_pressed("ui_warp") and self.active():
 		warp_ship()
 		return
-		
+
 	if Input.is_action_pressed("ui_up"):
 		new_pos += v * delta * f1
 	if Input.is_action_pressed("ui_down"):
@@ -121,8 +118,8 @@ func _process(delta):
 			last_laser_timestamp = now
 			var new_bullet = bullet_instance()
 			if new_bullet:
-				new_bullet.v_ = v * delta * f1 * 1.3
-				new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
+				new_bullet.velocity = v * delta * f1 * 130
+				new_bullet.set_global_transform(get_global_transform())
 				get_parent().add_child(new_bullet)
 				sfx.play("sfx_laser1")
 
@@ -178,7 +175,6 @@ func _on_ShipArea2D_area_enter( area ):
 
 func _on_ShipActivationTimer_timeout():
 	sprite.get_material().set_shader_param("BLINKING_SPEED", 0.0)
-
 
 func _on_WarpAnimation_finished():
 	if (ship_state == SHIP_STATE.warp_start):

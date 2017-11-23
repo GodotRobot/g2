@@ -14,7 +14,6 @@ level_speed = 90.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -28,7 +27,6 @@ scroll/ignore_camera_zoom = false
 
 [node name="Background0" type="ParallaxLayer" parent="ParallaxBackground"]
 
-editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1280, 720 )
@@ -49,6 +47,7 @@ motion/mirroring = Vector2( 1280, 720 )
 [node name="CloudsSprite" type="Sprite" parent="ParallaxBackground/Background1"]
 
 visibility/opacity = 0.54
+visibility/light_mask = 8
 texture = ExtResource( 3 )
 centered = false
 region = true

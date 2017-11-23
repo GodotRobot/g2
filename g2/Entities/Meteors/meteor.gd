@@ -6,7 +6,6 @@ export(float, -5.0, 5.0, 0.1) var rotation_speed = 0.0
 export(Vector2) var direction = Vector2(0.0, 0.0)
 
 func _ready():
-	GameManager.dbg("meteor ready: " + get_name())
 	set_process(true)
 
 func _process(delta):

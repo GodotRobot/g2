@@ -26,6 +26,17 @@ func _process(delta):
 level_type = "obstacles"
 level_speed = 200.0
 
+[node name="ParallaxBackground" parent="."]
+
+editor/display_folded = false
+scroll/ignore_camera_zoom = true
+
+[node name="Background1" parent="ParallaxBackground"]
+
+motion/scale = Vector2( 1, 0.4 )
+motion/offset = Vector2( 0, 1 )
+motion/mirroring = Vector2( 0, 720 )
+
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
 
 texture = ExtResource( 2 )
@@ -53,12 +64,6 @@ drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 script/script = SubResource( 1 )
 
-[node name="Background1" parent="ParallaxBackground"]
-
-motion/scale = Vector2( 1, 0.4 )
-motion/offset = Vector2( 0, 1 )
-motion/mirroring = Vector2( 0, 720 )
-
 [node name="Background2" type="ParallaxLayer" parent="ParallaxBackground"]
 
 motion/scale = Vector2( 1, 0.8 )
@@ -72,10 +77,6 @@ texture = ExtResource( 2 )
 centered = false
 region = true
 region_rect = Rect2( 0, 0, 1280, 720 )
-
-[node name="GameLayer" parent="."]
-
-editor/display_folded = true
 
 [node name="ShipArea2D" parent="GameLayer"]
 
@@ -317,9 +318,5 @@ direction = Vector2( 4, 4 )
 transform/pos = Vector2( 947.489, -835.086 )
 rotation_speed = 1.7
 direction = Vector2( -4, 4 )
-
-[node name="ParallaxBackground" parent="."]
-
-scroll/ignore_camera_zoom = true
 
 

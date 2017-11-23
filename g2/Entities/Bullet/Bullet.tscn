@@ -1,45 +1,43 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://Entities/Bullet/bullet.gd" type="Script" id=1]
-[ext_resource path="res://light.png" type="Texture" id=2]
-[ext_resource path="res://sheet/sheet.laserRed08.atex" type="Texture" id=3]
+[ext_resource path="res://Entities/Bullet/BulletBase.gd" type="Script" id=1]
+[ext_resource path="res://Entities/Bullet/radial_light.png" type="Texture" id=2]
+[ext_resource path="res://sheet/sheet.laserBlue15.atex" type="Texture" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 12.5925
+radius = 4.45907
+height = 47.1277
 
 [sub_resource type="ColorRamp" id=2]
 
 offsets = FloatArray( 0, 1 )
-colors = ColorArray( 0, 1, 1, 1, 0, 1, 1, 0 )
+colors = ColorArray( 0, 0.552941, 1, 1, 0, 1, 1, 0 )
 
-[node name="BulletArea2D" type="Area2D"]
+[node name="Bullet" type="KinematicBody2D"]
 
-transform/scale = Vector2( 0.75, 0.75 )
-input/pickable = true
+input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-collision/layers = 2
-collision/mask = 4
+collision/layers = 1
+collision/mask = 0
+collision/margin = 0.08
 script/script = ExtResource( 1 )
 
-[node name="BulletCollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Particles2D" type="Particles2D" parent="."]
+[node name="EngineEffect" type="Particles2D" parent="."]
 
 config/amount = 80
 config/lifetime = 1.0
 config/process_mode = 1
+config/offset = Vector2( 0, 25 )
 config/half_extents = Vector2( 5, 5 )
 config/local_space = false
 params/direction = 0.0
@@ -58,17 +56,18 @@ params/final_size = 4.0
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
-color/color = Color( 0, 1, 1, 1 )
+color/color = Color( 0, 0.552941, 1, 1 )
 color/color_ramp = SubResource( 2 )
 
-[node name="Light2D" type="Light2D" parent="."]
+[node name="Glow" type="Light2D" parent="."]
 
+visibility/light_mask = 0
 enabled = true
 editor_only = false
 texture = ExtResource( 2 )
 offset = Vector2( 0, 0 )
 scale = 1.0
-color = Color( 0, 1, 1, 1 )
+color = Color( 0, 0.554688, 1, 1 )
 energy = 10.0
 mode = 0
 range/height = 0.0
@@ -76,19 +75,15 @@ range/z_min = -1024
 range/z_max = 1024
 range/layer_min = -1
 range/layer_max = 2
-range/item_mask = 6
+range/item_mask = 14
 shadow/enabled = false
 shadow/color = Color( 0, 0, 0, 0 )
 shadow/buffer_size = 2048
 shadow/esm_multiplier = 80.0
 shadow/item_mask = 1
 
-[node name="BulletSprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 
-transform/pos = Vector2( 0, -4.76837e-07 )
-transform/scale = Vector2( 0.625, 0.652174 )
 texture = ExtResource( 3 )
-
-[connection signal="area_enter" from="." to="." method="_on_BulletArea2D_area_enter"]
 
 
