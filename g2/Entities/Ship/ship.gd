@@ -98,7 +98,7 @@ func _process(delta):
 	var f1 = 280.0
 	var f2 = 4.0
 	var movement_offset = Vector2(0,0)
-	
+
 	if Input.is_action_pressed("ui_warp") and self.active():
 		var ship_width = sprite.get_texture().get_width()
 		var ship_height = sprite.get_texture().get_height()
@@ -127,34 +127,34 @@ func _process(delta):
 			last_laser_timestamp = now
 			var new_bullet = bullet_instance()
 			if new_bullet:
-				new_bullet.v_ = v * delta * f1 * 1.3
-				new_bullet.set_pos(get_transform() * Vector2(0.0, -45.0))
+				new_bullet.velocity = v * delta * f1 * 150.0
+				new_bullet.set_global_transform(get_global_transform())
 				get_parent().add_child(new_bullet)
 				sfx.play("sfx_laser1")
 
 	new_pos += movement_offset
-	
+
 	# if the ship flies out of the viewport, activate warp to the other direction
 	if new_pos.x > get_viewport_rect().size.x:
 		var pos_x = 1
 		var pos_y = get_pos().y
 		warp_ship(pos_x,pos_y)
-		
+
 	elif new_pos.x < 0:
 		var pos_x = get_viewport_rect().size.x - 1
 		var pos_y = get_pos().y
 		warp_ship(pos_x,pos_y)
-		
+
 	elif new_pos.y < 0:
 		var pos_x = get_pos().x
 		var pos_y = get_viewport_rect().size.y - 1
 		warp_ship(pos_x,pos_y)
-		
+
 	elif new_pos.y > get_viewport_rect().size.y:
 		var pos_x = get_pos().x
 		var pos_y = 1
 		warp_ship(pos_x,pos_y)
-		
+
 
 	direction_camera.update(movement_offset)
 	set_pos(new_pos)
