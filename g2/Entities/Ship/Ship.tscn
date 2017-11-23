@@ -210,6 +210,8 @@ frame = 2
 
 [connection signal="area_enter" from="." to="." method="_on_ShipArea2D_area_enter"]
 
+[connection signal="enter_tree" from="." to="." method="_on_ShipArea2D_enter_tree"]
+
 [connection signal="timeout" from="ShipActivationTimer" to="." method="_on_ShipActivationTimer_timeout"]
 
 [connection signal="timeout" from="WarpTransparencyTimer" to="." method="_on_WarpTransparencyTimer_timeout"]
