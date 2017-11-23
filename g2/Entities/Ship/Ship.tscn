@@ -72,6 +72,7 @@ animations = [ {
 ]]
 
 visibility/light_mask = 2
+transform/scale = Vector2( 0.75, 0.75 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )

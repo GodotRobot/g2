@@ -43,9 +43,10 @@ samples/explosion1 = {
 ]]
 
 visibility/light_mask = 4
+transform/scale = Vector2( 0.75, 0.75 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 89.8349, 0, 0, 57.2444, -49.3227, -83.2269 )
+shapes/0/transform = Matrix32( 89.8349, 0, 0, 57.2444, -52.5806, -81.5979 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -64,7 +65,7 @@ course_time_max = 15.0
 
 [node name="EnemyCollisionShape2D" type="CollisionPolygon2D" parent="."]
 
-transform/pos = Vector2( -49.3227, -83.2269 )
+transform/pos = Vector2( -52.5806, -81.5979 )
 transform/scale = Vector2( 89.8349, 57.2444 )
 build_mode = 0
 polygon = Vector2Array( 0.100216, 1.79734, 0.422766, 2.18729, 0.673638, 2.18729, 1.00097, 1.81609, 0.999248, 0.957522, 0.750094, 0.709979, 0.341531, 0.709979, 0.0954373, 0.946199 )
@@ -143,6 +144,7 @@ texture = ExtResource( 4 )
 
 visibility/light_mask = 3
 transform/pos = Vector2( 0.529816, 37.799 )
+transform/scale = Vector2( 0.75, 0.75 )
 enabled = true
 editor_only = false
 texture = ExtResource( 5 )

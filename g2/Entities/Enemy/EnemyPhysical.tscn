@@ -30,6 +30,7 @@ samples/explosion1 = {
 
 [node name="EnemyArea2D" type="RigidBody2D"]
 
+transform/scale = Vector2( 0.75, 0.75 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 89.8349, 0, 0, 57.2444, -49.3227, -83.2269 )

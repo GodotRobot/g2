@@ -19,6 +19,7 @@ extents = Vector2( 10, 10 )
 ]]
 
 material/material = SubResource( 1 )
+transform/scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 script/script = ExtResource( 3 )
 health = 0

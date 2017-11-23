@@ -4,7 +4,6 @@
 [ext_resource path="res://light.png" type="Texture" id=2]
 [ext_resource path="res://sheet/sheet.laserRed08.atex" type="Texture" id=3]
 
-
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -17,6 +16,7 @@ colors = ColorArray( 0, 1, 1, 1, 0, 1, 1, 0 )
 
 [node name="BulletArea2D" type="Area2D"]
 
+transform/scale = Vector2( 0.75, 0.75 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
