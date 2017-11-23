@@ -100,6 +100,7 @@ func _process(delta):
 	var delta_rad = 0.0
 	var f1 = 280.0
 	var f2 = 4.0
+	var movement_offset = Vector2(0,0)
 	
 	if Input.is_action_pressed("ui_warp") and self.active():
 		var ship_width = sprite.get_texture().get_width()
@@ -109,18 +110,20 @@ func _process(delta):
 		warp_ship(rand_x, rand_y)
 		return
 		
+	
+		
 	if Input.is_action_pressed("ui_up"):
-		new_pos += v * delta * f1
+		movement_offset = v * delta * f1
 	if Input.is_action_pressed("ui_down"):
-		new_pos -= v * delta * f1
+		movement_offset = -(v * delta * f1)
 	if Input.is_action_pressed("ui_left"):
 		if not free_movement or Input.is_action_pressed("ui_starfe"):
-			new_pos += vn * delta * f1
+			movement_offset = vn * delta * f1
 		else:
 			delta_rad += delta * f2
 	if Input.is_action_pressed("ui_right"):
 		if not free_movement or Input.is_action_pressed("ui_starfe"):
-			new_pos -= vn * delta * f1
+			movement_offset = vn * delta * f1
 		else:
 			delta_rad -= delta * f2
 	if Input.is_action_pressed("ui_select"):
@@ -134,6 +137,8 @@ func _process(delta):
 				get_parent().add_child(new_bullet)
 				sfx.play("sfx_laser1")
 
+	new_pos += movement_offset
+	
 	# if the ship flies out of the viewport, activate warp to the other direction
 	if new_pos.x > get_viewport_rect().size.x:
 		var pos_x = 1
@@ -156,7 +161,7 @@ func _process(delta):
 		warp_ship(pos_x,pos_y)
 		
 
-	direction_camera.set_pos(new_pos)
+	direction_camera.update(movement_offset)
 	set_pos(new_pos)
 	rotate(delta_rad)
 
