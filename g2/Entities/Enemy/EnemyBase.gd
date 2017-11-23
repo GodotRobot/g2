@@ -108,6 +108,8 @@ func _fixed_process(delta):
 		var flowing_anim_ended = secs_since_death > flow_effect.get_lifetime()
 		if death_anim_ended and flowing_anim_ended:
 			queue_free()
+		if secs_since_death > GameManager.LEVEL_POST_MORTEM_DELAY_SEC:
+			remove_from_group("enemies")
 		return
 
 	var motion = velocity * delta
@@ -133,7 +135,6 @@ func start_death():
 	hitbox.set_layer_mask(0)
 	hitbox.set_collision_mask(0)
 	sfx.play("explosion1")
-	remove_from_group("enemies")
 	GameManager.enemy_destroyed(self)
 
 func _on_CourseTimer_timeout():

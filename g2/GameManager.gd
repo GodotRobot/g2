@@ -14,8 +14,13 @@ const LEVEL_PATH = "res://Levels/Level<N>.tscn"
 const SHIP = preload("res://Entities/Ship/Ship.tscn")
 const HTTP = preload("res://Menu/HTTP.gd")
 
-# game consts
+################### game consts and balance ##########################
+# initial ships upon starting the game
 const INITIAL_LIVES = 2
+# time to wait between killing the last enemy in the level and going to the next one
+const LEVEL_POST_MORTEM_DELAY_SEC = 1.0
+######################################################################
+
 
 var ship_pos_on_level_end
 var ship_rot_on_level_end
