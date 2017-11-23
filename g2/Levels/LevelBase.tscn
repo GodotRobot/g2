@@ -82,7 +82,7 @@ drag_margin/bottom = 0.2
 
 [node name="ShipArea2D" parent="GameLayer" instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 640, 360 )
+transform/pos = Vector2( 1521.74, 384.607 )
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
 

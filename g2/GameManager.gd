@@ -29,6 +29,8 @@ var lives = INITIAL_LIVES
 var paused = false
 var debug = false
 var score = 0
+var warp_remaining = 5
+var warp_to_start_level = true
 
 func dbg(msg):
 	if debug:
@@ -132,6 +134,7 @@ func start_game():
 	lives = INITIAL_LIVES
 	score = 0
 	goto_scene(LEVEL_PATH.replace("<N>", "1"))
+	warp_to_start_level = true
 
 func quit_game():
 	get_tree().quit()

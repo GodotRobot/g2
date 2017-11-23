@@ -20,6 +20,7 @@ var last_laser_timestamp = -1.0
 var ammo_type_ = AMMO_TYPE.regular
 var ammo_count_ = 99999
 var warp_dest = Vector2(0.0,0.0)
+
 export(bool) var free_movement = true
 export(bool) var can_shoot = true
 export(float) var fake_speed = 0.0 setget set_fake_speed
@@ -71,6 +72,9 @@ func clone(insatnce):
 
 func _ready():
 	ship_state = SHIP_STATE.active
+	if GameManager.warp_to_start_level:
+		warp_ship(get_viewport_rect().size.x / 2.0, get_viewport_rect().size.y / 2.0)
+		GameManager.warp_to_start_level = false
 	sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
 	set_process(true)
 
@@ -98,7 +102,11 @@ func _process(delta):
 	var f2 = 4.0
 	
 	if Input.is_action_pressed("ui_warp") and self.active():
-		warp_ship()
+		var ship_width = sprite.get_texture().get_width()
+		var ship_height = sprite.get_texture().get_height()
+		var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
+		var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
+		warp_ship(rand_x, rand_y)
 		return
 		
 	if Input.is_action_pressed("ui_up"):
@@ -126,22 +134,36 @@ func _process(delta):
 				get_parent().add_child(new_bullet)
 				sfx.play("sfx_laser1")
 
-	# if the ship flies out of the viewport, activate warp
-	if new_pos.x > get_viewport_rect().size.x or new_pos.x < 0 or new_pos.y < 0 or new_pos.y > get_viewport_rect().size.y:
-		warp_ship()
+	# if the ship flies out of the viewport, activate warp to the other direction
+	if new_pos.x > get_viewport_rect().size.x:
+		var pos_x = 1
+		var pos_y = get_pos().y
+		warp_ship(pos_x,pos_y)
+		
+	elif new_pos.x < 0:
+		var pos_x = get_viewport_rect().size.x - 1
+		var pos_y = get_pos().y
+		warp_ship(pos_x,pos_y)
+		
+	elif new_pos.y < 0:
+		var pos_x = get_pos().x
+		var pos_y = get_viewport_rect().size.y - 1
+		warp_ship(pos_x,pos_y)
+		
+	elif new_pos.y > get_viewport_rect().size.y:
+		var pos_x = get_pos().x
+		var pos_y = 1
+		warp_ship(pos_x,pos_y)
+		
 
 	direction_camera.set_pos(new_pos)
 	set_pos(new_pos)
 	rotate(delta_rad)
 
-func warp_ship():
+func warp_ship(pos_x, pos_y):
 	ship_state = SHIP_STATE.warp_start
-	var ship_width = sprite.get_texture().get_width()
-	var ship_height = sprite.get_texture().get_height()
-	var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
-	var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
-	GameManager.dbg("warping to " + str(rand_x) + "," + str(rand_y))
-	warp_dest = Vector2(rand_x, rand_y)
+	GameManager.dbg("warping to " + str(pos_x) + "," + str(pos_y))
+	warp_dest = Vector2(pos_x, pos_y)
 	warp_animation.set_frame(0)
 	warp_animation.show()
 	warp_animation.play()
@@ -203,3 +225,4 @@ func _on_WarpTransparencyTimer_timeout():
 		if (ship_opacity < 1.0):
 				ship_opacity += 0.1
 	sprite.set_opacity(ship_opacity)
+	
