@@ -26,10 +26,52 @@ func _process(delta):
 level_type = "obstacles"
 level_speed = 200.0
 
-[node name="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
 
-visibility/visible = false
 texture = ExtResource( 2 )
+centered = false
+region = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="Camera2D" type="Camera2D" parent="ParallaxBackground"]
+
+anchor_mode = 0
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+script/script = SubResource( 1 )
+
+[node name="Background1" parent="ParallaxBackground"]
+
+motion/scale = Vector2( 1, 0.4 )
+motion/offset = Vector2( 0, 1 )
+motion/mirroring = Vector2( 0, 720 )
+
+[node name="Background2" type="ParallaxLayer" parent="ParallaxBackground"]
+
+motion/scale = Vector2( 1, 0.8 )
+motion/offset = Vector2( 0, 1 )
+motion/mirroring = Vector2( 0, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background2"]
+
+visibility/opacity = 0.47
+texture = ExtResource( 2 )
+centered = false
+region = true
+region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="GameLayer" parent="."]
 
@@ -276,64 +318,8 @@ transform/pos = Vector2( 947.489, -835.086 )
 rotation_speed = 1.7
 direction = Vector2( -4, 4 )
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="ParallaxBackground" parent="."]
 
-layer = -1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-scroll/offset = Vector2( 0, 0 )
-scroll/base_offset = Vector2( 0, 0 )
-scroll/base_scale = Vector2( 1, 1 )
-scroll/limit_begin = Vector2( 0, 0 )
-scroll/limit_end = Vector2( 0, 0 )
 scroll/ignore_camera_zoom = true
-
-[node name="Camera2D" type="Camera2D" parent="ParallaxBackground"]
-
-anchor_mode = 0
-rotating = false
-current = true
-zoom = Vector2( 1, 1 )
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-drag_margin/h_enabled = true
-drag_margin/v_enabled = true
-smoothing/enable = false
-smoothing/speed = 5.0
-drag_margin/left = 0.2
-drag_margin/top = 0.2
-drag_margin/right = 0.2
-drag_margin/bottom = 0.2
-script/script = SubResource( 1 )
-
-[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
-
-motion/scale = Vector2( 1, 0.4 )
-motion/offset = Vector2( 0, 1 )
-motion/mirroring = Vector2( 0, 720 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
-
-texture = ExtResource( 2 )
-centered = false
-region = true
-region_rect = Rect2( 0, 0, 1280, 720 )
-
-[node name="Background2" type="ParallaxLayer" parent="ParallaxBackground"]
-
-motion/scale = Vector2( 1, 0.8 )
-motion/offset = Vector2( 0, 1 )
-motion/mirroring = Vector2( 0, 720 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background2"]
-
-visibility/opacity = 0.47
-texture = ExtResource( 2 )
-centered = false
-region = true
-region_rect = Rect2( 0, 0, 1280, 720 )
 
 

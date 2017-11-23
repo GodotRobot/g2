@@ -35,6 +35,7 @@ onready var ship_activation_timer = get_node("ShipActivationTimer")
 onready var warp_transparency_timer = get_node("WarpTransparencyTimer")
 onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
+onready var direction_camera = get_parent().get_node("DirectionCamera")
 
 const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
@@ -129,6 +130,7 @@ func _process(delta):
 	if new_pos.x > get_viewport_rect().size.x or new_pos.x < 0 or new_pos.y < 0 or new_pos.y > get_viewport_rect().size.y:
 		warp_ship()
 
+	direction_camera.set_pos(new_pos)
 	set_pos(new_pos)
 	rotate(delta_rad)
 
@@ -138,7 +140,7 @@ func warp_ship():
 	var ship_height = sprite.get_texture().get_height()
 	var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
 	var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
-	print("warping to " + str(rand_x) + "," + str(rand_y))
+	GameManager.dbg("warping to " + str(rand_x) + "," + str(rand_y))
 	warp_dest = Vector2(rand_x, rand_y)
 	warp_animation.set_frame(0)
 	warp_animation.show()
