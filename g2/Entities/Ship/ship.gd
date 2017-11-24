@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 
 const LASER_RECOVERY_MS = 200
 const BLINKING_SPEED = 8.0
@@ -59,13 +59,13 @@ func set_fake_speed(new_speed):
 	fake_speed = new_speed
 
 # copy important stuff into instance, and return it
-func clone(insatnce):
-	insatnce.set_pos(get_pos())
-	insatnce.set_rot(get_rot())
-	insatnce.free_movement = free_movement
-	insatnce.can_shoot = can_shoot
-	insatnce.fake_speed = fake_speed
-	return insatnce
+func clone(instance):
+	instance.set_pos(get_pos())
+	instance.set_rot(get_rot())
+	instance.free_movement = free_movement
+	instance.can_shoot = can_shoot
+	instance.fake_speed = fake_speed
+	return instance
 
 func _ready():
 	ship_state = SHIP_STATE.active
@@ -73,9 +73,9 @@ func _ready():
 		warp_ship(get_viewport_rect().size.x / 2.0, get_viewport_rect().size.y / 2.0)
 		GameManager.warp_to_start_level = false
 	sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
-	set_process(true)
+	set_fixed_process(true)
 
-func _process(delta):
+func _fixed_process(delta):
 	if dead_timestamp > 0:
 		var secs_since_death = (OS.get_ticks_msec() - dead_timestamp) / 1000.0
 		var death_anim_ended = secs_since_death > death_particle_effect.get_lifetime()
@@ -155,9 +155,8 @@ func _process(delta):
 		var pos_y = 1
 		warp_ship(pos_x,pos_y)
 
-
 	direction_camera.update(movement_offset)
-	set_pos(new_pos)
+	move_to(new_pos)
 	rotate(delta_rad)
 
 func warp_ship(pos_x, pos_y):
@@ -190,12 +189,12 @@ func add_shield(shield):
 		assert shield
 	GameManager.dbg(get_name() + " now has shield at " + String(shield.power))
 
-func _on_ShipArea2D_area_enter( area ):
-	if area extends COLLECTABLE_BASE: # FIXME not working!!!!
+func _on_HitBoxArea_body_enter( body ):
+	if body extends COLLECTABLE_BASE: # FIXME not working!!!!
 		return
 	if not active():
 		return
-	GameManager.dbg(get_name() + " collision with " + area.get_name() + ". Starting death!")
+	GameManager.dbg(get_name() + " collision with " + body.get_name() + ". Starting death!")
 	start_death()
 
 func _on_ShipActivationTimer_timeout():
@@ -203,7 +202,7 @@ func _on_ShipActivationTimer_timeout():
 
 func _on_WarpAnimation_finished():
 	if (ship_state == SHIP_STATE.warp_start):
-		set_pos(warp_dest)
+		move_to(warp_dest)
 		ship_state = SHIP_STATE.warp_end
 		warp_animation.set_frame(0)
 		warp_animation.show()

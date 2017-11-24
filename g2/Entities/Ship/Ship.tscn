@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=1]
+[gd_scene load_steps=27 format=1]
 
 [ext_resource path="res://Entities/Ship/ship.gd" type="Script" id=1]
 [ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
@@ -19,31 +19,36 @@
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 1.11069, 1.02079, 0.572356, 1.23139, 0.38305, 1.21735, -0.131624, 1.03483, -0.20853, 0.550451, 0.323892, 0.445151, 0.63743, 0.424091, 1.15802, 0.515351 )
+points = Vector2Array( 0.362362, 0.469673, 0.396982, 0.168409, 0.572966, 0.171832, 0.607586, 0.473096, 0.555656, 1.06878, 0.402752, 1.06193 )
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 0.323892, 0.445151, 0.353472, 0.0169337, 0.613767, 0.0239536, 0.63743, 0.424091 )
+points = Vector2Array( 0.607586, 0.473096, 0.982634, 0.541565, 0.956669, 0.904451, 0.555656, 1.06878 )
 
-[sub_resource type="ColorRamp" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 0.362362, 0.469673, 0.402752, 1.06193, 0.0103942, 0.918145, -0.0126856, 0.541565 )
+
+[sub_resource type="ColorRamp" id=4]
 
 offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
 colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
 
-[sub_resource type="ColorRamp" id=4]
+[sub_resource type="ColorRamp" id=5]
 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="CanvasItemMaterial" id=5]
+[sub_resource type="CanvasItemMaterial" id=6]
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 3 )
 
-[sub_resource type="SampleLibrary" id=6]
+[sub_resource type="SampleLibrary" id=7]
 
 samples/WarpDrive = {
 "db": 0.0,
@@ -58,7 +63,7 @@ samples/sfx_laser1 = {
 "sample": ExtResource( 6 )
 }
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=8]
 
 animations = [ {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
@@ -67,12 +72,26 @@ animations = [ {
 "speed": 25.0
 } ]
 
-[node name="ShipArea2D" type="Area2D" groups=[
+[sub_resource type="ConvexPolygonShape2D" id=9]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -1.83282, -2.35315, -1.3969, -7.29577, 1.3969, -7.29577, 1.92905, -2.28169, 1.13859, 7.43931, -1.15616, 7.40194 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 1.92905, -2.28169, 7.72867, -1.11975, 7.31679, 4.93513, 1.13859, 7.43931 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -1.83282, -2.35315, -1.15616, 7.40194, -7.30494, 5.08464, -7.59914, -1.23188 )
+
+[node name="ShipArea2D" type="KinematicBody2D" groups=[
 "ship",
 ]]
 
 visibility/light_mask = 2
-transform/scale = Vector2( 0.75, 0.75 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
@@ -80,11 +99,12 @@ shapes/0/trigger = false
 shapes/1/shape = SubResource( 2 )
 shapes/1/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
 shapes/1/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
+shapes/2/shape = SubResource( 3 )
+shapes/2/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
+shapes/2/trigger = false
+collision/layers = 1
 collision/mask = 2
+collision/margin = 0.08
 script/script = ExtResource( 1 )
 free_movement = true
 can_shoot = true
@@ -92,6 +112,7 @@ fake_speed = 0.0
 
 [node name="ShipDeathParticles2D" type="Particles2D" parent="."]
 
+visibility/visible = false
 config/amount = 64
 config/lifetime = 1.46025
 config/emit_timeout = 1.0
@@ -110,8 +131,8 @@ params/radial_accel = 6.0
 params/tangential_accel = 0.0
 params/damping = 26.257
 params/initial_angle = 0.0
-params/initial_size = 7.0
-params/final_size = 1.0
+params/initial_size = 5.0
+params/final_size = 0.75
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
@@ -121,7 +142,7 @@ randomness/radial_accel = 0.71
 randomness/damping = 0.61
 randomness/initial_size = 1.0
 color/color = Color( 0, 0, 0, 1 )
-color/color_ramp = SubResource( 3 )
+color/color_ramp = SubResource( 4 )
 
 [node name="ShipParticles2D" type="Particles2D" parent="."]
 
@@ -129,7 +150,7 @@ config/amount = 64
 config/lifetime = 3.0
 config/process_mode = 1
 config/offset = Vector2( 0, 10 )
-config/half_extents = Vector2( 32, 10 )
+config/half_extents = Vector2( 24, 7 )
 config/local_space = false
 params/direction = 0.0
 params/spread = 180.0
@@ -142,8 +163,8 @@ params/radial_accel = 0.0
 params/tangential_accel = 0.0
 params/damping = 0.7
 params/initial_angle = 0.0
-params/initial_size = 2.0
-params/final_size = 7.0
+params/initial_size = 1.5
+params/final_size = 5.0
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
@@ -151,23 +172,23 @@ randomness/linear_velocity = 0.22
 randomness/damping = 0.51
 randomness/initial_size = 0.25
 randomness/final_size = 0.22
-color/color_ramp = SubResource( 4 )
+color/color_ramp = SubResource( 5 )
 
 [node name="ShipSprite" type="Sprite" parent="."]
 
 visibility/light_mask = 3
-material/material = SubResource( 5 )
+material/material = SubResource( 6 )
+transform/scale = Vector2( 0.75, 0.75 )
 z/z = 1
 texture = ExtResource( 4 )
 
 [node name="ShipCollisionShape2D" type="CollisionPolygon2D" parent="."]
 
-visibility/visible = false
 transform/pos = Vector2( -36.0772, -38.5449 )
 transform/scale = Vector2( 74.3986, 62.6966 )
 build_mode = 0
-polygon = Vector2Array( 0.353472, 0.0169337, 0.613767, 0.0239536, 0.63743, 0.424091, 1.15802, 0.515351, 1.11069, 1.02079, 0.572356, 1.23139, 0.38305, 1.21735, -0.131624, 1.03483, -0.20853, 0.550451, 0.323892, 0.445151 )
-shape_range = Vector2( 0, 1 )
+polygon = Vector2Array( 0.396982, 0.168409, 0.572966, 0.171832, 0.607586, 0.473096, 0.982634, 0.541565, 0.956669, 0.904451, 0.555656, 1.06878, 0.402752, 1.06193, 0.0103942, 0.918145, -0.0126856, 0.541565, 0.362362, 0.469673 )
+shape_range = Vector2( 0, 2 )
 trigger = false
 
 [node name="ShipActivationTimer" type="Timer" parent="."]
@@ -175,7 +196,7 @@ trigger = false
 process_mode = 1
 wait_time = 1.0
 one_shot = true
-autostart = true
+autostart = false
 
 [node name="WarpTransparencyTimer" type="Timer" parent="."]
 
@@ -187,7 +208,7 @@ autostart = false
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
 config/polyphony = 10
-config/samples = SubResource( 6 )
+config/samples = SubResource( 7 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -204,18 +225,47 @@ default/chorus_send = 0.0
 [node name="WarpAnimation" type="AnimatedSprite" parent="."]
 
 visibility/visible = false
-frames = SubResource( 7 )
+transform/scale = Vector2( 0.75, 0.75 )
+frames = SubResource( 8 )
 animation = "default"
 frame = 2
 
-[connection signal="area_enter" from="." to="." method="_on_ShipArea2D_area_enter"]
+[node name="HitBoxArea" type="Area2D" parent="."]
 
-[connection signal="enter_tree" from="." to="." method="_on_ShipArea2D_enter_tree"]
+transform/pos = Vector2( -1.17632, 0.668036 )
+transform/scale = Vector2( 1.62991, 1.3046 )
+input/pickable = true
+shapes/0/shape = SubResource( 9 )
+shapes/0/transform = Matrix32( 2.96955, 0, 0, 2.92031, 0.592591, -0.658101 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 10 )
+shapes/1/transform = Matrix32( 2.96955, 0, 0, 2.92031, 0.592591, -0.658101 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 11 )
+shapes/2/transform = Matrix32( 2.96955, 0, 0, 2.92031, 0.592591, -0.658101 )
+shapes/2/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+monitorable = false
+collision/mask = 2
+
+[node name="HitBox" type="CollisionPolygon2D" parent="HitBoxArea"]
+
+transform/pos = Vector2( 0.592591, -0.658101 )
+transform/scale = Vector2( 2.96955, 2.92031 )
+build_mode = 0
+polygon = Vector2Array( -1.3969, -7.29577, 1.3969, -7.29577, 1.92905, -2.28169, 7.72867, -1.11975, 7.31679, 4.93513, 1.13859, 7.43931, -1.15616, 7.40194, -7.30494, 5.08464, -7.59914, -1.23188, -1.83282, -2.35315 )
+shape_range = Vector2( 0, 2 )
+trigger = false
 
 [connection signal="timeout" from="ShipActivationTimer" to="." method="_on_ShipActivationTimer_timeout"]
 
 [connection signal="timeout" from="WarpTransparencyTimer" to="." method="_on_WarpTransparencyTimer_timeout"]
 
 [connection signal="finished" from="WarpAnimation" to="." method="_on_WarpAnimation_finished"]
+
+[connection signal="body_enter" from="HitBoxArea" to="." method="_on_HitBoxArea_body_enter"]
 
 

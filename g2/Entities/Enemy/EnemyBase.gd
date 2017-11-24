@@ -66,7 +66,7 @@ func shoot():
 		get_parent().add_child(new_bullet)
 		sfx.play("sfx_laser1")
 
-func init_velocity(impulse = null):
+func init_velocity(impulse = null, shoot = false):
 	if personality_type == PERSONALITY_TYPE.random:
 		var time_to_course = rand_range(course_time_min, course_time_max)
 		velocity = calc_random_velocity(impulse)
@@ -77,7 +77,8 @@ func init_velocity(impulse = null):
 		velocity = calc_random_velocity(impulse)
 		course_timer.set_wait_time(time_to_course)
 		course_timer.start()
-		shoot()
+		if shoot:
+			shoot()
 
 func init_from_exports():
 	personality_type = PERSONALITY_TO_TYPE[personality]
@@ -120,7 +121,7 @@ func _fixed_process(delta):
 	if (is_colliding() or impulse != null):
 		move(motion)
 		angle = motion.angle()
-		init_velocity(impulse)
+		init_velocity(impulse, true)
 
 	flow_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(angle))
 	sprite.set_global_rot(angle)
@@ -138,7 +139,7 @@ func start_death():
 	GameManager.enemy_destroyed(self)
 
 func _on_CourseTimer_timeout():
-	init_velocity()
+	init_velocity(null, true)
 
 func _on_Area2D_body_enter( body ):
 	GameManager.dbg(get_name() + " collision with " + body.get_name())

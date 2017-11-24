@@ -4,22 +4,22 @@
 [ext_resource path="res://sheet/sheet.enemyBlack4.atex" type="Texture" id=2]
 [ext_resource path="res://sfx/explosion1.smp" type="Sample" id=3]
 
-[sub_resource type="ConvexPolygonShape2D" id=8]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.69406, 41.2027, -10.2583, 41.009, -39.5089, 19.1195, -39.7026, -27.9526, -17.6194, -41.125 )
 
-[sub_resource type="ColorRamp" id=3]
+[sub_resource type="ColorRamp" id=2]
 
 offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
 colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
 
-[sub_resource type="ColorRamp" id=4]
+[sub_resource type="ColorRamp" id=3]
 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="SampleLibrary" id=5]
+[sub_resource type="SampleLibrary" id=4]
 
 samples/explosion1 = {
 "db": 0.0,
@@ -28,7 +28,7 @@ samples/explosion1 = {
 "sample": ExtResource( 3 )
 }
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
+[sub_resource type="ConvexPolygonShape2D" id=5]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.69406, 41.2027, -10.2583, 41.009, -39.5089, 19.1195, -39.7026, -27.9526, -17.6194, -41.125 )
@@ -38,11 +38,11 @@ points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.
 ]]
 
 input/pickable = false
-shapes/0/shape = SubResource( 8 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.750591, 0, 0, 0.746646, -0.527582, 0.586169 )
 shapes/0/trigger = false
 collision/layers = 2
-collision/mask = 1
+collision/mask = 9
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 personality = "Random"
@@ -93,7 +93,7 @@ randomness/radial_accel = 0.71
 randomness/damping = 0.61
 randomness/initial_size = 1.0
 color/color = Color( 0, 0, 0, 1 )
-color/color_ramp = SubResource( 3 )
+color/color_ramp = SubResource( 2 )
 
 [node name="FlowEffect" type="Particles2D" parent="."]
 
@@ -122,7 +122,7 @@ randomness/linear_velocity = 0.22
 randomness/damping = 0.51
 randomness/initial_size = 0.25
 randomness/final_size = 0.22
-color/color_ramp = SubResource( 4 )
+color/color_ramp = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -144,7 +144,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 5 )
+config/samples = SubResource( 4 )
 config/pitch_random = 0.0
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -152,7 +152,7 @@ config/pitch_random = 0.0
 transform/pos = Vector2( 0.33695, -1.44548 )
 transform/scale = Vector2( 1.2495, 1.21808 )
 input/pickable = true
-shapes/0/shape = SubResource( 7 )
+shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -161,6 +161,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 monitorable = false
 collision/layers = 2
+collision/mask = 9
 
 [node name="HitBoxCollision" type="CollisionPolygon2D" parent="HitBox"]
 
