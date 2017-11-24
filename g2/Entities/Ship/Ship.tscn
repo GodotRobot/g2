@@ -112,7 +112,6 @@ fake_speed = 0.0
 
 [node name="ShipDeathParticles2D" type="Particles2D" parent="."]
 
-visibility/visible = false
 config/amount = 64
 config/lifetime = 1.46025
 config/emit_timeout = 1.0
