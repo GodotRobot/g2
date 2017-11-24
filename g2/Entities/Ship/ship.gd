@@ -202,7 +202,7 @@ func _on_ShipActivationTimer_timeout():
 
 func _on_WarpAnimation_finished():
 	if (ship_state == SHIP_STATE.warp_start):
-		move_to(warp_dest)
+		set_pos(warp_dest) # actual warp
 		ship_state = SHIP_STATE.warp_end
 		warp_animation.set_frame(0)
 		warp_animation.show()
