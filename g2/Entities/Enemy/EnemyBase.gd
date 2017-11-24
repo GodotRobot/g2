@@ -59,8 +59,7 @@ func calc_random_velocity(impulse):
 func shoot():
 	var new_bullet = BULLET.instance()
 	if new_bullet:
-		# TODO bullet speed should not depend on shooter speed! FIXME
-		new_bullet.velocity = velocity * 2
+		new_bullet.velocity = velocity
 		# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
 		new_bullet.set_global_transform(sprite.get_global_transform())
 		new_bullet.set_layer_mask(16)

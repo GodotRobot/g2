@@ -128,7 +128,7 @@ func _fixed_process(delta):
 			last_laser_timestamp = now
 			var new_bullet = bullet_instance()
 			if new_bullet:
-				new_bullet.velocity = v * delta * f1 * 150.0
+				new_bullet.velocity = v
 				new_bullet.set_global_transform(get_global_transform())
 				get_parent().add_child(new_bullet)
 				sfx.play("sfx_laser1")

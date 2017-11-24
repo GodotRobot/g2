@@ -25,7 +25,7 @@ func _fixed_process(delta):
 		if effect_anim_ended:
 			queue_free() # final death, all traces (particles) are also dead by now
 		return
-	var motion = velocity * delta
+	var motion = velocity.normalized() * GameManager.BULLET_SPEED * delta
 	move(motion)
 	if is_outside():
 		start_death()

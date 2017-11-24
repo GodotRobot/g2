@@ -19,8 +19,9 @@ const HTTP = preload("res://Menu/HTTP.gd")
 const INITIAL_LIVES = 2
 # time to wait between killing the last enemy in the level and going to the next one
 const LEVEL_POST_MORTEM_DELAY_SEC = 1.0
+# bullet speed is contant, so make sure the shooter is never faster than it
+const BULLET_SPEED = 700
 ######################################################################
-
 
 var ship_pos_on_level_end
 var ship_rot_on_level_end
