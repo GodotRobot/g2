@@ -56,7 +56,10 @@ func calc_random_velocity(impulse):
 	v *= 200.0 * rand_range(speed_min, speed_max)
 	return v
 
-func shoot():
+func shoot():	
+	if personality_type != PERSONALITY_TYPE.shooter or !is_ship_in_funnel():
+		return
+
 	var new_bullet = BULLET.instance()
 	if new_bullet:
 		new_bullet.velocity = velocity
@@ -117,10 +120,8 @@ func _fixed_process(delta):
 			remove_from_group("enemies")
 		return
 
-	var shoot = is_ship_in_funnel()
-	if shoot:
-		shoot()
-
+	shoot()
+	
 	var motion = velocity * delta
 	var angle = motion.angle()
 	
