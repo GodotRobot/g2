@@ -27,6 +27,7 @@ margin/bottom = 712.0
 
 [node name="LivesLeft" type="HBoxContainer" parent="HUD"]
 
+editor/display_folded = true
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -107,10 +108,10 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 1.0
-margin/top = 29.0
-margin/right = 133.0
-margin/bottom = 49.0
+margin/left = 2.0
+margin/top = 30.0
+margin/right = 134.0
+margin/bottom = 50.0
 custom_fonts/font = ExtResource( 3 )
 text = "Score:"
 uppercase = true

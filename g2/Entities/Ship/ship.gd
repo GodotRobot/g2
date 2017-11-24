@@ -119,7 +119,7 @@ func _fixed_process(delta):
 			delta_rad += delta * f2
 	if Input.is_action_pressed("ui_right"):
 		if not free_movement or Input.is_action_pressed("ui_starfe"):
-			movement_offset = vn * delta * f1
+			movement_offset = -(vn * delta * f1)
 		else:
 			delta_rad -= delta * f2
 	if Input.is_action_pressed("ui_select"):
@@ -156,7 +156,9 @@ func _fixed_process(delta):
 		var pos_y = 1
 		warp_ship(pos_x,pos_y)
 
-	direction_camera.update(movement_offset)
+	if direction_camera:
+		direction_camera.update(movement_offset)
+		
 	move_to(new_pos)
 	rotate(delta_rad)
 
