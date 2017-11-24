@@ -21,6 +21,16 @@ func _ready():
 	if power > 0:
 		timer.set_wait_time(float(power))
 		timer.start()
+	start()
+	set_process(true) # no need for fixed_process for now
+
+func start():
+	if type == TYPE.shield:
+		get_node("AnimationPlayer").play("ShieldGrow")
+
+func _process(delta):
+	if type == TYPE.shield:
+		pass
 
 func _on_Timer_timeout():
 	queue_free()
