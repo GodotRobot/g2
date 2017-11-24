@@ -67,8 +67,8 @@ shapes/1/trigger = false
 shapes/2/shape = SubResource( 3 )
 shapes/2/transform = Matrix32( 4.23745, 0, 0, 4.04539, -0.527582, 0.586169 )
 shapes/2/trigger = false
-collision/layers = 4
-collision/mask = 6
+collision/layers = 2
+collision/mask = 9
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 personality = "Shooter"
@@ -193,6 +193,8 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 monitorable = false
+collision/layers = 2
+collision/mask = 9
 
 [node name="HitBoxCollision" type="CollisionPolygon2D" parent="HitBox"]
 

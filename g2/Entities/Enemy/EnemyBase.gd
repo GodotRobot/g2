@@ -59,14 +59,16 @@ func calc_random_velocity(impulse):
 func shoot():
 	var new_bullet = BULLET.instance()
 	if new_bullet:
-		new_bullet.velocity = velocity * 10
-		new_bullet.set_global_transform(get_global_transform())
-		new_bullet.set_layer_mask(2)
+		# TODO bullet speed should not depend on shooter speed! FIXME
+		new_bullet.velocity = velocity * 2
+		# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
+		new_bullet.set_global_transform(sprite.get_global_transform())
+		new_bullet.set_layer_mask(16)
 		new_bullet.set_collision_mask(0)
 		get_parent().add_child(new_bullet)
 		sfx.play("sfx_laser1")
 
-func init_velocity(impulse = null, shoot = false):
+func init_velocity(impulse = null):
 	if personality_type == PERSONALITY_TYPE.random:
 		var time_to_course = rand_range(course_time_min, course_time_max)
 		velocity = calc_random_velocity(impulse)
@@ -77,8 +79,6 @@ func init_velocity(impulse = null, shoot = false):
 		velocity = calc_random_velocity(impulse)
 		course_timer.set_wait_time(time_to_course)
 		course_timer.start()
-		if shoot:
-			shoot()
 
 func init_from_exports():
 	personality_type = PERSONALITY_TO_TYPE[personality]
@@ -102,6 +102,9 @@ func is_outside():
 		impulse = Vector2(0.0, -1.0)
 	return impulse
 
+func is_ship_in_funnel():
+	return randf() < 0.01
+
 func _fixed_process(delta):
 	if dead_timestamp > 0:
 		var secs_since_death = (OS.get_ticks_msec() - dead_timestamp) / 1000.0
@@ -113,6 +116,10 @@ func _fixed_process(delta):
 			remove_from_group("enemies")
 		return
 
+	var shoot = is_ship_in_funnel()
+	if shoot:
+		shoot()
+
 	var motion = velocity * delta
 	var angle = motion.angle()
 	motion = move(motion)
@@ -121,7 +128,7 @@ func _fixed_process(delta):
 	if (is_colliding() or impulse != null):
 		move(motion)
 		angle = motion.angle()
-		init_velocity(impulse, true)
+		init_velocity(impulse)
 
 	flow_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(angle))
 	sprite.set_global_rot(angle)
@@ -139,7 +146,7 @@ func start_death():
 	GameManager.enemy_destroyed(self)
 
 func _on_CourseTimer_timeout():
-	init_velocity(null, true)
+	init_velocity(null)
 
 func _on_Area2D_body_enter( body ):
 	GameManager.dbg(get_name() + " collision with " + body.get_name())

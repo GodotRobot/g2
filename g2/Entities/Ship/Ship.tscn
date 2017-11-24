@@ -102,8 +102,8 @@ shapes/1/trigger = false
 shapes/2/shape = SubResource( 3 )
 shapes/2/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
 shapes/2/trigger = false
-collision/layers = 1
-collision/mask = 2
+collision/layers = 0
+collision/mask = 0
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 free_movement = true
@@ -249,7 +249,7 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 monitorable = false
-collision/mask = 2
+collision/mask = 18
 
 [node name="HitBox" type="CollisionPolygon2D" parent="HitBoxArea"]
 

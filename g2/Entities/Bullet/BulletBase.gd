@@ -23,7 +23,7 @@ func _fixed_process(delta):
 		var secs_since_death = (OS.get_ticks_msec() - dead_timestamp) / 1000.0
 		var effect_anim_ended = secs_since_death > effect.get_lifetime()
 		if effect_anim_ended:
-			queue_free()
+			queue_free() # final death, all traces (particles) are also dead by now
 		return
 	var motion = velocity * delta
 	move(motion)

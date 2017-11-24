@@ -37,7 +37,7 @@ points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.
 "enemies",
 ]]
 
-input/pickable = false
+input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.750591, 0, 0, 0.746646, -0.527582, 0.586169 )
 shapes/0/trigger = false
