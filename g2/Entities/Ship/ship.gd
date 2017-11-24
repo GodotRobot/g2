@@ -75,6 +75,7 @@ func _ready():
 		warp_ship(get_viewport_rect().size.x / 2.0, get_viewport_rect().size.y / 2.0)
 		GameManager.warp_to_start_level = false
 	sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
+	ship_activation_timer.start()
 	set_fixed_process(true)
 
 func _fixed_process(delta):

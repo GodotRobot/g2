@@ -87,7 +87,7 @@ points = Vector2Array( 1.92905, -2.28169, 7.72867, -1.11975, 7.31679, 4.93513, 1
 custom_solver_bias = 0.0
 points = Vector2Array( -1.83282, -2.35315, -1.15616, 7.40194, -7.30494, 5.08464, -7.59914, -1.23188 )
 
-[node name="ShipArea2D" type="KinematicBody2D" groups=[
+[node name="Ship" type="KinematicBody2D" groups=[
 "ship",
 ]]
 
