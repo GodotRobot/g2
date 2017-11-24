@@ -197,8 +197,6 @@ func add_shield(shield):
 	GameManager.dbg(get_name() + " now has shield at " + String(shield.power))
 
 func _on_HitBoxArea_body_enter( body ):
-	if body extends COLLECTABLE_BASE: # FIXME not working!!!!
-		return
 	if not active():
 		return
 	GameManager.dbg(get_name() + " collision with " + body.get_name() + ". Starting death!")
