@@ -36,6 +36,7 @@ onready var warp_transparency_timer = get_node("WarpTransparencyTimer")
 onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
 onready var direction_camera = get_parent().get_node("DirectionCamera")
+onready var hitbox = get_node("HitBox")
 
 const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
@@ -179,6 +180,8 @@ func start_death():
 	sprite.hide()
 	set_layer_mask(0)
 	set_collision_mask(0)
+	hitbox.set_layer_mask(0)
+	hitbox.set_collision_mask(0)
 	GameManager.ship_destroyed(self)
 
 func add_shield(shield):

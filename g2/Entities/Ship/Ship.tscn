@@ -230,7 +230,7 @@ frames = SubResource( 8 )
 animation = "default"
 frame = 2
 
-[node name="HitBoxArea" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
 
 transform/pos = Vector2( -1.17632, 0.668036 )
 transform/scale = Vector2( 1.62991, 1.3046 )
@@ -251,7 +251,7 @@ angular_damp = 1.0
 monitorable = false
 collision/mask = 18
 
-[node name="HitBox" type="CollisionPolygon2D" parent="HitBoxArea"]
+[node name="HitBoxCollision" type="CollisionPolygon2D" parent="HitBox"]
 
 transform/pos = Vector2( 0.592591, -0.658101 )
 transform/scale = Vector2( 2.96955, 2.92031 )
@@ -266,6 +266,6 @@ trigger = false
 
 [connection signal="finished" from="WarpAnimation" to="." method="_on_WarpAnimation_finished"]
 
-[connection signal="body_enter" from="HitBoxArea" to="." method="_on_HitBoxArea_body_enter"]
+[connection signal="body_enter" from="HitBox" to="." method="_on_HitBoxArea_body_enter"]
 
 
