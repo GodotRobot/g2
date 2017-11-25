@@ -165,16 +165,21 @@ func _fixed_process(delta):
 	rotate(delta_rad)
 
 func warp_ship(pos_x, pos_y):
-	ship_state = SHIP_STATE.warp_start
-	if not GameManager.warp_to_start_level:
-		GameManager.ship_warped()
-	GameManager.dbg("warping to " + str(pos_x) + "," + str(pos_y))
-	warp_dest = Vector2(pos_x, pos_y)
-	warp_animation.set_frame(0)
-	warp_animation.show()
-	warp_animation.play()
-	warp_transparency_timer.start()
-	sfx.play("WarpDrive")
+	if GameManager.cur_warp == 0:
+		# trying to warp with no charges left
+		start_death()
+	else:
+		ship_state = SHIP_STATE.warp_start
+		if not GameManager.warp_to_start_level:
+			# tell GameManager the ship warped only after the initial level warp
+			GameManager.ship_warped()
+		GameManager.dbg("warping to " + str(pos_x) + "," + str(pos_y))
+		warp_dest = Vector2(pos_x, pos_y)
+		warp_animation.set_frame(0)
+		warp_animation.show()
+		warp_animation.play()
+		warp_transparency_timer.start()
+		sfx.play("WarpDrive")
 
 func start_death():
 	dead_timestamp = OS.get_ticks_msec()

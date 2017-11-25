@@ -16,7 +16,7 @@ const HTTP = preload("res://Menu/HTTP.gd")
 
 ################### game consts and balance ##########################
 # initial ships upon starting the game
-const INITIAL_LIVES = 3
+const INITIAL_LIVES = 2
 # time to wait between killing the last enemy in the level and going to the next one
 const LEVEL_POST_MORTEM_DELAY_SEC = 1.0
 # bullet speed is contant, so make sure the shooter is never faster than it
@@ -66,10 +66,9 @@ func collectable_collected(collectable, who):
 		get_current_ship().add_shield(collectable.shield)
 
 func ship_warped():
-	cur_warp -= 1
-	var hud = current_scene.get_hud()
-	if hud:
-		hud.set_warp(cur_warp)
+	if cur_warp > 0:
+		cur_warp -= 1
+	current_scene.get_hud().set_warp(cur_warp)
 	
 	
 func ship_destroyed(instance):
@@ -78,6 +77,8 @@ func ship_destroyed(instance):
 	if lives > 0:
 		var new_ship = instance.clone(SHIP.instance())
 		instance.get_parent().add_child(new_ship) # old ship will be (self-)deleted once its death animation ends
+		cur_warp = INITIAL_WARP
+		current_scene.get_hud().set_warp(cur_warp)
 	else:
 		game_over()
 	var hud = current_scene.get_hud()

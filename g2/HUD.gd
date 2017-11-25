@@ -3,8 +3,12 @@ extends CanvasLayer
 onready var time_text = get_node("HUD/Time")
 onready var level_text = get_node("HUD/Level")
 onready var score_text = get_node("HUD/Score")
-onready var warp_text = get_node("HUD/Warp")
 onready var lives_container = get_node("HUD/LivesLeft")
+
+onready var warp_text = get_node("HUD/Warp")
+onready var warp_label = get_node("HUD/WarpLabel")
+onready var warp_blink_timer = get_node("HUD/WarpBlinkTimer")
+onready var warp_blink = true
 
 func _ready():
 	pass
@@ -13,6 +17,16 @@ func set_level(level):
 	level_text.set_text(str(level))
 	
 func set_warp(warp):
+	if warp == 0:
+		warp_label.add_color_override("font_color", Color(1,0,0))
+		warp_text.add_color_override("font_color", Color(1,0,0))
+		warp_blink_timer.start()
+	else:
+		warp_label.show()
+		warp_text.show()
+		warp_label.add_color_override("font_color", Color(1,1,1))
+		warp_text.add_color_override("font_color", Color(1,1,1))
+		warp_blink_timer.stop()
 	warp_text.set_text(str(warp))
 
 func set_score(points):
@@ -58,3 +72,14 @@ func remove_life(count):
 
 func _on_CheckBox_toggled( pressed ):
 	GameManager.debug = pressed
+
+
+func _on_WarpBlinkTimer_timeout():
+	if warp_blink:
+		warp_text.hide()
+		warp_label.hide()
+		warp_blink = false
+	else:
+		warp_text.show()
+		warp_label.show()
+		warp_blink = true
