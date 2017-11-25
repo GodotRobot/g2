@@ -42,7 +42,7 @@ shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.750591, 0, 0, 0.746646, -0.527582, 0.586169 )
 shapes/0/trigger = false
 collision/layers = 2
-collision/mask = 9
+collision/mask = 0
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 personality = "Random"
@@ -52,6 +52,7 @@ speed_min = 1.0
 speed_max = 2.0
 course_time_min = 5.0
 course_time_max = 15.0
+acceleration = 0.6
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 

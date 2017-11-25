@@ -7,12 +7,14 @@ const BULLET = preload("res://Entities/Bullet/Bullet.tscn")
 
 enum PERSONALITY_TYPE {
 	random = 0,
-	shooter = 1
+	shooter = 1,
+	drone = 2
 }
 
 const PERSONALITY_TO_TYPE = {
 	"Random" : PERSONALITY_TYPE.random,
-	"Shooter" : PERSONALITY_TYPE.shooter
+	"Shooter" : PERSONALITY_TYPE.shooter,
+	"Drone" : PERSONALITY_TYPE.drone
 }
 
 const DROP_TO_COLLECTABLE = {
@@ -22,13 +24,14 @@ const DROP_TO_COLLECTABLE = {
 	"Shield" : COLLECTABLE_BASE.TYPE.shield
 }
 
-export(String, "Random", "Shooter") var personality = "Random"
+export(String, "Random", "Shooter", "Drone") var personality = "Random"
 export(String, "Nothing", "Warp", "Health", "Shield") var drop = "Nothing"
 export(int, 0, 100) var drop_value = 10
 export(float, 0, 20, 0.5) var speed_min = 1.0
 export(float, 0, 20, 0.5) var speed_max = 2.0
 export(float, 0, 20, 0.5) var course_time_min = 5.0
 export(float, 0, 20, 0.5) var course_time_max = 15.0
+export(float, 0.0, 3.0, 0.1) var acceleration = 0.6
 
 var velocity = Vector2()
 var dead_timestamp = -1
@@ -56,6 +59,10 @@ func calc_random_velocity(impulse):
 	v *= 200.0 * rand_range(speed_min, speed_max)
 	return v
 
+func get_dir_to_ship():
+	var ship = GameManager.get_current_ship()
+	return (ship.get_pos() - get_pos()).normalized()
+
 func shoot():
 	if personality_type != PERSONALITY_TYPE.shooter or !is_ship_in_funnel():
 		return
@@ -81,6 +88,9 @@ func init_velocity(impulse = null):
 		velocity = calc_random_velocity(impulse)
 		course_timer.set_wait_time(time_to_course)
 		course_timer.start()
+	elif personality_type == PERSONALITY_TYPE.drone:
+		velocity = get_dir_to_ship()
+		velocity *= 200.0
 
 func init_from_exports():
 	personality_type = PERSONALITY_TO_TYPE[personality]
@@ -123,9 +133,10 @@ func _fixed_process(delta):
 
 	shoot()
 
+	if personality_type == PERSONALITY_TYPE.drone and acceleration != -1.0:
+		velocity *= delta * (60.0 + acceleration)
 	var motion = velocity * delta
 	var angle = motion.angle()
-
 	# special check to support static enemies in predefined positions
 	if velocity.length_squared() == 0:
 		var v = Vector2(0.0, 1.0).rotated(get_rot())
@@ -134,9 +145,7 @@ func _fixed_process(delta):
 		flow_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(angle))
 		sprite.set_global_rot(angle)
 		return
-
 	motion = move(motion)
-
 	var impulse = is_outside()
 	if (is_colliding() or impulse != null):
 		move(motion)
