@@ -15,7 +15,6 @@ level_speed = 90.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -59,7 +58,6 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="GameLayer" type="CanvasLayer" parent="."]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
