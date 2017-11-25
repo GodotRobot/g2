@@ -22,7 +22,6 @@ func _process(delta):
 
 [node name="Level4" instance=ExtResource( 1 )]
 
-editor/display_folded = false
 level_type = "obstacles"
 level_speed = 200.0
 
