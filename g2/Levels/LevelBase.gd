@@ -6,6 +6,8 @@ var GameManager
 
 export(String, "shooter", "obstacles") var level_type = "shooter"
 export(float, 0.0, 1000.0, 10.0) var level_speed = 90.0
+export(Vector2) var initial_pos = Vector2(640.0, 500.0)
+export(Vector2) var initial_rot = 0.0
 
 enum LEVEL_TYPE {
 	invalid = 0

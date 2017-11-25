@@ -76,6 +76,8 @@ func ship_destroyed(instance):
 	lives -= 1
 	if lives > 0:
 		var new_ship = instance.clone(SHIP.instance())
+		new_ship.set_pos(current_scene.initial_pos)
+		new_ship.set_rot(current_scene.initial_rot)
 		instance.get_parent().add_child(new_ship) # old ship will be (self-)deleted once its death animation ends
 		cur_warp = INITIAL_WARP
 		current_scene.get_hud().set_warp(cur_warp)
