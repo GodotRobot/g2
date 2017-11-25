@@ -4,17 +4,20 @@ const SHIP_BASE = preload("res://Entities/Ship/ship.gd")
 const BULLET_BASE = preload("res://Entities/Bullet/BulletBase.gd")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
 const BULLET = preload("res://Entities/Bullet/Bullet.tscn")
+const DRONE = preload("res://Entities/Enemy/EnemyDrone.tscn")
 
 enum PERSONALITY_TYPE {
 	random = 0,
 	shooter = 1,
-	drone = 2
+	drone = 2,
+	boss = 3
 }
 
 const PERSONALITY_TO_TYPE = {
 	"Random" : PERSONALITY_TYPE.random,
 	"Shooter" : PERSONALITY_TYPE.shooter,
-	"Drone" : PERSONALITY_TYPE.drone
+	"Drone" : PERSONALITY_TYPE.drone,
+	"Boss" : PERSONALITY_TYPE.boss
 }
 
 const DROP_TO_COLLECTABLE = {
@@ -24,7 +27,7 @@ const DROP_TO_COLLECTABLE = {
 	"Shield" : COLLECTABLE_BASE.TYPE.shield
 }
 
-export(String, "Random", "Shooter", "Drone") var personality = "Random"
+export(String, "Random", "Shooter", "Drone", "Boss") var personality = "Random"
 export(String, "Nothing", "Warp", "Health", "Shield") var drop = "Nothing"
 export(int, 0, 100) var drop_value = 10
 export(float, 0, 20, 0.5) var speed_min = 1.0
@@ -64,18 +67,24 @@ func get_dir_to_ship():
 	return (ship.get_pos() - get_pos()).normalized()
 
 func shoot():
-	if personality_type != PERSONALITY_TYPE.shooter or !is_ship_in_funnel():
-		return
-	var new_bullet = BULLET.instance()
-	if new_bullet:
-		# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
-		var xform = sprite.get_global_transform()
-		new_bullet.set_global_transform(xform)
-		new_bullet.velocity = Vector2(0.0, 1.0).rotated(xform.get_rotation())
-		new_bullet.set_layer_mask(16)
-		new_bullet.set_collision_mask(0)
-		get_parent().add_child(new_bullet)
-		sfx.play("sfx_laser1")
+	if personality_type == PERSONALITY_TYPE.shooter and is_ship_in_funnel():
+		var new_bullet = BULLET.instance()
+		if new_bullet:
+			# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
+			var xform = sprite.get_global_transform()
+			new_bullet.set_global_transform(xform)
+			new_bullet.velocity = Vector2(0.0, 1.0).rotated(xform.get_rotation())
+			new_bullet.set_layer_mask(16)
+			new_bullet.set_collision_mask(0)
+			get_parent().add_child(new_bullet)
+			sfx.play("sfx_laser1")
+	elif personality_type == PERSONALITY_TYPE.boss and is_ship_in_funnel():
+		var new_drone = DRONE.instance()
+		if new_drone:
+			# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
+			var xform = sprite.get_global_transform()
+			new_drone.set_global_transform(xform)
+			get_parent().add_child(new_drone)
 
 func init_velocity(impulse = null):
 	if personality_type == PERSONALITY_TYPE.random:
@@ -91,6 +100,9 @@ func init_velocity(impulse = null):
 	elif personality_type == PERSONALITY_TYPE.drone:
 		velocity = get_dir_to_ship()
 		velocity *= 200.0
+	elif personality_type == PERSONALITY_TYPE.boss:
+		velocity = get_dir_to_ship()
+		velocity *= 10.0
 
 func init_from_exports():
 	personality_type = PERSONALITY_TO_TYPE[personality]

@@ -1,0 +1,296 @@
+[gd_scene load_steps=22 format=1]
+
+[ext_resource path="res://Entities/Enemy/EnemyBase.gd" type="Script" id=1]
+[ext_resource path="res://sheet/sheet.cockpitYellow_1.atex" type="Texture" id=2]
+[ext_resource path="res://sheet/sheet.wingYellow_4.atex" type="Texture" id=3]
+[ext_resource path="res://sheet/sheet.wingYellow_5.atex" type="Texture" id=4]
+[ext_resource path="res://sheet/sheet.engine1.atex" type="Texture" id=5]
+[ext_resource path="res://sfx/Enemy_Explosion1.wav" type="Sample" id=6]
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -41.2011, -9.97223, -53.0798, -60.0797, 53.8288, -59.6114, 42.4159, -9.03565 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 21.9193, 36.1548, -21.869, 35.6865, -40.9682, 23.745, -41.2011, -9.97223, 42.4159, -9.03565, 42.4159, 24.4474 )
+
+[sub_resource type="ColorRamp" id=6]
+
+offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
+colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
+
+[sub_resource type="ColorRamp" id=7]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="SampleLibrary" id=8]
+
+samples/Enemy_Explosion1 = {
+"db": 5.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 6 )
+}
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 20.3451, 33.9081, 13.2775, 33.268, 22.0585, 24.9471, 38.3354, 23.2403 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -21.8465, 23.667, -12.6371, 32.6279, -19.0623, 34.3348, -37.6951, 23.0269 )
+
+[sub_resource type="ConvexPolygonShape2D" id=13]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 26.3419, -53.5678, 50.1148, -52.501, 27.8411, -13.2436, 18.4176, -14.9504 )
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -26.1299, -14.3103, -49.2603, -52.0743, -26.1299, -54.4212, -17.9914, -15.8038 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 38.9779, -6.84289, 38.3354, 23.2403, 22.0585, 24.9471, 22.4868, 11.9324, 27.8411, -13.2436 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 18.4176, -14.9504, 27.8411, -13.2436, 22.4868, 11.9324, 17.3467, 7.45195, 11.9925, -15.8038 )
+
+[sub_resource type="ConvexPolygonShape2D" id=17]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -22.2748, 11.9324, -21.8465, 23.667, -37.6951, 23.0269, -37.9092, -7.05625, -26.1299, -14.3103 )
+
+[sub_resource type="ConvexPolygonShape2D" id=18]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -16.7064, 8.09202, -22.2748, 11.9324, -26.1299, -14.3103, -17.9914, -15.8038, -11.1379, -15.5905 )
+
+[sub_resource type="ConvexPolygonShape2D" id=19]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -11.1379, -15.5905, -11.5663, -28.1785, 10.9216, -27.7518, 11.9925, -15.8038 )
+
+[sub_resource type="ConvexPolygonShape2D" id=20]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -16.7064, 8.09202, -11.1379, -15.5905, 11.9925, -15.8038, 17.3467, 7.45195, 0.855597, 19.1865 )
+
+[node name="EnemyBoss" type="KinematicBody2D" groups=[
+"enemies",
+]]
+
+input/pickable = true
+shapes/0/shape = SubResource( 9 )
+shapes/0/transform = Matrix32( 0.750591, 0, 0, 0.746646, -0.527582, 0.586169 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 10 )
+shapes/1/transform = Matrix32( 0.750591, 0, 0, 0.746646, -0.527582, 0.586169 )
+shapes/1/trigger = false
+collision/layers = 2
+collision/mask = 0
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+personality = "Boss"
+drop = "Nothing"
+drop_value = 10
+speed_min = 1.0
+speed_max = 2.0
+course_time_min = 5.0
+course_time_max = 15.0
+acceleration = 0.6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( -0.527582, 0.586169 )
+transform/scale = Vector2( 0.750591, 0.746646 )
+build_mode = 0
+polygon = Vector2Array( -21.869, 35.6865, -40.9682, 23.745, -41.2011, -9.97223, -53.0798, -60.0797, 53.8288, -59.6114, 42.4159, -9.03565, 42.4159, 24.4474, 21.9193, 36.1548 )
+shape_range = Vector2( 0, 1 )
+trigger = false
+
+[node name="DeathEffect" type="Particles2D" parent="."]
+
+config/amount = 64
+config/lifetime = 1.46025
+config/emit_timeout = 1.0
+config/emitting = false
+config/process_mode = 1
+config/local_space = false
+config/explosiveness = 0.15
+params/direction = 0.0
+params/spread = 180.0
+params/linear_velocity = 90.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.1
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 6.0
+params/tangential_accel = 0.0
+params/damping = 26.257
+params/initial_angle = 0.0
+params/initial_size = 5.0
+params/final_size = 0.75
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spread = 0.41
+randomness/linear_velocity = -0.26
+randomness/radial_accel = 0.71
+randomness/damping = 0.61
+randomness/initial_size = 1.0
+color/color = Color( 0, 0, 0, 1 )
+color/color_ramp = SubResource( 6 )
+
+[node name="FlowEffect" type="Particles2D" parent="."]
+
+config/amount = 64
+config/lifetime = 3.0
+config/process_mode = 1
+config/offset = Vector2( 0, -24 )
+config/half_extents = Vector2( 8, 0 )
+config/local_space = false
+params/direction = 180.0
+params/spread = 60.0
+params/linear_velocity = 10.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 180.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.7
+params/initial_angle = 0.0
+params/initial_size = 1.5
+params/final_size = 5.25
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/linear_velocity = 0.22
+randomness/damping = 0.51
+randomness/initial_size = 0.25
+randomness/final_size = 0.22
+color/color_ramp = SubResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Sprite"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 42, 14 )
+texture = ExtResource( 3 )
+
+[node name="Sprite1" type="Sprite" parent="Sprite"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( -42, 14 )
+texture = ExtResource( 3 )
+flip_h = true
+
+[node name="Sprite2" type="Sprite" parent="Sprite"]
+
+transform/pos = Vector2( -56, -56 )
+texture = ExtResource( 4 )
+flip_h = true
+
+[node name="Sprite3" type="Sprite" parent="Sprite"]
+
+transform/pos = Vector2( 56, -56 )
+texture = ExtResource( 4 )
+
+[node name="Sprite4" type="Sprite" parent="Sprite"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 0, -36 )
+texture = ExtResource( 5 )
+
+[node name="CourseTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="SamplePlayer" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 5
+config/samples = SubResource( 8 )
+config/pitch_random = 0.0
+
+[node name="HitBox" type="Area2D" parent="."]
+
+transform/pos = Vector2( 0.33695, -1.44548 )
+transform/scale = Vector2( 1.2495, 1.21808 )
+input/pickable = true
+shapes/0/shape = SubResource( 11 )
+shapes/0/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 12 )
+shapes/1/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 13 )
+shapes/2/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/2/trigger = false
+shapes/3/shape = SubResource( 14 )
+shapes/3/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/3/trigger = false
+shapes/4/shape = SubResource( 15 )
+shapes/4/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/4/trigger = false
+shapes/5/shape = SubResource( 16 )
+shapes/5/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/5/trigger = false
+shapes/6/shape = SubResource( 17 )
+shapes/6/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/6/trigger = false
+shapes/7/shape = SubResource( 18 )
+shapes/7/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/7/trigger = false
+shapes/8/shape = SubResource( 19 )
+shapes/8/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/8/trigger = false
+shapes/9/shape = SubResource( 20 )
+shapes/9/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/9/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+monitorable = false
+collision/layers = 2
+collision/mask = 9
+
+[node name="HitBoxCollision" type="CollisionPolygon2D" parent="HitBox"]
+
+visibility/visible = false
+transform/pos = Vector2( -0.536185, 0.589043 )
+transform/scale = Vector2( 0.653293, 0.672703 )
+build_mode = 0
+polygon = Vector2Array( -19.0623, 34.3348, -37.6951, 23.0269, -37.9092, -7.05625, -26.1299, -14.3103, -49.2603, -52.0743, -26.1299, -54.4212, -17.9914, -15.8038, -11.1379, -15.5905, -11.5663, -28.1785, 10.9216, -27.7518, 11.9925, -15.8038, 18.4176, -14.9504, 26.3419, -53.5678, 50.1148, -52.501, 27.8411, -13.2436, 38.9779, -6.84289, 38.3354, 23.2403, 20.3451, 33.9081, 13.2775, 33.268, 22.0585, 24.9471, 22.4868, 11.9324, 17.3467, 7.45195, 0.855597, 19.1865, -16.7064, 8.09202, -22.2748, 11.9324, -21.8465, 23.667, -12.6371, 32.6279 )
+shape_range = Vector2( 0, 9 )
+trigger = false
+
+[connection signal="timeout" from="CourseTimer" to="." method="_on_CourseTimer_timeout"]
+
+[connection signal="body_enter" from="HitBox" to="." method="_on_Area2D_body_enter"]
+
+
