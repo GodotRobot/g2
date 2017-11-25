@@ -14,6 +14,9 @@ enum LEVEL_TYPE {
 }
 var type = LEVEL_TYPE.invalid
 
+onready var time_countdown = 30
+onready var timer = get_node("LevelCountdown")
+
 func init_type():
 	if level_type == "shooter":
 		type = LEVEL_TYPE.shooter
@@ -31,6 +34,8 @@ func setup():
 			ship.set_pos(GameManager.ship_pos_on_level_end)
 			ship.set_rot(GameManager.ship_rot_on_level_end)
 	GameManager.level_ready(self)
+	get_hud().set_time(time_countdown)
+	timer.start()
 
 func _enter_tree():
 	GameManager = get_node("/root/GameManager")
@@ -79,3 +84,9 @@ func get_hud():
 	if hud.empty():
 		return null
 	return hud[0]
+
+func _on_LevelCountdown_timeout():
+	if time_countdown > 0:
+		time_countdown -= 1
+		get_hud().set_time(time_countdown)
+	

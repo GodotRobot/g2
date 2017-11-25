@@ -29,6 +29,7 @@ scroll/ignore_camera_zoom = false
 
 [node name="Background0" type="ParallaxLayer" parent="ParallaxBackground"]
 
+editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1280, 720 )
@@ -42,6 +43,7 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
 
+editor/display_folded = true
 motion/scale = Vector2( 2, 2 )
 motion/offset = Vector2( 1, 1 )
 motion/mirroring = Vector2( 1280, 720 )
@@ -88,5 +90,14 @@ script/script = ExtResource( 4 )
 transform/pos = Vector2( 1521.74, 384.607 )
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
+
+[node name="LevelCountdown" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="LevelCountdown" to="." method="_on_LevelCountdown_timeout"]
 
 
