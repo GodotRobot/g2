@@ -165,6 +165,7 @@ collision/mask = 9
 
 [node name="HitBoxCollision" type="CollisionPolygon2D" parent="HitBox"]
 
+visibility/visible = false
 transform/pos = Vector2( -0.536185, 0.589043 )
 transform/scale = Vector2( 0.653293, 0.672703 )
 build_mode = 0
