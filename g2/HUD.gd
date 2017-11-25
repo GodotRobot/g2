@@ -1,13 +1,15 @@
 extends CanvasLayer
 
-onready var timer = get_node("HUD/TimeLeft")
-onready var ammo_text = get_node("HUD/Ammo")
-onready var level_text = get_node("HUD/Level")
+onready var time_label = get_node("HUD/TimeLabel")
+onready var level_text = get_node("HUD/LevelLabel")
 onready var lives_container = get_node("HUD/LivesLeft")
 onready var score = get_node("HUD/Score")
 
 func _ready():
 	pass
+
+func set_level(level):
+	level_text.set_text("LEVEL:" + str(level))
 
 func set_score(points):
 	score.set_text(str(points))
@@ -39,11 +41,8 @@ func remove_life(count):
 		lives_container.remove_child(children[children.size()-2]) # separator
 	return true
 
-func update_timer(left_ratio):
-	timer.set_value(timer.get_max() * left_ratio)
-
-func update_ammo(count):
-	ammo_text.set_text(String(count))
+#func update_timer(left_ratio):
+	#timer.set_value(timer.get_max() * left_ratio)
 
 func _on_CheckBox_toggled( pressed ):
 	GameManager.debug = pressed

@@ -48,6 +48,7 @@ func level_ready(level):
 	if hud:
 		hud.set_lives(lives)
 		hud.set_score(score)
+		hud.set_level(cur_level)
 		hud.get_node("HUD/CkbxDebug").set_pressed(debug)
 
 func collectable_collected(collectable, who):
