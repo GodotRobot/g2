@@ -117,7 +117,8 @@ func _fixed_process(delta):
 		if death_anim_ended and flowing_anim_ended:
 			queue_free()
 		if secs_since_death > GameManager.LEVEL_POST_MORTEM_DELAY_SEC:
-			remove_from_group("enemies")
+			if get_groups().find("enemies") != -1:
+				remove_from_group("enemies")
 		return
 
 	shoot()
