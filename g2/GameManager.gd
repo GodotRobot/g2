@@ -149,6 +149,8 @@ func quit_game():
 func pause():
 	if current_scene extends MENU_BASE:
 		return
+	if not get_tree().get_nodes_in_group("menu").empty():
+		return
 	get_tree().set_pause(true)
 	set_process_input(false)
 	var menu_displayed = MENU.instance()

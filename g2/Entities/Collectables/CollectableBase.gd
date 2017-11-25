@@ -15,10 +15,10 @@ onready var GameManager = get_node("/root/GameManager")
 func _ready():
 	pass
 
-func _on_Area2D_area_enter( area ):
-	GameManager.collectable_collected(self, area)
+func _on_Area2D_body_enter( body ):
+	GameManager.collectable_collected(self, body)
 	queue_free()
-
+	
 # ------------- factory --------------------
 const SHIELD = preload("res://Entities/Collectables/CollectableShield.tscn")
 static func factory(collectable_type, collectable_value):

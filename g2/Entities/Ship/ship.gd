@@ -36,6 +36,7 @@ onready var warp_transparency_timer = get_node("WarpTransparencyTimer")
 onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
 onready var direction_camera = get_parent().get_node("DirectionCamera")
+onready var hitbox = get_node("HitBox")
 
 const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
@@ -74,6 +75,7 @@ func _ready():
 		warp_ship(get_viewport_rect().size.x / 2.0, get_viewport_rect().size.y / 2.0)
 		GameManager.warp_to_start_level = false
 	sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
+	ship_activation_timer.start()
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -179,6 +181,8 @@ func start_death():
 	sprite.hide()
 	set_layer_mask(0)
 	set_collision_mask(0)
+	hitbox.set_layer_mask(0)
+	hitbox.set_collision_mask(0)
 	GameManager.ship_destroyed(self)
 
 func add_shield(shield):
@@ -193,8 +197,6 @@ func add_shield(shield):
 	GameManager.dbg(get_name() + " now has shield at " + String(shield.power))
 
 func _on_HitBoxArea_body_enter( body ):
-	if body extends COLLECTABLE_BASE: # FIXME not working!!!!
-		return
 	if not active():
 		return
 	GameManager.dbg(get_name() + " collision with " + body.get_name() + ". Starting death!")

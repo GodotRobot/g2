@@ -87,7 +87,7 @@ points = Vector2Array( 1.92905, -2.28169, 7.72867, -1.11975, 7.31679, 4.93513, 1
 custom_solver_bias = 0.0
 points = Vector2Array( -1.83282, -2.35315, -1.15616, 7.40194, -7.30494, 5.08464, -7.59914, -1.23188 )
 
-[node name="ShipArea2D" type="KinematicBody2D" groups=[
+[node name="Ship" type="KinematicBody2D" groups=[
 "ship",
 ]]
 
@@ -102,7 +102,7 @@ shapes/1/trigger = false
 shapes/2/shape = SubResource( 3 )
 shapes/2/transform = Matrix32( 74.3986, 0, 0, 62.6966, -36.0772, -38.5449 )
 shapes/2/trigger = false
-collision/layers = 0
+collision/layers = 1
 collision/mask = 0
 collision/margin = 0.08
 script/script = ExtResource( 1 )
@@ -112,7 +112,6 @@ fake_speed = 0.0
 
 [node name="ShipDeathParticles2D" type="Particles2D" parent="."]
 
-visibility/visible = false
 config/amount = 64
 config/lifetime = 1.46025
 config/emit_timeout = 1.0
@@ -230,7 +229,7 @@ frames = SubResource( 8 )
 animation = "default"
 frame = 2
 
-[node name="HitBoxArea" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
 
 transform/pos = Vector2( -1.17632, 0.668036 )
 transform/scale = Vector2( 1.62991, 1.3046 )
@@ -251,7 +250,7 @@ angular_damp = 1.0
 monitorable = false
 collision/mask = 18
 
-[node name="HitBox" type="CollisionPolygon2D" parent="HitBoxArea"]
+[node name="HitBoxCollision" type="CollisionPolygon2D" parent="HitBox"]
 
 transform/pos = Vector2( 0.592591, -0.658101 )
 transform/scale = Vector2( 2.96955, 2.92031 )
@@ -266,6 +265,6 @@ trigger = false
 
 [connection signal="finished" from="WarpAnimation" to="." method="_on_WarpAnimation_finished"]
 
-[connection signal="body_enter" from="HitBoxArea" to="." method="_on_HitBoxArea_body_enter"]
+[connection signal="body_enter" from="HitBox" to="." method="_on_HitBoxArea_body_enter"]
 
 
