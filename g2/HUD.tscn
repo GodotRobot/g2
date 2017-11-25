@@ -24,6 +24,9 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 1280.0
 margin/bottom = 720.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="LivesLabel" type="Label" parent="HUD"]
 
@@ -91,10 +94,10 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 1178.0
-margin/top = 6.0
-margin/right = 1340.0
-margin/bottom = 50.0
+margin/left = 1179.0
+margin/top = 2.0
+margin/right = 1341.0
+margin/bottom = 46.0
 custom_fonts/font = ExtResource( 2 )
 text = "LEVEL:"
 align = 2
@@ -110,13 +113,12 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 1244.0
-margin/top = 6.0
-margin/right = 1295.0
-margin/bottom = 50.0
+margin/left = 1264.0
+margin/top = 2.0
+margin/right = 1284.0
+margin/bottom = 46.0
 custom_fonts/font = ExtResource( 2 )
 text = "1"
-align = 2
 uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
@@ -135,6 +137,7 @@ margin/right = 177.0
 margin/bottom = 49.0
 custom_fonts/font = ExtResource( 2 )
 text = "Score:"
+align = 2
 uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
@@ -165,9 +168,9 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 1180.0
+margin/left = 1177.0
 margin/top = 693.0
-margin/right = 1298.0
+margin/right = 1295.0
 margin/bottom = 737.0
 custom_fonts/font = ExtResource( 2 )
 text = "TIME:"
@@ -190,6 +193,41 @@ margin/bottom = 737.0
 custom_fonts/font = ExtResource( 2 )
 text = "00"
 align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="WarpLabel" type="Label" parent="HUD"]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 600.0
+margin/top = 7.0
+margin/right = 728.0
+margin/bottom = 51.0
+custom_fonts/font = ExtResource( 2 )
+text = "WARP:"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Warp" type="Label" parent="HUD"]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 669.0
+margin/top = 7.0
+margin/right = 745.0
+margin/bottom = 51.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1

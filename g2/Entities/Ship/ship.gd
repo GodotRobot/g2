@@ -166,6 +166,8 @@ func _fixed_process(delta):
 
 func warp_ship(pos_x, pos_y):
 	ship_state = SHIP_STATE.warp_start
+	if not GameManager.warp_to_start_level:
+		GameManager.ship_warped()
 	GameManager.dbg("warping to " + str(pos_x) + "," + str(pos_y))
 	warp_dest = Vector2(pos_x, pos_y)
 	warp_animation.set_frame(0)

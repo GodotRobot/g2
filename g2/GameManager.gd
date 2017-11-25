@@ -16,11 +16,13 @@ const HTTP = preload("res://Menu/HTTP.gd")
 
 ################### game consts and balance ##########################
 # initial ships upon starting the game
-const INITIAL_LIVES = 2
+const INITIAL_LIVES = 3
 # time to wait between killing the last enemy in the level and going to the next one
 const LEVEL_POST_MORTEM_DELAY_SEC = 1.0
 # bullet speed is contant, so make sure the shooter is never faster than it
 const BULLET_SPEED = 700
+# initial warp drive charges
+const INITIAL_WARP = 5
 ######################################################################
 
 var ship_pos_on_level_end
@@ -32,6 +34,7 @@ var http
 var current_scene = null
 var cur_level = 1
 var lives = INITIAL_LIVES
+var cur_warp = INITIAL_WARP
 var paused = false
 var debug = false
 var score = 0
@@ -48,6 +51,7 @@ func level_ready(level):
 	if hud:
 		hud.set_lives(lives)
 		hud.set_score(score)
+		hud.set_warp(cur_warp)
 		hud.set_level(cur_level)
 		hud.get_node("HUD/CkbxDebug").set_pressed(debug)
 
@@ -61,6 +65,13 @@ func collectable_collected(collectable, who):
 		dbg("additional shield: " + String(collectable.shield))
 		get_current_ship().add_shield(collectable.shield)
 
+func ship_warped():
+	cur_warp -= 1
+	var hud = current_scene.get_hud()
+	if hud:
+		hud.set_warp(cur_warp)
+	
+	
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")
 	lives -= 1
@@ -139,6 +150,7 @@ func game_over():
 func start_game():
 	cur_level = 1
 	lives = INITIAL_LIVES
+	cur_warp = INITIAL_WARP
 	score = 0
 	goto_scene(LEVEL_PATH.replace("<N>", "1"))
 	warp_to_start_level = true

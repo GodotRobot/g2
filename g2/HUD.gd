@@ -2,21 +2,29 @@ extends CanvasLayer
 
 onready var time_text = get_node("HUD/Time")
 onready var level_text = get_node("HUD/Level")
+onready var score_text = get_node("HUD/Score")
+onready var warp_text = get_node("HUD/Warp")
 onready var lives_container = get_node("HUD/LivesLeft")
-onready var score = get_node("HUD/Score")
 
 func _ready():
 	pass
 
 func set_level(level):
 	level_text.set_text(str(level))
+	
+func set_warp(warp):
+	warp_text.set_text(str(warp))
 
 func set_score(points):
-	score.set_text(str(points))
+	score_text.set_text(str(points))
 	
 func set_time(time):
-	
-	time_text.set_text(str(time))
+	var time_str
+	if time < 10:
+		time_str = "0" + str(time)
+	else:
+		time_str = str(time)
+	time_text.set_text(time_str)
 
 func calc_lifes():
 	var children = lives_container.get_children()
