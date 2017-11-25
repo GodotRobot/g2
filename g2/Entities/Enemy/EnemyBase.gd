@@ -147,6 +147,8 @@ func _fixed_process(delta):
 	sprite.set_global_rot(angle)
 
 func start_death():
+	if dead_timestamp != -1:
+		return
 	dead_timestamp = OS.get_ticks_msec()
 	death_effect.set_emitting(true)
 	flow_effect.set_emitting(false)
@@ -163,6 +165,6 @@ func _on_CourseTimer_timeout():
 
 func _on_Area2D_body_enter( body ):
 	GameManager.dbg("enemy: " + get_name() + " collision with " + body.get_name())
-	if body extends BULLET_BASE:
-		body.start_death() # we take the bullet with us
+	if body extends BULLET_BASE or (body extends SHIP_BASE and body.active()):
+		body.start_death() # we take the bullet / active ship with us
 	start_death()

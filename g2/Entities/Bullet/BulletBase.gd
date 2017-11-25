@@ -31,6 +31,8 @@ func _fixed_process(delta):
 		start_death()
 
 func start_death():
+	if dead_timestamp != -1:
+		return
 	velocity = Vector2(0.0, 0.0)
 	dead_timestamp = OS.get_ticks_msec()
 	effect.set_emitting(false)
@@ -42,4 +44,3 @@ func start_death():
 func _exit_tree():
 	if dead_timestamp == -1:
 		start_death()
-
