@@ -41,6 +41,7 @@ onready var hitbox = get_node("HitBox")
 const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
 const BULLET_BASE = preload("res://Entities/Bullet/BulletBase.gd")
+const ENEMY_BASE = preload("res://Entities/Enemy/EnemyBase.gd")
 
 func active():
 	return ship_state == SHIP_STATE.active and ship_activation_timer.get_time_left() <= 0.0
@@ -207,8 +208,8 @@ func add_shield(shield):
 func _on_HitBoxArea_body_enter( body ):
 	if not active():
 		return
-	GameManager.dbg(get_name() + " collision with " + body.get_name() + ". Starting death!")
-	if body extends BULLET_BASE:
+	GameManager.dbg("ship: " + get_name() + " collision with " + body.get_name() + ". Starting death!")
+	if body extends BULLET_BASE or body extends ENEMY_BASE:
 		body.start_death()
 	start_death()
 

@@ -106,8 +106,10 @@ func is_outside():
 		impulse = Vector2(0.0, -1.0)
 	return impulse
 
+var a = 0
 func is_ship_in_funnel():
-	return randf() < 0.01
+	a += 1
+	return a  % 50 == 0
 
 func _fixed_process(delta):
 	if dead_timestamp > 0:
@@ -162,10 +164,7 @@ func _on_CourseTimer_timeout():
 	init_velocity(null)
 
 func _on_Area2D_body_enter( body ):
-	GameManager.dbg(get_name() + " collision with " + body.get_name())
-	if body extends SHIP_BASE:
-		if not body.active():
-			return # inactive ship can't harm us
+	GameManager.dbg("enemy: " + get_name() + " collision with " + body.get_name())
 	if body extends BULLET_BASE:
 		body.start_death() # we take the bullet with us
 	start_death()
