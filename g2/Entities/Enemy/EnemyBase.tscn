@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Entities/Enemy/EnemyBase.gd" type="Script" id=1]
 [ext_resource path="res://sheet/sheet.enemyBlack4.atex" type="Texture" id=2]
-[ext_resource path="res://sfx/explosion1.smp" type="Sample" id=3]
+[ext_resource path="res://sfx/Enemy_Explosion1.wav" type="Sample" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -21,8 +21,8 @@ colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="SampleLibrary" id=4]
 
-samples/explosion1 = {
-"db": 0.0,
+samples/Enemy_Explosion1 = {
+"db": 5.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 3 )
@@ -143,7 +143,7 @@ params/pitch_scale = 1.0
 params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
-config/polyphony = 1
+config/polyphony = 5
 config/samples = SubResource( 4 )
 config/pitch_random = 0.0
 

@@ -1,20 +1,21 @@
-[gd_scene load_steps=27 format=1]
+[gd_scene load_steps=28 format=1]
 
 [ext_resource path="res://Entities/Ship/ship.gd" type="Script" id=1]
 [ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
 [ext_resource path="res://Entities/Ship/playerShip1_blue_normal.png" type="Texture" id=3]
 [ext_resource path="res://sheet/sheet.playerShip1_blue.atex" type="Texture" id=4]
-[ext_resource path="res://sfx/WarpDrive_02.wav" type="Sample" id=5]
-[ext_resource path="res://sfx/sfx_laser1.wav" type="Sample" id=6]
-[ext_resource path="res://Particles/warp_frame01.tex" type="Texture" id=7]
-[ext_resource path="res://Particles/warp_frame02.tex" type="Texture" id=8]
-[ext_resource path="res://Particles/warp_frame03.tex" type="Texture" id=9]
-[ext_resource path="res://Particles/warp_frame04.tex" type="Texture" id=10]
-[ext_resource path="res://Particles/warp_frame05.tex" type="Texture" id=11]
-[ext_resource path="res://Particles/warp_frame06.tex" type="Texture" id=12]
-[ext_resource path="res://Particles/warp_frame07.tex" type="Texture" id=13]
-[ext_resource path="res://Particles/warp_frame08.tex" type="Texture" id=14]
-[ext_resource path="res://Particles/warp_frame09.tex" type="Texture" id=15]
+[ext_resource path="res://sfx/Ship_Explosion.wav" type="Sample" id=5]
+[ext_resource path="res://sfx/WarpDrive_02.wav" type="Sample" id=6]
+[ext_resource path="res://sfx/sfx_laser1.wav" type="Sample" id=7]
+[ext_resource path="res://Particles/warp_frame01.tex" type="Texture" id=8]
+[ext_resource path="res://Particles/warp_frame02.tex" type="Texture" id=9]
+[ext_resource path="res://Particles/warp_frame03.tex" type="Texture" id=10]
+[ext_resource path="res://Particles/warp_frame04.tex" type="Texture" id=11]
+[ext_resource path="res://Particles/warp_frame05.tex" type="Texture" id=12]
+[ext_resource path="res://Particles/warp_frame06.tex" type="Texture" id=13]
+[ext_resource path="res://Particles/warp_frame07.tex" type="Texture" id=14]
+[ext_resource path="res://Particles/warp_frame08.tex" type="Texture" id=15]
+[ext_resource path="res://Particles/warp_frame09.tex" type="Texture" id=16]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -50,23 +51,29 @@ shader_param/normal = ExtResource( 3 )
 
 [sub_resource type="SampleLibrary" id=7]
 
+samples/Ship_Explosion = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
 samples/WarpDrive = {
 "db": 0.0,
 "pitch": 1.5,
 "priority": 0,
-"sample": ExtResource( 5 )
+"sample": ExtResource( 6 )
 }
 samples/sfx_laser1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 6 )
+"sample": ExtResource( 7 )
 }
 
 [sub_resource type="SpriteFrames" id=8]
 
 animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
 "loop": true,
 "name": "default",
 "speed": 25.0
@@ -231,6 +238,7 @@ frame = 2
 
 [node name="HitBox" type="Area2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( -1.17632, 0.668036 )
 transform/scale = Vector2( 1.62991, 1.3046 )
 input/pickable = true

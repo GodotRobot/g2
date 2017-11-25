@@ -154,7 +154,7 @@ func start_death():
 	set_collision_mask(0)
 	hitbox.set_layer_mask(0)
 	hitbox.set_collision_mask(0)
-	sfx.play("explosion1")
+	sfx.play("Enemy_Explosion1")
 	GameManager.enemy_destroyed(self)
 
 func _on_CourseTimer_timeout():

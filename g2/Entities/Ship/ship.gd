@@ -182,6 +182,7 @@ func warp_ship(pos_x, pos_y):
 		sfx.play("WarpDrive")
 
 func start_death():
+	sfx.play("Ship_Explosion")
 	dead_timestamp = OS.get_ticks_msec()
 	death_particle_effect.set_emitting(true)
 	flowing_particle_effect.set_emitting(false)
