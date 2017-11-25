@@ -62,9 +62,7 @@ func shoot():
 
 	var new_bullet = BULLET.instance()
 	if new_bullet:
-		new_bullet.velocity = velocity
-		if velocity.length_squared() == 0:
-			new_bullet.velocity = Vector2(0.0, 1.0).rotated(get_rot())
+		new_bullet.velocity = Vector2(0.0, 1.0).rotated(get_rot())
 		# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
 		new_bullet.set_global_transform(sprite.get_global_transform())
 		new_bullet.set_layer_mask(16)
