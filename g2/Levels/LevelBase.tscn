@@ -12,6 +12,8 @@
 script/script = ExtResource( 1 )
 level_type = "shooter"
 level_speed = 90.0
+initial_pos = Vector2( 640, 500 )
+initial_rot = 0.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

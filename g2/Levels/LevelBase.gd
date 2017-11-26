@@ -50,14 +50,14 @@ func _ready():
 	init_type()
 	setup()
 	set_process(true)
+	if type == LEVEL_TYPE.obstacles:
+		var meteors = get_tree().get_nodes_in_group("meteors")
+		for m in meteors:
+			m.set_linear_velocity(m.get_linear_velocity() + Vector2(0.0, level_speed))
 
 func _process(delta):
 	if type == LEVEL_TYPE.shooter:
 		pass
-	elif type == LEVEL_TYPE.obstacles:
-		var meteors = get_tree().get_nodes_in_group("meteors")
-		for m in meteors:
-			m.translate(Vector2(0.0, level_speed * delta))
 
 # called by GameManager
 func level_lost():
@@ -91,4 +91,4 @@ func _on_LevelCountdown_timeout():
 	if time_countdown > 0:
 		time_countdown -= 1
 		get_hud().set_time(time_countdown)
-	
+

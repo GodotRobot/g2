@@ -15,7 +15,7 @@ func _ready():
 
 func set_level(level):
 	level_text.set_text(str(level))
-	
+
 func set_warp(warp):
 	if warp == 0:
 		warp_label.add_color_override("font_color", Color(1,0,0))
@@ -31,7 +31,7 @@ func set_warp(warp):
 
 func set_score(points):
 	score_text.set_text(str(points))
-	
+
 func set_time(time):
 	var time_str
 	if time < 10:

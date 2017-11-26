@@ -18,7 +18,7 @@ func _ready():
 func _on_Area2D_body_enter( body ):
 	GameManager.collectable_collected(self, body)
 	queue_free()
-	
+
 # ------------- factory --------------------
 const SHIELD = preload("res://Entities/Collectables/CollectableShield.tscn")
 static func factory(collectable_type, collectable_value):

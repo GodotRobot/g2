@@ -1,46 +1,37 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://sheet/sheet.meteorGrey_big1.atex" type="Texture" id=1]
-[ext_resource path="res://Entities/Meteors/meteor.gd" type="Script" id=2]
+[ext_resource path="res://Entities/Meteors/meteor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
+[ext_resource path="res://sheet/normal.meteorGrey_big1.atex" type="Texture" id=3]
+[ext_resource path="res://sheet/sheet.meteorGrey_big1.atex" type="Texture" id=4]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="CanvasItemMaterial" id=1]
 
-custom_solver_bias = 0.0
-points = Vector2Array( 10.7061, 29.1821, -22.2249, 40.03, -49.732, 9.81094, -33.4602, -41.1353, 23.1037, -41.1353, 49.8359, -1.23064 )
+shader/shader = ExtResource( 2 )
+shader/shading_mode = 0
+shader_param/BLINKING_SPEED = 0.0
+shader_param/normal = ExtResource( 3 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[node name="meteorGrey_big1" instance=ExtResource( 1 )]
 
-custom_solver_bias = 0.0
-points = Vector2Array( 10.7061, 29.1821, 49.8359, -1.23064, 34.339, 31.8941 )
+[node name="Sprite" parent="."]
 
-[node name="meteorGrey_big1" type="Sprite" groups=[
-"meteors",
-]]
+material/material = SubResource( 1 )
+texture = ExtResource( 4 )
 
-texture = ExtResource( 1 )
-script/script = ExtResource( 2 )
-rotation_speed = 1.0
-direction = Vector2( 0, 0 )
-
-[node name="Area2D" type="Area2D" parent="."]
-
-input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-shapes/1/shape = SubResource( 2 )
-shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/1/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
 
 visibility/visible = false
 build_mode = 0
-polygon = Vector2Array( -22.2249, 40.03, -49.732, 9.81094, -33.4602, -41.1353, 23.1037, -41.1353, 49.8359, -1.23064, 34.339, 31.8941, 10.7061, 29.1821 )
+polygon = Vector2Array( 23.559, -41.0069, 49.5303, -0.440063, 34.0763, 33.473, 10.6806, 29.8241, -20.2275, 42.0585, -50.0624, 10.9358, -33.3205, -41.4362 )
+shape_range = Vector2( 0, 1 )
+trigger = false
+
+[node name="CollisionPolygon2D1" type="CollisionPolygon2D" parent="."]
+
+visibility/visible = false
+build_mode = 0
+polygon = Vector2Array( 23.559, -41.0069, 49.5303, -0.440063, 34.0763, 33.473, 10.6806, 29.8241, -20.2275, 42.0585, -50.0624, 10.9358, -33.3205, -41.4362 )
 shape_range = Vector2( 0, 1 )
 trigger = false
 
