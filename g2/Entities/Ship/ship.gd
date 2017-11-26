@@ -180,7 +180,6 @@ func warp_ship(pos_x, pos_y):
 		warp_animation.show()
 		warp_animation.play()
 		warp_transparency_timer.start()
-		flowing_particle_effect.set_emitting(false)
 		sfx.play("WarpDrive")
 
 func start_death():
@@ -188,7 +187,6 @@ func start_death():
 		return
 	sfx.play("Ship_Explosion")
 	dead_timestamp = OS.get_ticks_msec()
-	flowing_particle_effect.set_emitting(false)
 	death_particle_effect.set_emitting(true)
 	flowing_particle_effect.set_emitting(false)
 	sprite.hide()
@@ -232,7 +230,6 @@ func _on_WarpAnimation_finished():
 		warp_animation.stop()
 		warp_animation.hide()
 		sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
-		flowing_particle_effect.set_emitting(true)
 		ship_activation_timer.start()
 
 func _on_WarpTransparencyTimer_timeout():
