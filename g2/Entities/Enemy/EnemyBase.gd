@@ -64,6 +64,9 @@ func calc_random_velocity(impulse):
 
 func get_dir_to_ship():
 	var ship = GameManager.get_current_ship()
+	if not ship:
+		return calc_random_velocity(null)
+	
 	return (ship.get_pos() - get_pos()).normalized()
 
 func shoot():
