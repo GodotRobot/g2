@@ -23,6 +23,8 @@ const LEVEL_POST_MORTEM_DELAY_SEC = 1.0
 const BULLET_SPEED = 700
 # initial warp drive charges
 const INITIAL_WARP = 5
+# make bullet start ahead of ship. also eliminate visible delay when shooting while rotating
+const BULLET_AHEAD = 40
 ######################################################################
 
 var ship_pos_on_level_end

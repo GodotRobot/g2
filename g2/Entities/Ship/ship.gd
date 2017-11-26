@@ -133,6 +133,7 @@ func _fixed_process(delta):
 			if new_bullet:
 				new_bullet.velocity = v
 				new_bullet.set_global_transform(get_global_transform())
+				new_bullet.translate(v * GameManager.BULLET_AHEAD)
 				get_parent().add_child(new_bullet)
 				sfx.play("sfx_laser1")
 
