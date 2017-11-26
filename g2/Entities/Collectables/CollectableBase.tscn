@@ -1,13 +1,15 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Entities/Collectables/CollectableShader.tres" type="Shader" id=1]
-[ext_resource path="res://sheet/sheet.powerupBlue.atex" type="Texture" id=2]
-[ext_resource path="res://Entities/Collectables/CollectableBase.gd" type="Script" id=3]
+[ext_resource path="res://sheet/normal.powerupRed_shield.atex" type="Texture" id=2]
+[ext_resource path="res://sheet/sheet.powerupBlue.atex" type="Texture" id=3]
+[ext_resource path="res://Entities/Collectables/CollectableBase.gd" type="Script" id=4]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
 shader/shader = ExtResource( 1 )
 shader/shading_mode = 0
+shader_param/normal = ExtResource( 2 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -20,8 +22,8 @@ extents = Vector2( 10, 10 )
 
 material/material = SubResource( 1 )
 transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 2 )
-script/script = ExtResource( 3 )
+texture = ExtResource( 3 )
+script/script = ExtResource( 4 )
 health = 0
 warp = 0
 shield = 0

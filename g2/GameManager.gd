@@ -59,8 +59,10 @@ func collectable_collected(collectable, who):
 	dbg(collectable.get_name() + " was hit by " + who.get_name())
 	if collectable.health > 0:
 		dbg("additional health: " + String(collectable.health))
+		add_life()
 	if collectable.warp > 0:
 		dbg("additional warp: " + String(collectable.warp))
+		add_warp()
 	if collectable.shield > 0:
 		dbg("additional shield: " + String(collectable.shield))
 		get_current_ship().add_shield(collectable.shield)
@@ -69,6 +71,18 @@ func ship_warped():
 	if cur_warp > 0:
 		cur_warp -= 1
 	current_scene.get_hud().set_warp(cur_warp)
+
+func add_life():
+	lives += 1
+	var hud = current_scene.get_hud()
+	if hud:
+		hud.add_life(1)
+
+func add_warp():
+	cur_warp += 1
+	var hud = current_scene.get_hud()
+	if hud:
+		hud.set_warp(cur_warp)
 
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")
