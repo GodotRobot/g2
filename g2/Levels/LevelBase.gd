@@ -18,6 +18,7 @@ var type = LEVEL_TYPE.invalid
 
 onready var time_countdown = 30
 onready var timer = get_node("LevelCountdown")
+onready var direction_camera = get_node("GameLayer/DirectionCamera")
 
 func init_type():
 	if level_type == "shooter":
@@ -86,6 +87,9 @@ func get_hud():
 	if hud.empty():
 		return null
 	return hud[0]
+	
+func resume_parallax():
+	direction_camera.make_current()
 
 func _on_LevelCountdown_timeout():
 	if time_countdown > 0:
