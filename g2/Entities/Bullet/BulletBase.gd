@@ -27,7 +27,7 @@ func _fixed_process(delta):
 		return
 	var motion = velocity.normalized() * GameManager.BULLET_SPEED * delta
 	move(motion)
-	if is_outside():
+	if is_outside() or is_colliding():
 		start_death()
 
 func start_death():

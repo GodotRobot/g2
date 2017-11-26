@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://sheet/sheet.meteorGrey_big1.atex" type="Texture" id=1]
-[ext_resource path="res://Entities/Meteors/meteor.gd" type="Script" id=2]
+[ext_resource path="res://Entities/Meteors/meteor.gd" type="Script" id=1]
+[ext_resource path="res://sheet/sheet.meteorGrey_big1.atex" type="Texture" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -13,22 +13,55 @@ points = Vector2Array( 10.7061, 29.1821, -22.2249, 40.03, -49.732, 9.81094, -33.
 custom_solver_bias = 0.0
 points = Vector2Array( 10.7061, 29.1821, 49.8359, -1.23064, 34.339, 31.8941 )
 
-[node name="meteorGrey_big1" type="Sprite" groups=[
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, -22.2249, 40.03, -49.732, 9.81094, -33.4602, -41.1353, 23.1037, -41.1353, 49.8359, -1.23064 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, 49.8359, -1.23064, 34.339, 31.8941 )
+
+[node name="meteorGrey_big1" type="RigidBody2D" groups=[
 "meteors",
 ]]
 
-texture = ExtResource( 1 )
-script/script = ExtResource( 2 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 0.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
 rotation_speed = 1.0
 direction = Vector2( 0, 0 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 2 )
+shapes/1/shape = SubResource( 4 )
 shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/1/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -37,6 +70,18 @@ linear_damp = 0.1
 angular_damp = 1.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+
+visibility/visible = false
+build_mode = 0
+polygon = Vector2Array( -22.2249, 40.03, -49.732, 9.81094, -33.4602, -41.1353, 23.1037, -41.1353, 49.8359, -1.23064, 34.339, 31.8941, 10.7061, 29.1821 )
+shape_range = Vector2( 0, 1 )
+trigger = false
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D1" type="CollisionPolygon2D" parent="."]
 
 visibility/visible = false
 build_mode = 0

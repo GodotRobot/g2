@@ -36,7 +36,7 @@ var cur_level = 1
 var lives = INITIAL_LIVES
 var cur_warp = INITIAL_WARP
 var paused = false
-var debug = false
+var debug = true
 var score = 0
 var warp_remaining = 5
 var warp_to_start_level = true
@@ -69,8 +69,7 @@ func ship_warped():
 	if cur_warp > 0:
 		cur_warp -= 1
 	current_scene.get_hud().set_warp(cur_warp)
-	
-	
+
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")
 	lives -= 1
