@@ -6,6 +6,6 @@
 [node name="CollectableShield" instance=ExtResource( 1 )]
 
 texture = ExtResource( 2 )
-shield = 50
+shield = 10
 
 
