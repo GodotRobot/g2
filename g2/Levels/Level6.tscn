@@ -13,10 +13,12 @@ editor/display_folded = false
 [node name="CollectableBase" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 416.317, 175.694 )
+boom = 0
 
 [node name="CollectableBase 2" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 882.086, 184.738 )
+boom = 0
 
 [node name="EnemyBase" parent="GameLayer" instance=ExtResource( 3 )]
 

@@ -68,6 +68,12 @@ func collectable_collected(collectable, who):
 	if collectable.shield > 0:
 		dbg("additional shield: " + String(collectable.shield))
 		get_current_ship().add_shield(collectable.shield)
+	if collectable.boom > 0:
+		dbg("collected boom: " + String(collectable.boom))
+		# kill all enemies
+		var enemies = get_tree().get_nodes_in_group("enemies")
+		for e in enemies:
+			e.start_death()
 
 func ship_warped():
 	if cur_warp > 0:

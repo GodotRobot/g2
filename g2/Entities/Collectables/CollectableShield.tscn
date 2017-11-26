@@ -7,5 +7,6 @@
 
 texture = ExtResource( 2 )
 shield = 10
+boom = 0
 
 

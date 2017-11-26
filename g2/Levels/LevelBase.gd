@@ -87,7 +87,7 @@ func get_hud():
 	if hud.empty():
 		return null
 	return hud[0]
-	
+
 func resume_parallax():
 	direction_camera.make_current()
 

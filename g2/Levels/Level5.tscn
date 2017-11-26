@@ -17,5 +17,6 @@ transform/pos = Vector2( 648.447, 98.8199 )
 [node name="CollectableShield" parent="GameLayer" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 331.905, 284.223 )
+boom = 0
 
 
