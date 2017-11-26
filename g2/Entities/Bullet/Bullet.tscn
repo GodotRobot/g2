@@ -34,6 +34,7 @@ _update_shape_index = 0
 
 [node name="EngineEffect" type="Particles2D" parent="."]
 
+visibility/light_mask = 0
 config/amount = 80
 config/lifetime = 1.0
 config/process_mode = 1
@@ -75,7 +76,7 @@ range/z_min = -1024
 range/z_max = 1024
 range/layer_min = -1
 range/layer_max = 2
-range/item_mask = 14
+range/item_mask = 15
 shadow/enabled = false
 shadow/color = Color( 0, 0, 0, 0 )
 shadow/buffer_size = 2048
@@ -84,6 +85,7 @@ shadow/item_mask = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 
+visibility/light_mask = 0
 texture = ExtResource( 3 )
 
 

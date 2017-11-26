@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=1]
+
+[ext_resource path="res://Entities/Meteors/meteor.gd" type="Script" id=1]
+[ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
+[ext_resource path="res://sheet/normal.meteorBrown_big1.atex" type="Texture" id=3]
+[ext_resource path="res://sheet/sheet.meteorBrown_big1.atex" type="Texture" id=4]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, -22.2249, 40.03, -49.732, 9.81094, -33.4602, -41.1353, 23.1037, -41.1353, 49.8359, -1.23064 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, 49.8359, -1.23064, 34.339, 31.8941 )
+
+[sub_resource type="CanvasItemMaterial" id=6]
+
+shader/shader = ExtResource( 2 )
+shader/shading_mode = 0
+shader_param/BLINKING_SPEED = 0.0
+shader_param/normal = ExtResource( 3 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, -22.2249, 40.03, -49.732, 9.81094, -33.4602, -41.1353, 23.1037, -41.1353, 49.8359, -1.23064 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, 49.8359, -1.23064, 34.339, 31.8941 )
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "Hit"
+length = 0.1
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.05, 0.1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 255, 255, 255, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="meteor" type="RigidBody2D" groups=[
+"meteors",
+]]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+collision/layers = 2
+collision/mask = 2
+mode = 0
+mass = 0.001
+friction = 0.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = 0.0
+damp_override/angular = 0.0
+script/script = ExtResource( 1 )
+HP = 5
+
+[node name="Sprite" type="Sprite" parent="."]
+
+material/material = SubResource( 6 )
+texture = ExtResource( 4 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 4 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/layers = 0
+collision/mask = 9
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Hit = SubResource( 5 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[connection signal="body_enter" from="Hitbox" to="." method="_on_Hitbox_body_enter"]
+
+
