@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
-[ext_resource path="res://Fonts/radio_stars_font.fnt" type="BitmapFont" id=2]
-[ext_resource path="res://sheet/sheet.playerLife1_blue.atex" type="Texture" id=3]
+[ext_resource path="res://Backgrounds/HUD_bg01.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/radio_stars_font.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://sheet/sheet.playerLife1_blue.atex" type="Texture" id=4]
+[ext_resource path="res://Backgrounds/HUD_bg02.png" type="Texture" id=5]
+[ext_resource path="res://sheet/sheet.bolt_gold.atex" type="Texture" id=6]
 
 [node name="HUD_CanvasLayer" type="CanvasLayer" groups=[
 "hud",
@@ -28,18 +31,28 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="LifeBox" type="Sprite" parent="HUD"]
+
+visibility/behind_parent = true
+visibility/light_mask = 0
+transform/pos = Vector2( 121.5, 22 )
+transform/rot = -90.0
+transform/scale = Vector2( 1.13333, 1.20625 )
+texture = ExtResource( 2 )
+
 [node name="LivesLabel" type="Label" parent="HUD"]
 
+visibility/light_mask = 0
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 10.0
-margin/top = 693.0
-margin/right = 144.0
-margin/bottom = 746.0
-custom_fonts/font = ExtResource( 2 )
+margin/left = 40.0
+margin/top = 11.0
+margin/right = 173.0
+margin/bottom = 55.0
+custom_fonts/font = ExtResource( 3 )
 text = "Life:"
 percent_visible = 1.0
 lines_skipped = 0
@@ -53,15 +66,16 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 70.0
-margin/top = 694.0
-margin/right = 316.0
-margin/bottom = 758.0
+margin/left = 100.0
+margin/top = 13.0
+margin/right = 326.0
+margin/bottom = 77.0
 alignment = 0
 
 [node name="Life" type="TextureFrame" parent="HUD/LivesLeft"]
 
 visibility/opacity = 0.65
+visibility/light_mask = 0
 rect/min_size = Vector2( 64, 64 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -71,7 +85,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 64.0
 margin/bottom = 64.0
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 expand = true
 stretch_mode = 0
 
@@ -87,56 +101,28 @@ margin/top = 0.0
 margin/right = 71.0
 margin/bottom = 64.0
 
-[node name="LevelLabel" type="Label" parent="HUD"]
+[node name="ScoreBox" type="Sprite" parent="HUD"]
 
-rect/scale = Vector2( 0.5, 0.5 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 1174.0
-margin/top = 3.0
-margin/right = 1336.0
-margin/bottom = 47.0
-custom_fonts/font = ExtResource( 2 )
-text = "LEVEL:"
-align = 2
-uppercase = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Level" type="Label" parent="HUD"]
-
-rect/scale = Vector2( 0.5, 0.5 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 1258.0
-margin/top = 3.0
-margin/right = 1278.0
-margin/bottom = 47.0
-custom_fonts/font = ExtResource( 2 )
-text = "1"
-align = 2
-uppercase = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+visibility/behind_parent = true
+visibility/light_mask = 0
+transform/pos = Vector2( 356.5, 21 )
+transform/rot = -90.0
+transform/scale = Vector2( 1.13333, 1.13125 )
+texture = ExtResource( 2 )
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
 
+visibility/light_mask = 0
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 9.0
-margin/top = 5.0
-margin/right = 177.0
-margin/bottom = 49.0
-custom_fonts/font = ExtResource( 2 )
+margin/left = 281.0
+margin/top = 10.0
+margin/right = 449.0
+margin/bottom = 54.0
+custom_fonts/font = ExtResource( 3 )
 text = "Score:"
 align = 2
 uppercase = true
@@ -146,34 +132,94 @@ max_lines_visible = -1
 
 [node name="Score" type="Label" parent="HUD"]
 
+visibility/light_mask = 0
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 95.0
-margin/top = 5.0
-margin/right = 285.0
-margin/bottom = 49.0
-custom_fonts/font = ExtResource( 2 )
-text = "0"
+margin/left = 367.0
+margin/top = 10.0
+margin/right = 503.0
+margin/bottom = 54.0
+custom_fonts/font = ExtResource( 3 )
+text = "0000"
 uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="TimeLabel" type="Label" parent="HUD"]
+[node name="LevelBox" type="Sprite" parent="HUD"]
 
+visibility/behind_parent = true
+visibility/light_mask = 0
+transform/pos = Vector2( 1183.25, 21 )
+transform/rot = -90.0
+transform/scale = Vector2( 1.13333, 0.903125 )
+texture = ExtResource( 2 )
+
+[node name="LevelLabel" type="Label" parent="HUD"]
+
+visibility/light_mask = 0
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 1177.0
-margin/top = 693.0
-margin/right = 1295.0
-margin/bottom = 737.0
-custom_fonts/font = ExtResource( 2 )
+margin/left = 1126.0
+margin/top = 10.0
+margin/right = 1288.0
+margin/bottom = 54.0
+custom_fonts/font = ExtResource( 3 )
+text = "LEVEL:"
+align = 2
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Level" type="Label" parent="HUD"]
+
+visibility/light_mask = 0
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 1208.0
+margin/top = 10.0
+margin/right = 1272.0
+margin/bottom = 54.0
+custom_fonts/font = ExtResource( 3 )
+text = "00"
+align = 2
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TimeBox" type="Sprite" parent="HUD"]
+
+visibility/behind_parent = true
+visibility/light_mask = 0
+transform/pos = Vector2( 561.625, 21 )
+transform/rot = -90.0
+transform/scale = Vector2( 1.13333, 0.757813 )
+texture = ExtResource( 2 )
+
+[node name="TimeLabel" type="Label" parent="HUD"]
+
+visibility/light_mask = 0
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 512.0
+margin/top = 10.0
+margin/right = 630.0
+margin/bottom = 54.0
+custom_fonts/font = ExtResource( 3 )
 text = "TIME:"
 align = 2
 percent_visible = 1.0
@@ -182,60 +228,92 @@ max_lines_visible = -1
 
 [node name="Time" type="Label" parent="HUD"]
 
+visibility/light_mask = 0
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 1236.0
-margin/top = 693.0
-margin/right = 1306.0
-margin/bottom = 737.0
-custom_fonts/font = ExtResource( 2 )
+margin/left = 571.0
+margin/top = 10.0
+margin/right = 641.0
+margin/bottom = 54.0
+custom_fonts/font = ExtResource( 3 )
 text = "00"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="WarpBox" type="Sprite" parent="HUD"]
+
+visibility/behind_parent = true
+visibility/light_mask = 0
+transform/pos = Vector2( 870.5, 21 )
+transform/rot = -90.0
+transform/scale = Vector2( 1.13333, 1.21562 )
+texture = ExtResource( 5 )
+
 [node name="WarpLabel" type="Label" parent="HUD"]
 
+visibility/light_mask = 0
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 1.0
-margin/top = 5.0
-margin/right = 2557.0
-margin/bottom = 49.0
-custom_fonts/font = ExtResource( 2 )
+margin/left = 691.0
+margin/top = 10.0
+margin/right = 819.0
+margin/bottom = 54.0
+custom_fonts/font = ExtResource( 3 )
 text = "WARP:"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="Warp" type="Label" parent="HUD"]
+[node name="WarpsLeft" type="HBoxContainer" parent="HUD"]
 
-rect/scale = Vector2( 0.5, 0.5 )
+rect/scale = Vector2( 0.18, 0.3 )
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 760.0
+margin/top = 12.0
+margin/right = 1087.0
+margin/bottom = 76.0
+alignment = 0
+
+[node name="Warp" type="TextureFrame" parent="HUD/WarpsLeft"]
+
+visibility/opacity = 0.65
+visibility/light_mask = 0
+rect/min_size = Vector2( 64, 64 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 57.0
-margin/top = 5.0
-margin/right = 2560.0
-margin/bottom = 53.0
-custom_fonts/font = ExtResource( 2 )
-text = "0"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 64.0
+margin/bottom = 64.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 0
+
+[node name="Sep" type="VSeparator" parent="HUD/WarpsLeft"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 68.0
+margin/top = 0.0
+margin/right = 71.0
+margin/bottom = 64.0
 
 [node name="CkbxDebug" type="CheckBox" parent="HUD"]
 
