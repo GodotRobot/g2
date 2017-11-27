@@ -218,13 +218,18 @@ func _process(delta):
 		ship_pos_on_level_end = cur_ship.get_pos()
 		ship_rot_on_level_end = cur_ship.get_rot()
 		cur_level += 1
-		goto_scene(LEVEL_PATH.replace("<N>", String(cur_level)))
+		current_scene.fade_off()
 	if current_scene.level_lost():
 		print("todo")
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		pause()
+
+func tint_animation_finished(path):
+	var level_path = "Level" + String(cur_level)
+	if level_path != path:
+		goto_scene(LEVEL_PATH.replace("<N>", String(cur_level)))
 
 func goto_scene(path):
 	# This function will usually be called from a signal callback,
@@ -256,6 +261,15 @@ func _deferred_goto_scene(path):
 	get_tree().get_root().add_child(current_scene)
 	# optional, to make it compatible with the SceneTree.change_scene() API
 	get_tree().set_current_scene( current_scene )
+	
+	# make sure level is named properly (root node in levelN.tscn must be "LevelN")
+	var level_name = current_scene.get_name()
+	var expeced_level_name = "Level" + String(cur_level)
+	assert(level_name == expeced_level_name)
+	
+	
 	# reset warp counter for a new level
 	current_scene.get_hud().set_warps(cur_warp)
+	current_scene.fade_on()
+
 	

@@ -13,7 +13,7 @@
 
 transform/pos = Vector2( 0, -16 )
 level_type = "obstacles"
-level_speed = 60.0
+level_speed = 200.0
 
 [node name="ShipArea2D" parent="GameLayer"]
 

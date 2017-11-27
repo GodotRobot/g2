@@ -6,6 +6,14 @@
 
 [node name="Level2" instance=ExtResource( 1 )]
 
+[node name="GameLayer" parent="."]
+
+editor/display_folded = true
+
+[node name="ParallaxBackground" parent="GameLayer"]
+
+editor/display_folded = true
+
 [node name="EnemyBase" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1003.03, 222.167 )
@@ -13,5 +21,9 @@ transform/pos = Vector2( 1003.03, 222.167 )
 [node name="EnemyShooter" parent="GameLayer" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 887.159, 181.27 )
+
+[node name="HUD" parent="."]
+
+layer = -42
 
 

@@ -16,13 +16,17 @@ enum MODE {
 }
 var mode = MODE.start
 
-# GameManager won't be able to end this level
+# level interface, GameManager uses these:
 func level_won():
 	return false
 func level_lost():
 	return false
 func get_hud():
 	return null
+func fade_off():
+	pass
+func fade_on():
+	pass
 
 func _ready():
 	GameManager.download_highscores()

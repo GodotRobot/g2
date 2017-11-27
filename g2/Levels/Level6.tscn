@@ -4,21 +4,15 @@
 [ext_resource path="res://Entities/Collectables/CollectableHealth.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/Enemy/EnemyBase.tscn" type="PackedScene" id=3]
 
-[node name="LevelBase" instance=ExtResource( 1 )]
-
-[node name="GameLayer" parent="."]
-
-editor/display_folded = false
+[node name="Level6" instance=ExtResource( 1 )]
 
 [node name="CollectableBase" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 416.317, 175.694 )
-boom = 0
 
 [node name="CollectableBase 2" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 882.086, 184.738 )
-boom = 0
 
 [node name="EnemyBase" parent="GameLayer" instance=ExtResource( 3 )]
 
