@@ -103,12 +103,16 @@ func ship_destroyed(instance):
 		var new_ship = instance.clone(SHIP.instance())
 		new_ship.set_pos(current_scene.initial_pos)
 		new_ship.set_rot(current_scene.initial_rot)
+		warp_to_start_level = true
+		cur_warp = INITIAL_WARP
 		instance.get_parent().add_child(new_ship) # old ship will be (self-)deleted once its death animation ends
 	else:
 		game_over()
+		
 	var hud = current_scene.get_hud()
 	if hud:
 		hud.remove_life(1)
+		hud.set_warps(cur_warp)
 
 func enemy_destroyed(instance):
 	score += 1
@@ -168,6 +172,8 @@ func get_current_ship():
 
 func game_over():
 	dbg("game over!")
+	if current_scene extends LEVEL_BASE:
+		current_scene.on_game_over()
 	var menu_displayed = MENU.instance()
 	menu_displayed.mode = menu_displayed.game_over
 	current_scene.add_child(menu_displayed)
@@ -251,5 +257,5 @@ func _deferred_goto_scene(path):
 	# optional, to make it compatible with the SceneTree.change_scene() API
 	get_tree().set_current_scene( current_scene )
 	# reset warp counter for a new level
-	cur_warp = INITIAL_WARP
 	current_scene.get_hud().set_warps(cur_warp)
+	

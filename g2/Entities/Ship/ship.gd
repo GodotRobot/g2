@@ -73,11 +73,12 @@ func clone(instance):
 func _ready():
 	ship_state = SHIP_STATE.active
 	if GameManager.warp_to_start_level:
-		warp_ship(get_viewport_rect().size.x / 2.0, get_viewport_rect().size.y / 2.0)
+		warp_ship(GameManager.current_scene.initial_pos.x,GameManager.current_scene.initial_pos.y)
 		GameManager.warp_to_start_level = false
 	ship_blinking_timer.start()
 	ship_activation_timer.start()
 	set_fixed_process(true)
+	
 
 func start_death():
 	if ship_state == SHIP_STATE.death_start:
@@ -93,19 +94,6 @@ func start_death():
 	set_collision_mask(0)
 	hitbox.set_layer_mask(0)
 	hitbox.set_collision_mask(0)
-	
-	#if dead_timestamp != -1:
-	#	return
-	#sfx.play("Ship_Explosion")
-	#dead_timestamp = OS.get_ticks_msec()
-	#death_particle_effect.set_emitting(true)
-	#flowing_particle_effect.set_emitting(false)
-	#sprite.hide()
-	#set_layer_mask(0)
-	#set_collision_mask(0)
-	#hitbox.set_layer_mask(0)
-	#hitbox.set_collision_mask(0)
-	#GameManager.ship_destroyed(self)
 	
 func _fixed_process(delta):
 	if ship_state == SHIP_STATE.death_start:
@@ -218,6 +206,7 @@ func add_shield(shield):
 		shield = get_node("shield")
 		assert shield
 	GameManager.dbg(get_name() + " now has shield at " + String(shield.power))
+	
 
 func _on_HitBoxArea_body_enter( body ):
 	if not active():

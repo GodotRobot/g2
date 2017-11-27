@@ -6,7 +6,8 @@ var GameManager
 
 export(String, "shooter", "obstacles") var level_type = "shooter"
 export(float, 0.0, 1000.0, 10.0) var level_speed = 90.0
-export(Vector2) var initial_pos = Vector2(640.0, 500.0)
+
+export(Vector2) var initial_pos = Vector2(640.0, 360.0)
 export(Vector2) var initial_rot = 0.0
 
 enum LEVEL_TYPE {
@@ -58,6 +59,9 @@ func _ready():
 func _process(delta):
 	if type == LEVEL_TYPE.shooter:
 		pass
+
+func on_game_over():
+	timer.stop()
 
 # called by GameManager
 func level_lost():
