@@ -24,7 +24,7 @@ var movement_offset = Vector2(0.0,0.0)
 
 export(bool) var free_movement = true
 export(bool) var can_shoot = true
-export(float) var fake_speed = 0.0 setget set_fake_speed
+export(float) var fake_speed = 0.0
 
 onready var GameManager = get_node("/root/GameManager")
 onready var bullet = preload("res://Entities/Bullet/Bullet.tscn")
@@ -69,7 +69,7 @@ func clone(instance):
 	instance.set_rot(get_rot())
 	instance.free_movement = free_movement
 	instance.can_shoot = can_shoot
-	instance.fake_speed = fake_speed
+	instance.set_fake_speed(fake_speed)
 	return instance
 
 func _ready():

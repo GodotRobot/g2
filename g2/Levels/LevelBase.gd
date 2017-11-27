@@ -43,7 +43,7 @@ func init_type():
 func setup():
 	if type == LEVEL_TYPE.obstacles:
 		var ship = GameManager.get_current_ship()
-		ship.fake_speed = level_speed
+		ship.set_fake_speed(level_speed)
 	elif type == LEVEL_TYPE.shooter:
 		var ship = GameManager.get_current_ship()
 		assert(ship)
