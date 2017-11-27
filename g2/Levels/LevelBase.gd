@@ -20,7 +20,9 @@ var type = LEVEL_TYPE.invalid
 const layer0_speed = 10.0
 const layer1_speed = 5.0
 const layer1_default_speed = 50.0
-const layer2_speed = 3.5
+const layer2_speed = 7.0
+const layer2_default_speed = 30.0
+const layer3_speed = 3.5
 
 onready var time_countdown = 30
 onready var timer = get_node("LevelCountdown")
@@ -28,6 +30,7 @@ onready var timer = get_node("LevelCountdown")
 onready var parallax_layer0 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background0")
 onready var parallax_layer1 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background1")
 onready var parallax_layer2 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background2")
+onready var parallax_layer3 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background3")
 
 func init_type():
 	if level_type == "shooter":
@@ -71,19 +74,24 @@ func _process(delta):
 	var layer0_offset = Vector2(0.0,0.0)
 	var layer1_offset = Vector2(0.0,0.0)
 	var layer2_offset = Vector2(0.0,0.0)
+	var layer3_offset = Vector2(0.0,0.0)
 	
 	if ship:
 		layer0_offset = ship.movement_offset / layer0_speed
 		layer1_offset = ship.movement_offset / layer1_speed
 		layer2_offset = ship.movement_offset / layer2_speed
+		layer3_offset = ship.movement_offset / layer3_speed
 		
 	# move the stars and clouds based on the ship's movement
 	parallax_layer0.set_motion_offset(parallax_layer0.get_motion_offset() - layer0_offset)
-	parallax_layer2.set_motion_offset(parallax_layer2.get_motion_offset() - layer2_offset)
+	parallax_layer3.set_motion_offset(parallax_layer3.get_motion_offset() - layer3_offset)
 	
 	# the middle layer has a fixed movement regardless of the ship's direction
-	var asteroids_background_movement = (Vector2(layer1_default_speed,0) * delta) - layer1_offset
-	parallax_layer1.set_motion_offset(parallax_layer1.get_motion_offset() + asteroids_background_movement)
+	var asteroids_background_movement0 = (Vector2(layer1_default_speed,0) * delta) - layer1_offset
+	parallax_layer1.set_motion_offset(parallax_layer1.get_motion_offset() + asteroids_background_movement0)
+	
+	var asteroids_background_movement1 = (Vector2(layer2_default_speed,0) * delta) - layer2_offset
+	parallax_layer2.set_motion_offset(parallax_layer2.get_motion_offset() + asteroids_background_movement1)
 
 func on_game_over():
 	timer.stop()
