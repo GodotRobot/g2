@@ -20,6 +20,7 @@ var dead_timestamp = -1
 var last_laser_timestamp = -1.0
 var ammo_type_ = AMMO_TYPE.regular
 var warp_dest = Vector2(0.0,0.0)
+var movement_offset = Vector2(0.0,0.0)
 
 export(bool) var free_movement = true
 export(bool) var can_shoot = true
@@ -36,8 +37,9 @@ onready var ship_blinking_timer = get_node("ShipBlinkingTimer")
 onready var warp_transparency_timer = get_node("WarpTransparencyTimer")
 onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
-onready var direction_camera = get_parent().get_node("DirectionCamera")
 onready var hitbox = get_node("HitBox")
+
+
 
 const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
@@ -84,6 +86,7 @@ func start_death():
 	if ship_state == SHIP_STATE.death_start:
 		return
 	
+	movement_offset = Vector2(0.0,0.0)
 	ship_state = SHIP_STATE.death_start
 	sfx.play("Ship_Explosion")
 	dead_timestamp = OS.get_ticks_msec()
@@ -114,7 +117,7 @@ func _fixed_process(delta):
 	var delta_rad = 0.0
 	var f1 = 280.0
 	var f2 = 4.0
-	var movement_offset = Vector2(0,0)
+	movement_offset = Vector2(0,0)
 
 	if Input.is_action_pressed("ui_warp") and ship_state == SHIP_STATE.active:
 		var ship_width = sprite.get_texture().get_width()
@@ -172,9 +175,6 @@ func _fixed_process(delta):
 		var pos_x = get_pos().x
 		var pos_y = 1
 		warp_ship(pos_x,pos_y)
-
-	if direction_camera:
-		direction_camera.update(movement_offset)
 
 	move_to(new_pos)
 	rotate(delta_rad)

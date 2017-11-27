@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Levels/LevelBase.gd" type="Script" id=1]
 [ext_resource path="res://Backgrounds/stars_bg.png" type="Texture" id=2]
-[ext_resource path="res://Backgrounds/clouds2.png" type="Texture" id=3]
-[ext_resource path="res://Entities/Ship/DirectionCamera.gd" type="Script" id=4]
+[ext_resource path="res://Backgrounds/Asteroids_bg.tex" type="Texture" id=3]
+[ext_resource path="res://Backgrounds/clouds2.png" type="Texture" id=4]
 [ext_resource path="res://Entities/Ship/Ship.tscn" type="PackedScene" id=5]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
 
@@ -12,12 +12,18 @@
 script/script = ExtResource( 1 )
 level_type = "shooter"
 level_speed = 90.0
-initial_pos = Vector2( 640, 500 )
+initial_pos = Vector2( 640, 360 )
 initial_rot = 0.0
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="GameLayer" type="CanvasLayer" parent="."]
 
-editor/display_folded = true
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="GameLayer"]
+
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -29,63 +35,53 @@ scroll/limit_begin = Vector2( 0, 0 )
 scroll/limit_end = Vector2( 0, 0 )
 scroll/ignore_camera_zoom = false
 
-[node name="Background0" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Background0" type="ParallaxLayer" parent="GameLayer/ParallaxBackground"]
 
 editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1280, 720 )
 
-[node name="StarsSprite" type="Sprite" parent="ParallaxBackground/Background0"]
+[node name="StarsSprite" type="Sprite" parent="GameLayer/ParallaxBackground/Background0"]
 
+visibility/light_mask = 0
 texture = ExtResource( 2 )
 centered = false
 region = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Background1" type="ParallaxLayer" parent="GameLayer/ParallaxBackground"]
 
 editor/display_folded = true
-motion/scale = Vector2( 2, 2 )
-motion/offset = Vector2( 1, 1 )
+visibility/light_mask = 0
+motion/scale = Vector2( 5, 0 )
+motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1280, 720 )
 
-[node name="CloudsSprite" type="Sprite" parent="ParallaxBackground/Background1"]
+[node name="AsteroidsSprite" type="Sprite" parent="GameLayer/ParallaxBackground/Background1"]
 
 visibility/opacity = 0.54
-visibility/light_mask = 8
+visibility/light_mask = 0
 texture = ExtResource( 3 )
 centered = false
 region = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="GameLayer" type="CanvasLayer" parent="."]
+[node name="Background2" type="ParallaxLayer" parent="GameLayer/ParallaxBackground"]
 
 editor/display_folded = true
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
+motion/scale = Vector2( 2, 2 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 1280, 720 )
 
-[node name="DirectionCamera" type="Camera2D" parent="GameLayer"]
+[node name="CloudsSprite" type="Sprite" parent="GameLayer/ParallaxBackground/Background2"]
 
-anchor_mode = 0
-rotating = false
-current = true
-zoom = Vector2( 1, 1 )
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-drag_margin/h_enabled = true
-drag_margin/v_enabled = true
-smoothing/enable = false
-smoothing/speed = 5.0
-drag_margin/left = 0.2
-drag_margin/top = 0.2
-drag_margin/right = 0.2
-drag_margin/bottom = 0.2
-script/script = ExtResource( 4 )
+visibility/opacity = 0.54
+visibility/light_mask = 8
+texture = ExtResource( 4 )
+centered = false
+region = true
+region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="ShipArea2D" parent="GameLayer" instance=ExtResource( 5 )]
 

@@ -17,8 +17,17 @@ enum LEVEL_TYPE {
 }
 var type = LEVEL_TYPE.invalid
 
+const layer0_speed = 10.0
+const layer1_speed = 5.0
+const layer1_default_speed = 50.0
+const layer2_speed = 3.5
+
 onready var time_countdown = 30
 onready var timer = get_node("LevelCountdown")
+
+onready var parallax_layer0 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background0")
+onready var parallax_layer1 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background1")
+onready var parallax_layer2 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background2")
 
 func init_type():
 	if level_type == "shooter":
@@ -57,8 +66,24 @@ func _ready():
 			m.set_linear_velocity(m.get_linear_velocity() + Vector2(0.0, level_speed))
 
 func _process(delta):
-	if type == LEVEL_TYPE.shooter:
-		pass
+	var ship = GameManager.get_current_ship()
+	
+	var layer0_offset = Vector2(0.0,0.0)
+	var layer1_offset = Vector2(0.0,0.0)
+	var layer2_offset = Vector2(0.0,0.0)
+	
+	if ship:
+		layer0_offset = ship.movement_offset / layer0_speed
+		layer1_offset = ship.movement_offset / layer1_speed
+		layer2_offset = ship.movement_offset / layer2_speed
+		
+	# move the stars and clouds based on the ship's movement
+	parallax_layer0.set_motion_offset(parallax_layer0.get_motion_offset() - layer0_offset)
+	parallax_layer2.set_motion_offset(parallax_layer2.get_motion_offset() - layer2_offset)
+	
+	# the middle layer has a fixed movement regardless of the ship's direction
+	var asteroids_background_movement = (Vector2(layer1_default_speed,0) * delta) - layer1_offset
+	parallax_layer1.set_motion_offset(parallax_layer1.get_motion_offset() + asteroids_background_movement)
 
 func on_game_over():
 	timer.stop()
@@ -92,13 +117,14 @@ func get_hud():
 	return hud[0]
 
 func resume_parallax():
+	pass
 	# resume camera based on current level type
-	if level_type == "shooter":
-		get_node("GameLayer/DirectionCamera").make_current()
-	elif level_type == "obstacles":
-		get_node("GameLayer/VerticalCamera").make_current()
-	else:
-		GameManager.dbg("resume_parallax: unknown level type " + level_type)
+	#if level_type == "shooter":
+	#	get_node("GameLayer/DirectionCamera").make_current()
+	#elif level_type == "obstacles":
+	#	get_node("GameLayer/VerticalCamera").make_current()
+	#else:
+	#	GameManager.dbg("resume_parallax: unknown level type " + level_type)
 
 func _on_LevelCountdown_timeout():
 	if time_countdown > 0:

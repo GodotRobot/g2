@@ -98,6 +98,7 @@ func add_warp():
 
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")
+	var hud = current_scene.get_hud()
 	lives -= 1
 	if lives > 0:
 		var new_ship = instance.clone(SHIP.instance())
@@ -105,14 +106,14 @@ func ship_destroyed(instance):
 		new_ship.set_rot(current_scene.initial_rot)
 		warp_to_start_level = true
 		cur_warp = INITIAL_WARP
+		if hud:
+			hud.set_warps(cur_warp)
 		instance.get_parent().add_child(new_ship) # old ship will be (self-)deleted once its death animation ends
 	else:
 		game_over()
 		
-	var hud = current_scene.get_hud()
 	if hud:
 		hud.remove_life(1)
-		hud.set_warps(cur_warp)
 
 func enemy_destroyed(instance):
 	score += 1
