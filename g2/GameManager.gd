@@ -27,6 +27,13 @@ const INITIAL_WARP = 10
 const MAX_WARP = 21
 # make bullet start ahead of ship. also eliminate visible delay when shooting while rotating
 const BULLET_AHEAD = 40
+# ship movement parameters - set linear/angular acceleration to 0 if you want to restore non-physical movement
+const SHIP_ACCELERATION = 0#10.0
+const SHIP_DRAG = 0.92
+const SHIP_MAX_SPEED = 400.0
+const SHIP_ANGULAR_ACCELERATION = 0#9.0
+const SHIP_ANGULAR_DRAG = 0.92
+const SHIP_MAX_ANGULAR_SPEED = 10.0
 ######################################################################
 
 var ship_pos_on_level_end

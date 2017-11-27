@@ -21,6 +21,8 @@ var last_laser_timestamp = -1.0
 var ammo_type_ = AMMO_TYPE.regular
 var warp_dest = Vector2(0.0,0.0)
 var movement_offset = Vector2(0.0,0.0)
+var velocity = Vector2()
+var angular_velocity = float()
 
 export(bool) var free_movement = true
 export(bool) var can_shoot = true
@@ -75,7 +77,7 @@ func clone(instance):
 func _ready():
 	ship_state = SHIP_STATE.active
 	if GameManager.warp_to_start_level:
-		warp_ship(GameManager.current_scene.initial_pos.x,GameManager.current_scene.initial_pos.y)
+		#warp_ship(GameManager.current_scene.initial_pos.x,GameManager.current_scene.initial_pos.y)
 		GameManager.warp_to_start_level = false
 	ship_blinking_timer.start()
 	ship_activation_timer.start()
@@ -176,8 +178,20 @@ func _fixed_process(delta):
 		var pos_y = 1
 		warp_ship(pos_x,pos_y)
 
-	move_to(new_pos)
-	rotate(delta_rad)
+	if GameManager.SHIP_ACCELERATION == 0.0:
+		move_to(new_pos)
+	else:
+		velocity += movement_offset * GameManager.SHIP_ACCELERATION
+		velocity *= GameManager.SHIP_DRAG
+		velocity = velocity.clamped(GameManager.SHIP_MAX_SPEED)
+		move(velocity * delta)
+	if GameManager.SHIP_ANGULAR_ACCELERATION == 0.0:
+		rotate(delta_rad)
+	else:
+		angular_velocity += delta_rad * GameManager.SHIP_ANGULAR_ACCELERATION
+		angular_velocity *= GameManager.SHIP_ANGULAR_DRAG
+		angular_velocity = clamp(angular_velocity, -GameManager.SHIP_MAX_ANGULAR_SPEED, GameManager.SHIP_MAX_ANGULAR_SPEED)
+		rotate(angular_velocity * delta)
 
 func warp_ship(pos_x, pos_y):
 	if GameManager.cur_warp == 0:
