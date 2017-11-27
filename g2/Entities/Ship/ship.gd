@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 const LASER_RECOVERY_MS = 200
-const BLINKING_SPEED = 8.0
 
 enum AMMO_TYPE {
 	regular = 0
@@ -12,13 +11,14 @@ enum SHIP_STATE {
 	active = 0
 	warp_start = 1
 	warp_end = 2
+	death_start = 3
+	death_end = 4
 }
 
 var ship_state = SHIP_STATE.active
 var dead_timestamp = -1
 var last_laser_timestamp = -1.0
 var ammo_type_ = AMMO_TYPE.regular
-var ammo_count_ = 99999
 var warp_dest = Vector2(0.0,0.0)
 
 export(bool) var free_movement = true
@@ -32,6 +32,7 @@ onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
 onready var ship_activation_timer = get_node("ShipActivationTimer")
+onready var ship_blinking_timer = get_node("ShipBlinkingTimer")
 onready var warp_transparency_timer = get_node("WarpTransparencyTimer")
 onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
@@ -48,8 +49,7 @@ func active():
 
 func bullet_instance():
 	# TODO another type of bullet?
-	if can_shoot and (ammo_count_ > 0):
-		ammo_count_ -= 1
+	if can_shoot:
 		return bullet.instance()
 	else:
 		return null
@@ -75,24 +75,49 @@ func _ready():
 	if GameManager.warp_to_start_level:
 		warp_ship(get_viewport_rect().size.x / 2.0, get_viewport_rect().size.y / 2.0)
 		GameManager.warp_to_start_level = false
-	sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
+	ship_blinking_timer.start()
 	ship_activation_timer.start()
 	set_fixed_process(true)
 
+func start_death():
+	if ship_state == SHIP_STATE.death_start:
+		return
+	
+	ship_state = SHIP_STATE.death_start
+	sfx.play("Ship_Explosion")
+	dead_timestamp = OS.get_ticks_msec()
+	death_particle_effect.set_emitting(true)
+	flowing_particle_effect.set_emitting(false)
+	sprite.hide()
+	set_layer_mask(0)
+	set_collision_mask(0)
+	hitbox.set_layer_mask(0)
+	hitbox.set_collision_mask(0)
+	
+	#if dead_timestamp != -1:
+	#	return
+	#sfx.play("Ship_Explosion")
+	#dead_timestamp = OS.get_ticks_msec()
+	#death_particle_effect.set_emitting(true)
+	#flowing_particle_effect.set_emitting(false)
+	#sprite.hide()
+	#set_layer_mask(0)
+	#set_collision_mask(0)
+	#hitbox.set_layer_mask(0)
+	#hitbox.set_collision_mask(0)
+	#GameManager.ship_destroyed(self)
+	
 func _fixed_process(delta):
-	if dead_timestamp > 0:
+	if ship_state == SHIP_STATE.death_start:
 		var secs_since_death = (OS.get_ticks_msec() - dead_timestamp) / 1000.0
 		var death_anim_ended = secs_since_death > death_particle_effect.get_lifetime()
 		var flowing_anim_ended = secs_since_death > flowing_particle_effect.get_lifetime()
 		if death_anim_ended and flowing_anim_ended:
+			GameManager.ship_destroyed(self)
 			queue_free()
 		return
 
-	if GameManager.paused:
-		return
-
-	# if the ship is currently warping let _on_WarpTimer_timeout update ship position
-	if ship_state in [SHIP_STATE.warp_start, SHIP_STATE.warp_end]:
+	if ship_state != SHIP_STATE.active or GameManager.paused:
 		return
 
 	var v = Vector2(0.0, -1.0).rotated(get_rot())
@@ -103,7 +128,7 @@ func _fixed_process(delta):
 	var f2 = 4.0
 	var movement_offset = Vector2(0,0)
 
-	if Input.is_action_pressed("ui_warp") and self.active():
+	if Input.is_action_pressed("ui_warp") and ship_state == SHIP_STATE.active:
 		var ship_width = sprite.get_texture().get_width()
 		var ship_height = sprite.get_texture().get_height()
 		var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
@@ -183,20 +208,6 @@ func warp_ship(pos_x, pos_y):
 		warp_transparency_timer.start()
 		sfx.play("WarpDrive")
 
-func start_death():
-	if dead_timestamp != -1:
-		return
-	sfx.play("Ship_Explosion")
-	dead_timestamp = OS.get_ticks_msec()
-	death_particle_effect.set_emitting(true)
-	flowing_particle_effect.set_emitting(false)
-	sprite.hide()
-	set_layer_mask(0)
-	set_collision_mask(0)
-	hitbox.set_layer_mask(0)
-	hitbox.set_collision_mask(0)
-	GameManager.ship_destroyed(self)
-
 func add_shield(shield):
 	GameManager.dbg(get_name() + " adding " + String(shield) + " shield")
 	var shield = null
@@ -217,7 +228,8 @@ func _on_HitBoxArea_body_enter( body ):
 	start_death()
 
 func _on_ShipActivationTimer_timeout():
-	sprite.get_material().set_shader_param("BLINKING_SPEED", 0.0)
+	ship_blinking_timer.stop()
+	sprite.show()
 
 func _on_WarpAnimation_finished():
 	if (ship_state == SHIP_STATE.warp_start):
@@ -230,7 +242,7 @@ func _on_WarpAnimation_finished():
 		ship_state = SHIP_STATE.active
 		warp_animation.stop()
 		warp_animation.hide()
-		sprite.get_material().set_shader_param("BLINKING_SPEED", BLINKING_SPEED)
+		ship_blinking_timer.start()
 		ship_activation_timer.start()
 
 func _on_WarpTransparencyTimer_timeout():
@@ -242,3 +254,10 @@ func _on_WarpTransparencyTimer_timeout():
 		if (ship_opacity < 1.0):
 				ship_opacity += 0.1
 	sprite.set_opacity(ship_opacity)
+
+
+func _on_ShipBlinkingTimer_timeout():
+	if sprite.is_visible():
+		sprite.hide()
+	else:
+		sprite.show()

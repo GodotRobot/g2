@@ -104,8 +104,6 @@ func ship_destroyed(instance):
 		new_ship.set_pos(current_scene.initial_pos)
 		new_ship.set_rot(current_scene.initial_rot)
 		instance.get_parent().add_child(new_ship) # old ship will be (self-)deleted once its death animation ends
-		cur_warp = INITIAL_WARP
-		current_scene.get_hud().set_warps(cur_warp)
 	else:
 		game_over()
 	var hud = current_scene.get_hud()
@@ -252,3 +250,6 @@ func _deferred_goto_scene(path):
 	get_tree().get_root().add_child(current_scene)
 	# optional, to make it compatible with the SceneTree.change_scene() API
 	get_tree().set_current_scene( current_scene )
+	# reset warp counter for a new level
+	cur_warp = INITIAL_WARP
+	current_scene.get_hud().set_warps(cur_warp)

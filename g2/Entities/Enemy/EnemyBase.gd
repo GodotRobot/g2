@@ -191,4 +191,4 @@ func _on_Area2D_body_enter( body ):
 	GameManager.dbg("enemy: " + get_name() + " collision with " + body.get_name())
 	if body extends BULLET_BASE or (body extends SHIP_BASE and body.active()):
 		body.start_death() # we take the bullet / active ship with us
-	start_death()
+		start_death()

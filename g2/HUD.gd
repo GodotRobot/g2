@@ -32,9 +32,9 @@ func set_warps(count):
 		remove_warps(warps_to_add)
 
 func add_warps(count):
-	for i in range(count):
-		warp_container.add_child(get_node("HUD/WarpsLeft/Warp").duplicate()) # icon
-		warp_container.add_child(get_node("HUD/WarpsLeft/Sep").duplicate()) # separator
+		for i in range(count):
+			warp_container.add_child(get_node("HUD/WarpsLeft/Warp").duplicate()) # icon
+			warp_container.add_child(get_node("HUD/WarpsLeft/Sep").duplicate()) # separator
 
 func remove_warps(count):
 	var children = warp_container.get_children()
