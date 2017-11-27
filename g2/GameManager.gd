@@ -205,7 +205,6 @@ func pause():
 
 func unpause(pause_menu_instance):
 	current_scene.remove_child(pause_menu_instance)
-	current_scene.resume_parallax()
 	set_process_input(true)
 	get_tree().set_pause(false)
 

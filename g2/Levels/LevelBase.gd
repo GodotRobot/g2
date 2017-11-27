@@ -71,26 +71,42 @@ func _ready():
 func _process(delta):
 	var ship = GameManager.get_current_ship()
 	
+	var ship_offset = Vector2(0.0,0.0)
+	
+	if type == LEVEL_TYPE.shooter:
+		# if it's a shooting level, use the ship movement offset to move the parallax layers
+		ship_offset = ship.movement_offset
+	else:
+		# if it's an obstacle level, always move downwards
+		ship_offset = Vector2(0.0,-400.0) * delta
+	
 	var layer0_offset = Vector2(0.0,0.0)
 	var layer1_offset = Vector2(0.0,0.0)
 	var layer2_offset = Vector2(0.0,0.0)
 	var layer3_offset = Vector2(0.0,0.0)
 	
 	if ship:
-		layer0_offset = ship.movement_offset / layer0_speed
-		layer1_offset = ship.movement_offset / layer1_speed
-		layer2_offset = ship.movement_offset / layer2_speed
-		layer3_offset = ship.movement_offset / layer3_speed
+		layer0_offset = ship_offset / layer0_speed
+		layer1_offset = ship_offset / layer1_speed
+		layer2_offset = ship_offset / layer2_speed
+		layer3_offset = ship_offset / layer3_speed
 		
-	# move the stars and clouds based on the ship's movement
+	# move the stars and clouds layers based on the ship's movement
 	parallax_layer0.set_motion_offset(parallax_layer0.get_motion_offset() - layer0_offset)
 	parallax_layer3.set_motion_offset(parallax_layer3.get_motion_offset() - layer3_offset)
 	
-	# the middle layer has a fixed movement regardless of the ship's direction
-	var asteroids_background_movement0 = (Vector2(layer1_default_speed,0) * delta) - layer1_offset
-	parallax_layer1.set_motion_offset(parallax_layer1.get_motion_offset() + asteroids_background_movement0)
+	# move the center asteroids layers
+	var asteroids_background_movement0 = Vector2(0.0,0.0)
+	var asteroids_background_movement1 = Vector2(0.0,0.0)
 	
-	var asteroids_background_movement1 = (Vector2(layer2_default_speed,0) * delta) - layer2_offset
+	if type == LEVEL_TYPE.shooter:
+		asteroids_background_movement0 = (Vector2(layer1_default_speed,0) * delta) - layer1_offset
+		asteroids_background_movement1 = (Vector2(layer2_default_speed,0) * delta) - layer2_offset
+	else:
+		asteroids_background_movement0 -= layer1_offset
+		asteroids_background_movement1 -= layer2_offset
+		
+	parallax_layer1.set_motion_offset(parallax_layer1.get_motion_offset() + asteroids_background_movement0)
 	parallax_layer2.set_motion_offset(parallax_layer2.get_motion_offset() + asteroids_background_movement1)
 
 func on_game_over():
@@ -123,16 +139,6 @@ func get_hud():
 	if hud.empty():
 		return null
 	return hud[0]
-
-func resume_parallax():
-	pass
-	# resume camera based on current level type
-	#if level_type == "shooter":
-	#	get_node("GameLayer/DirectionCamera").make_current()
-	#elif level_type == "obstacles":
-	#	get_node("GameLayer/VerticalCamera").make_current()
-	#else:
-	#	GameManager.dbg("resume_parallax: unknown level type " + level_type)
 
 func _on_LevelCountdown_timeout():
 	if time_countdown > 0:
