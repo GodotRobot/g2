@@ -3,7 +3,7 @@ extends KinematicBody2D
 const SHIP_BASE = preload("res://Entities/Ship/ship.gd")
 const BULLET_BASE = preload("res://Entities/Bullet/BulletBase.gd")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
-const BULLET = preload("res://Entities/Bullet/Bullet.tscn")
+const BULLET = preload("res://Entities/Bullet/EnemyBullet.tscn")
 const DRONE = preload("res://Entities/Enemy/EnemyDrone.tscn")
 
 enum PERSONALITY_TYPE {
@@ -77,8 +77,6 @@ func shoot():
 			var xform = sprite.get_global_transform()
 			new_bullet.set_global_transform(xform)
 			new_bullet.velocity = Vector2(0.0, 1.0).rotated(xform.get_rotation())
-			new_bullet.set_layer_mask(16)
-			new_bullet.set_collision_mask(0)
 			get_parent().add_child(new_bullet)
 			sfx.play("sfx_laser1")
 	elif personality_type == PERSONALITY_TYPE.boss and is_ship_in_funnel():
