@@ -15,6 +15,10 @@ transform/pos = Vector2( 0, -16 )
 level_type = "obstacles"
 level_speed = 200.0
 
+[node name="ParallaxBackground" parent="GameLayer"]
+
+editor/display_folded = true
+
 [node name="ShipArea2D" parent="GameLayer"]
 
 transform/pos = Vector2( 1677.31, 431.81 )
@@ -189,5 +193,9 @@ velocity/linear = Vector2( 12, -12 )
 
 transform/pos = Vector2( 969.507, -2418.62 )
 velocity/linear = Vector2( 12, -12 )
+
+[node name="TintLayer" parent="."]
+
+editor/display_folded = true
 
 

@@ -77,7 +77,7 @@ func clone(instance):
 func _ready():
 	ship_state = SHIP_STATE.active
 	if GameManager.warp_to_start_level:
-		#warp_ship(GameManager.current_scene.initial_pos.x,GameManager.current_scene.initial_pos.y)
+		warp_ship(GameManager.current_scene.initial_pos.x,GameManager.current_scene.initial_pos.y)
 		GameManager.warp_to_start_level = false
 	ship_blinking_timer.start()
 	ship_activation_timer.start()
@@ -99,6 +99,8 @@ func start_death():
 	set_collision_mask(0)
 	hitbox.set_layer_mask(0)
 	hitbox.set_collision_mask(0)
+	ship_blinking_timer.stop()
+	ship_activation_timer.stop()
 	
 func _fixed_process(delta):
 	if ship_state == SHIP_STATE.death_start:
