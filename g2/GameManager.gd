@@ -16,13 +16,15 @@ const HTTP = preload("res://Menu/HTTP.gd")
 
 ################### game consts and balance ##########################
 # initial ships upon starting the game
-const INITIAL_LIVES = 5
+const INITIAL_LIVES = 3
+const MAX_LIFE = 5
 # time to wait between killing the last enemy in the level and going to the next one
 const LEVEL_POST_MORTEM_DELAY_SEC = 1.0
 # bullet speed is contant, so make sure the shooter is never faster than it
 const BULLET_SPEED = 700
 # initial warp drive charges
-const INITIAL_WARP = 5
+const INITIAL_WARP = 10
+const MAX_WARP = 21
 # make bullet start ahead of ship. also eliminate visible delay when shooting while rotating
 const BULLET_AHEAD = 40
 ######################################################################
@@ -81,16 +83,18 @@ func ship_warped():
 	current_scene.get_hud().remove_warps(1)
 
 func add_life():
-	lives += 1
-	var hud = current_scene.get_hud()
-	if hud:
-		hud.add_life(1)
+	if lives < MAX_LIFE:
+		lives += 1
+		var hud = current_scene.get_hud()
+		if hud:
+			hud.add_life(1)
 
 func add_warp():
-	cur_warp += 1
-	var hud = current_scene.get_hud()
-	if hud:
-		hud.set_warps(cur_warp)
+	if cur_warp < MAX_WARP:
+		cur_warp += 1
+		var hud = current_scene.get_hud()
+		if hud:
+			hud.set_warps(cur_warp)
 
 func ship_destroyed(instance):
 	dbg("ship " + instance.get_name() + " destoryed!")
