@@ -75,7 +75,8 @@ func _process(delta):
 	
 	if type == LEVEL_TYPE.shooter:
 		# if it's a shooting level, use the ship movement offset to move the parallax layers
-		ship_offset = ship.movement_offset
+		if ship:
+			ship_offset = ship.movement_offset
 	else:
 		# if it's an obstacle level, always move downwards
 		ship_offset = Vector2(0.0,-400.0) * delta
