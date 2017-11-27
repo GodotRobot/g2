@@ -18,7 +18,6 @@ var type = LEVEL_TYPE.invalid
 
 onready var time_countdown = 30
 onready var timer = get_node("LevelCountdown")
-onready var direction_camera = get_node("GameLayer/DirectionCamera")
 
 func init_type():
 	if level_type == "shooter":
@@ -89,10 +88,16 @@ func get_hud():
 	return hud[0]
 
 func resume_parallax():
-	direction_camera.make_current()
+	# resume camera based on current level type
+	if level_type == "shooter":
+		get_node("GameLayer/DirectionCamera").make_current()
+	elif level_type == "obstacles":
+		get_node("GameLayer/VerticalCamera").make_current()
+	else:
+		GameManager.dbg("resume_parallax: unknown level type " + level_type)
 
 func _on_LevelCountdown_timeout():
 	if time_countdown > 0:
 		time_countdown -= 1
 		get_hud().set_time(time_countdown)
-
+		

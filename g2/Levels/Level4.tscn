@@ -30,6 +30,7 @@ level_speed = 60.0
 
 [node name="ParallaxBackground" parent="."]
 
+editor/display_folded = false
 scroll/ignore_camera_zoom = true
 
 [node name="Background1" parent="ParallaxBackground"]
@@ -38,7 +39,11 @@ editor/display_folded = false
 motion/scale = Vector2( 1, 1.4 )
 motion/offset = Vector2( 0, 0 )
 
-[node name="Camera2D" type="Camera2D" parent="ParallaxBackground"]
+[node name="GameLayer" parent="."]
+
+editor/display_folded = false
+
+[node name="VerticalCamera" type="Camera2D" parent="GameLayer"]
 
 anchor_mode = 0
 rotating = false
