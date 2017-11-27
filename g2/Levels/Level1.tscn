@@ -7,8 +7,16 @@
 
 initial_pos = Vector2( 640, 500 )
 
+[node name="GameLayer" parent="."]
+
+editor/display_folded = true
+
 [node name="EnemyShooter 2" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1175.56, 241.92 )
+
+[node name="TintLayer" parent="."]
+
+editor/display_folded = true
 
 

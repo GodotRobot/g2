@@ -22,8 +22,8 @@ transform/pos = Vector2( 1003.03, 222.167 )
 
 transform/pos = Vector2( 887.159, 181.27 )
 
-[node name="HUD" parent="."]
+[node name="TintLayer" parent="."]
 
-layer = -42
+editor/display_folded = true
 
 
