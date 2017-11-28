@@ -27,6 +27,9 @@ func calc_warps():
 func set_warps(count):
 	var warps_to_add = count - calc_warps()
 	if warps_to_add == 0:
+		if warp_container.get_children().empty():
+			warp_label.hide()
+			warp_critical_alert.show()	
 		return
 	elif warps_to_add > 0:
 		add_warps(warps_to_add)
