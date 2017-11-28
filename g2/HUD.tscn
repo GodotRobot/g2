@@ -287,8 +287,9 @@ margin/right = 2349.0
 margin/bottom = 76.0
 alignment = 0
 
-[node name="Warp" type="TextureFrame" parent="HUD/WarpsLeft"]
+[node name="WarpIcon" type="TextureFrame" parent="HUD"]
 
+visibility/visible = false
 visibility/opacity = 0.65
 visibility/light_mask = 0
 rect/min_size = Vector2( 64, 64 )
@@ -296,15 +297,15 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 64.0
-margin/bottom = 64.0
+margin/left = 760.0
+margin/top = 12.0
+margin/right = 824.0
+margin/bottom = 76.0
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 0
 
-[node name="Sep" type="VSeparator" parent="HUD/WarpsLeft"]
+[node name="WarpSep" type="VSeparator" parent="HUD"]
 
 visibility/visible = false
 visibility/light_mask = 0
@@ -312,10 +313,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 68.0
-margin/top = 0.0
-margin/right = 71.0
-margin/bottom = 64.0
+margin/left = 772.24
+margin/top = 12.0
+margin/right = 775.24
+margin/bottom = 76.0
 
 [node name="CkbxDebug" type="CheckBox" parent="HUD"]
 
@@ -342,7 +343,5 @@ one_shot = false
 autostart = false
 
 [connection signal="toggled" from="HUD/CkbxDebug" to="." method="_on_CheckBox_toggled"]
-
-[connection signal="timeout" from="HUD/WarpBlinkTimer" to="." method="_on_WarpBlinkTimer_timeout"]
 
 
