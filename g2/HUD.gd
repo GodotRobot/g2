@@ -11,8 +11,8 @@ onready var warp_container_warp = null
 onready var warp_container_sep = null
 
 func _ready():
-	warp_container_warp = get_node("HUD/WarpsLeft/Warp").duplicate()
-	warp_container_sep = get_node("HUD/WarpsLeft/Sep").duplicate()
+	warp_container_warp = get_node("HUD/WarpIcon").duplicate()
+	warp_container_sep = get_node("HUD/WarpSep").duplicate()
 	
 
 func set_level(level):
@@ -33,8 +33,11 @@ func set_warps(count):
 
 func add_warps(count):
 		for i in range(count):
-			warp_container.add_child(warp_container_warp.duplicate()) # icon
-			warp_container.add_child(warp_container_sep.duplicate()) # separator
+			var new_warp = warp_container_warp.duplicate()
+			var new_sep = warp_container_sep.duplicate()
+			new_warp.show()
+			warp_container.add_child(new_warp) # icon
+			warp_container.add_child(new_sep) # separator
 
 func remove_warps(count):
 	var children = warp_container.get_children()

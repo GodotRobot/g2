@@ -273,10 +273,6 @@ func _deferred_goto_scene(path):
 	var level_name = current_scene.get_name()
 	var expeced_level_name = "Level" + String(cur_level)
 	assert(level_name == expeced_level_name)
-	
-	
-	# reset warp counter for a new level
-	current_scene.get_hud().set_warps(cur_warp)
 	current_scene.fade_on()
 
 	
