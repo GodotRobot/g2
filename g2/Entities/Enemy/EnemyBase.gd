@@ -42,7 +42,7 @@ var personality_type
 var drop_type # works with var drop_value
 
 onready var GameManager = get_node("/root/GameManager")
-onready var death_effect = get_node("Sprite/DeathEffect")
+onready var death_effect = get_node("DeathEffect")
 onready var flow_effect = get_node("Sprite/FlowEffect")
 onready var sprite = get_node("Sprite")
 onready var sfx = get_node("SamplePlayer")
@@ -155,7 +155,7 @@ func _fixed_process(delta):
 		motion = 0.001 * v
 		angle = motion.angle()
 		flow_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(angle))
-		sprite.set_global_rot(angle)
+		set_global_rot(angle)
 		return
 	motion = move(motion)
 	var impulse = is_outside()
@@ -164,8 +164,8 @@ func _fixed_process(delta):
 		angle = motion.angle()
 		init_velocity(impulse)
 
-	flow_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(angle))
-	sprite.set_global_rot(angle)
+	#flow_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(angle))
+	set_global_rot(angle)
 
 func start_death():
 	if dead_timestamp != -1:
