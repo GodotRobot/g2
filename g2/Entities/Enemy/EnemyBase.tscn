@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://Entities/Enemy/EnemyBase.gd" type="Script" id=1]
-[ext_resource path="res://sheet/sheet.enemyBlack4.atex" type="Texture" id=2]
-[ext_resource path="res://sfx/Enemy_Explosion1.wav" type="Sample" id=3]
+[ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
+[ext_resource path="res://sheet/normal.enemyRed4.atex" type="Texture" id=3]
+[ext_resource path="res://sheet/sheet.enemyBlack4.atex" type="Texture" id=4]
+[ext_resource path="res://sfx/Enemy_Explosion1.wav" type="Sample" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -19,16 +21,23 @@ colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="SampleLibrary" id=4]
+[sub_resource type="CanvasItemMaterial" id=4]
+
+shader/shader = ExtResource( 2 )
+shader/shading_mode = 0
+shader_param/BLINKING_SPEED = 0.0
+shader_param/normal = ExtResource( 3 )
+
+[sub_resource type="SampleLibrary" id=5]
 
 samples/Enemy_Explosion1 = {
 "db": 5.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 3 )
+"sample": ExtResource( 5 )
 }
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=6]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.69406, 41.2027, -10.2583, 41.009, -39.5089, 19.1195, -39.7026, -27.9526, -17.6194, -41.125 )
@@ -127,8 +136,9 @@ color/color_ramp = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
+material/material = SubResource( 4 )
 transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="CourseTimer" type="Timer" parent="."]
 
@@ -145,7 +155,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 5
-config/samples = SubResource( 4 )
+config/samples = SubResource( 5 )
 config/pitch_random = 0.0
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -153,7 +163,7 @@ config/pitch_random = 0.0
 transform/pos = Vector2( 0.33695, -1.44548 )
 transform/scale = Vector2( 1.2495, 1.21808 )
 input/pickable = true
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
