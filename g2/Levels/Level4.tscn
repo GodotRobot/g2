@@ -194,8 +194,4 @@ velocity/linear = Vector2( 12, -12 )
 transform/pos = Vector2( 969.507, -2418.62 )
 velocity/linear = Vector2( 12, -12 )
 
-[node name="TintLayer" parent="."]
-
-editor/display_folded = true
-
 
