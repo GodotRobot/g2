@@ -1,7 +1,6 @@
 extends Node2D
 
 # not "onready" so that we can use it in _enter_tree (can't use it in _init either)
-#onready var GameManager = get_node("/root/GameManager")
 var GameManager
 
 export(String, "shooter", "obstacles") var level_type = "shooter"
@@ -31,8 +30,6 @@ onready var parallax_layer0 = get_node("GameLayer").get_node("ParallaxBackground
 onready var parallax_layer1 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background1")
 onready var parallax_layer2 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background2")
 onready var parallax_layer3 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background3")
-
-onready var tint = get_node("TintLayer/TintAnimationPlayer")
 
 func init_type():
 	if level_type == "shooter":
@@ -117,14 +114,10 @@ func on_game_over():
 
 # called by GameManager
 func level_lost():
-	if tint.is_playing():
-		return false # don't end level while tint animation is active
 	return false
 
 # called by GameManager
 func level_won():
-	if tint.is_playing():
-		return false # don't end level while tint animation is active
 	var ship = GameManager.get_current_ship()
 	if !ship or !ship.active():
 		return false
@@ -146,19 +139,8 @@ func get_hud():
 	if hud.empty():
 		return null
 	return hud[0]
-
-# called by GameManager
-func fade_off():
-	tint.play("FadeOff")
-	
-# called by GameManager
-func fade_on():
-	tint.play("FadeOn")
 	
 func _on_LevelCountdown_timeout():
 	if time_countdown > 0:
 		time_countdown -= 1
 		get_hud().set_time(time_countdown)
-		
-func _on_TintAnimationPlayer_finished():
-	GameManager.tint_animation_finished(get_name())

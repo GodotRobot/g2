@@ -22,8 +22,4 @@ transform/pos = Vector2( 1003.03, 222.167 )
 
 transform/pos = Vector2( 887.159, 181.27 )
 
-[node name="TintLayer" parent="."]
-
-editor/display_folded = true
-
 

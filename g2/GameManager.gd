@@ -218,14 +218,13 @@ func unpause(pause_menu_instance):
 func _process(delta):
 	if not (current_scene extends LEVEL_BASE):
 		return # do nothing for menu level
-	if current_scene.level_won():
+	if current_scene.level_won() and !get_node("/root/TransitionScreen/AnimationPlayer").is_playing():
 		dbg("level " + String(cur_level) + " won!")
 		var cur_ship = get_current_ship()
 		assert(cur_ship)
 		ship_pos_on_level_end = cur_ship.get_pos()
 		ship_rot_on_level_end = cur_ship.get_rot()
-		cur_level += 1
-		current_scene.fade_off()
+		transition_to_level(cur_level + 1)
 	if current_scene.level_lost():
 		print("todo")
 
@@ -233,11 +232,20 @@ func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		pause()
 
-func tint_animation_finished(path):
-	var level_path = "Level" + String(cur_level)
-	if level_path != path:
-		goto_scene(LEVEL_PATH.replace("<N>", String(cur_level)))
+var titles = ["null", "prepare to die", "this is easy", "who are you?", "idan did it", "sbx4ever", "show me what you got"]
 
+func transition_to_level(next_level):
+	cur_level = next_level
+	var transition = get_node("/root/TransitionScreen")
+	var title = "null"
+	if next_level < titles.size():
+		title = titles[next_level]
+	transition.init(next_level, title)
+	transition.get_node("AnimationPlayer").play("Anim")
+
+func goto_level(level):
+	goto_scene(LEVEL_PATH.replace("<N>", String(level)))
+	
 func goto_scene(path):
 	# This function will usually be called from a signal callback,
 	# or some other function from the running scene.
@@ -277,6 +285,5 @@ func _deferred_goto_scene(path):
 	
 	# reset warp counter for a new level
 	current_scene.get_hud().set_warps(cur_warp)
-	current_scene.fade_on()
 
 	
