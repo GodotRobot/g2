@@ -13,7 +13,7 @@
 ]]
 
 process/pause_mode = 2
-layer = 2
+layer = 99
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
