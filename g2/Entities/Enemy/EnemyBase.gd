@@ -65,8 +65,7 @@ func calc_random_velocity(impulse):
 func get_dir_to_ship():
 	var ship = GameManager.get_current_ship()
 	if not ship:
-		return calc_random_velocity(null)
-
+		return (get_viewport().get_rect().size / 2 - get_pos()).normalized()
 	return (ship.get_pos() - get_pos()).normalized()
 
 func shoot():
@@ -80,12 +79,12 @@ func shoot():
 			get_parent().add_child(new_bullet)
 			sfx.play("sfx_laser1")
 	elif personality_type == PERSONALITY_TYPE.boss and is_ship_in_funnel():
-		var new_drone = DRONE.instance()
-		if new_drone:
-			# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
-			var xform = sprite.get_global_transform()
-			new_drone.set_global_transform(xform)
-			get_parent().add_child(new_drone)
+		if GameManager.get_current_ship():
+			var new_drone = DRONE.instance()
+			if new_drone:
+				var xform = get_node("Sprite/DroneHome").get_global_transform()
+				new_drone.set_global_transform(xform)
+				get_parent().add_child(new_drone)
 
 func init_velocity(impulse = null):
 	if personality_type == PERSONALITY_TYPE.random:
