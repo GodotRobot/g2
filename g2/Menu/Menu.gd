@@ -4,8 +4,11 @@ onready var GameManager = get_node("/root/GameManager")
 onready var start_button = get_node("VBoxContainer/StartButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
 onready var context = get_node("VBoxContainer/Context")
+onready var menu_box_container = get_node("VBoxContainer")
 onready var music_player = get_node("StreamPlayer")
 onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
+
+const paused_menu_y = 160
 
 enum MODE {
 	start,
@@ -30,10 +33,19 @@ func fade_on():
 
 func _ready():
 	GameManager.download_highscores()
-	if (mode != MODE.start):
+	if (mode == MODE.start):
+		get_node("Title").show()
+		get_node("StartBG").show()
+	else:
+		menu_box_container.set_pos(Vector2(menu_box_container.get_pos().x, paused_menu_y))
 		parallax_camera.clear_current()
 		# add a dim background
+		get_node("Title").hide()
+		get_node("Credits").hide()
+		get_node("Instructions").hide()
 		get_node("PauseBG").show()
+		
+		
 	music_player.play()
 	start_button.grab_focus()
 	if mode == MODE.pause:
