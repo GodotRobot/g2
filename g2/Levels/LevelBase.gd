@@ -68,7 +68,7 @@ func _ready():
 	if type == LEVEL_TYPE.obstacles:
 		var meteors = get_tree().get_nodes_in_group("meteors")
 		for m in meteors:
-			m.set_linear_velocity(m.get_linear_velocity() + Vector2(0.0, level_speed))
+			m.set_fake_speed(level_speed)
 
 func _process(delta):
 	var ship = GameManager.get_current_ship()
