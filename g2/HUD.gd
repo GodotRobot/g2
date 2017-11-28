@@ -6,6 +6,8 @@ onready var score_text = get_node("HUD/Score")
 onready var lives_container = get_node("HUD/LivesLeft")
 
 onready var warp_container = get_node("HUD/WarpsLeft")
+onready var warp_label = get_node("HUD/WarpLabel")
+onready var warp_critical_alert = get_node("HUD/WarpCriticalAlert")
 
 onready var warp_container_warp = null
 onready var warp_container_sep = null
@@ -25,6 +27,9 @@ func calc_warps():
 func set_warps(count):
 	var warps_to_add = count - calc_warps()
 	if warps_to_add == 0:
+		if warp_container.get_children().empty():
+			warp_label.hide()
+			warp_critical_alert.show()	
 		return
 	elif warps_to_add > 0:
 		add_warps(warps_to_add)
@@ -32,20 +37,27 @@ func set_warps(count):
 		remove_warps(warps_to_add)
 
 func add_warps(count):
-		for i in range(count):
-			var new_warp = warp_container_warp.duplicate()
-			var new_sep = warp_container_sep.duplicate()
-			new_warp.show()
-			warp_container.add_child(new_warp) # icon
-			warp_container.add_child(new_sep) # separator
+	warp_label.show()
+	warp_critical_alert.hide()
+	for i in range(count):
+		var new_warp = warp_container_warp.duplicate()
+		var new_sep = warp_container_sep.duplicate()
+		new_warp.show()
+		warp_container.add_child(new_warp) # icon
+		warp_container.add_child(new_sep) # separator
 
 func remove_warps(count):
 	var children = warp_container.get_children()
 	if children.empty():
-		return false
+		return
+		
 	for i in range(count):
 		warp_container.remove_child(children[children.size()-1]) # icon
 		warp_container.remove_child(children[children.size()-2]) # separator
+	
+	if warp_container.get_children().empty():
+		warp_label.hide()
+		warp_critical_alert.show()
 	return true
 
 func set_score(points):

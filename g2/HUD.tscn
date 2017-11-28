@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://Backgrounds/HUD_bg01.png" type="Texture" id=2]
 [ext_resource path="res://Fonts/radio_stars_font.fnt" type="BitmapFont" id=3]
 [ext_resource path="res://sheet/sheet.playerLife1_blue.atex" type="Texture" id=4]
 [ext_resource path="res://Backgrounds/HUD_bg02.png" type="Texture" id=5]
-[ext_resource path="res://sheet/sheet.bolt_gold.atex" type="Texture" id=6]
+[ext_resource path="res://HUD_WarpAlert.gd" type="Script" id=6]
+[ext_resource path="res://sheet/sheet.bolt_gold.atex" type="Texture" id=7]
 
 [node name="HUD_CanvasLayer" type="CanvasLayer" groups=[
 "hud",
@@ -253,6 +254,9 @@ transform/pos = Vector2( 870.5, 21 )
 transform/rot = -90.0
 transform/scale = Vector2( 1.13333, 1.21562 )
 texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="WarpLabel" type="Label" parent="HUD"]
 
@@ -272,6 +276,38 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="WarpCriticalAlert" type="Label" parent="HUD"]
+
+visibility/visible = false
+visibility/light_mask = 0
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 683.0
+margin/top = 11.0
+margin/right = 1425.0
+margin/bottom = 55.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 0.0351563, 0.0351563, 1 )
+text = "WARPDRIVE ALERT"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="HUD/WarpCriticalAlert"]
+
+process_mode = 1
+wait_time = 0.05
+one_shot = false
+autostart = true
 
 [node name="WarpsLeft" type="HBoxContainer" parent="HUD"]
 
@@ -286,6 +322,9 @@ margin/top = 12.0
 margin/right = 2349.0
 margin/bottom = 76.0
 alignment = 0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="WarpIcon" type="TextureFrame" parent="HUD"]
 
@@ -301,7 +340,7 @@ margin/left = 760.0
 margin/top = 12.0
 margin/right = 824.0
 margin/bottom = 76.0
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 expand = true
 stretch_mode = 0
 
@@ -341,6 +380,8 @@ process_mode = 1
 wait_time = 0.2
 one_shot = false
 autostart = false
+
+[connection signal="timeout" from="HUD/WarpCriticalAlert/Timer" to="HUD/WarpCriticalAlert" method="_on_Timer_timeout"]
 
 [connection signal="toggled" from="HUD/CkbxDebug" to="." method="_on_CheckBox_toggled"]
 
