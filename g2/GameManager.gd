@@ -173,10 +173,8 @@ func _ready():
 func get_current_ship():
 	var ships = get_tree().get_nodes_in_group("ship")
 	if ships.empty():
-		dbg("get_current_ship() is not implemented for " + String(ships.size()) + " ships")
-	else:
-		return ships.back()
-	return null
+		return null
+	return ships.back()
 
 func game_over():
 	dbg("game over!")

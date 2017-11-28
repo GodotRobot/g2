@@ -36,17 +36,17 @@ points = Vector2Array( -34.394, -2.28256, -16.7508, -24.4055, -7.64461, 15.8353,
 offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
 colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
 
-[sub_resource type="ColorRamp" id=7]
-
-offsets = FloatArray( 0, 1 )
-colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
-
 [sub_resource type="CanvasItemMaterial" id=8]
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 3 )
+
+[sub_resource type="ColorRamp" id=7]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="SampleLibrary" id=9]
 
@@ -132,6 +132,7 @@ trigger = false
 
 [node name="DeathEffect" type="Particles2D" parent="."]
 
+visibility/behind_parent = true
 config/amount = 64
 config/lifetime = 1.46025
 config/emit_timeout = 1.0
@@ -163,8 +164,16 @@ randomness/initial_size = 1.0
 color/color = Color( 0, 0, 0, 1 )
 color/color_ramp = SubResource( 6 )
 
-[node name="FlowEffect" type="Particles2D" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 
+material/material = SubResource( 8 )
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="FlowEffect" type="Particles2D" parent="Sprite"]
+
+visibility/behind_parent = true
+transform/scale = Vector2( 2, 2 )
 config/amount = 64
 config/lifetime = 3.0
 config/process_mode = 1
@@ -191,12 +200,6 @@ randomness/damping = 0.51
 randomness/initial_size = 0.25
 randomness/final_size = 0.22
 color/color_ramp = SubResource( 7 )
-
-[node name="Sprite" type="Sprite" parent="."]
-
-material/material = SubResource( 8 )
-transform/scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 4 )
 
 [node name="CourseTimer" type="Timer" parent="."]
 
