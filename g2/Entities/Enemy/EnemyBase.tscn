@@ -11,22 +11,22 @@
 custom_solver_bias = 0.0
 points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.69406, 41.2027, -10.2583, 41.009, -39.5089, 19.1195, -39.7026, -27.9526, -17.6194, -41.125 )
 
-[sub_resource type="ColorRamp" id=2]
+[sub_resource type="ColorRamp" id=4]
 
 offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
 colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
 
-[sub_resource type="ColorRamp" id=3]
-
-offsets = FloatArray( 0, 1 )
-colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
-
-[sub_resource type="CanvasItemMaterial" id=4]
+[sub_resource type="CanvasItemMaterial" id=7]
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 3 )
+
+[sub_resource type="ColorRamp" id=3]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="SampleLibrary" id=5]
 
@@ -74,6 +74,8 @@ trigger = false
 
 [node name="DeathEffect" type="Particles2D" parent="."]
 
+visibility/behind_parent = true
+transform/scale = Vector2( 0.999997, 0.999997 )
 config/amount = 64
 config/lifetime = 1.46025
 config/emit_timeout = 1.0
@@ -103,10 +105,18 @@ randomness/radial_accel = 0.71
 randomness/damping = 0.61
 randomness/initial_size = 1.0
 color/color = Color( 0, 0, 0, 1 )
-color/color_ramp = SubResource( 2 )
+color/color_ramp = SubResource( 4 )
 
-[node name="FlowEffect" type="Particles2D" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 
+material/material = SubResource( 7 )
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 4 )
+
+[node name="FlowEffect" type="Particles2D" parent="Sprite"]
+
+visibility/behind_parent = true
+transform/scale = Vector2( 1.33333, 1.33333 )
 config/amount = 64
 config/lifetime = 3.0
 config/process_mode = 1
@@ -133,12 +143,6 @@ randomness/damping = 0.51
 randomness/initial_size = 0.25
 randomness/final_size = 0.22
 color/color_ramp = SubResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="."]
-
-material/material = SubResource( 4 )
-transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 4 )
 
 [node name="CourseTimer" type="Timer" parent="."]
 

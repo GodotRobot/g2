@@ -42,8 +42,8 @@ var personality_type
 var drop_type # works with var drop_value
 
 onready var GameManager = get_node("/root/GameManager")
-onready var death_effect = get_node("DeathEffect")
-onready var flow_effect = get_node("FlowEffect")
+onready var death_effect = get_node("Sprite/DeathEffect")
+onready var flow_effect = get_node("Sprite/FlowEffect")
 onready var sprite = get_node("Sprite")
 onready var sfx = get_node("SamplePlayer")
 onready var course_timer = get_node("CourseTimer")
