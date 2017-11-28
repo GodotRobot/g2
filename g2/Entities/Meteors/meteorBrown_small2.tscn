@@ -14,6 +14,8 @@ shader_param/normal = ExtResource( 3 )
 
 [node name="meteorBrown_small2" instance=ExtResource( 1 )]
 
+HP = 1
+
 [node name="Sprite" parent="."]
 
 material/material = SubResource( 1 )
