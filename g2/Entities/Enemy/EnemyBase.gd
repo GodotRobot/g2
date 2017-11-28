@@ -133,7 +133,8 @@ func is_ship_in_funnel():
 
 func _fixed_process(delta):
 	if dead_timestamp > 0:
-		var secs_since_death = (OS.get_ticks_msec() - dead_timestamp) / 1000.0
+		var secs_since_death = float(OS.get_ticks_msec() - dead_timestamp) / 1000.0
+		update_death(secs_since_death)
 		var death_anim_ended = secs_since_death > death_effect.get_lifetime()
 		var flowing_anim_ended = secs_since_death > flow_effect.get_lifetime()
 		if death_anim_ended and flowing_anim_ended:
@@ -167,13 +168,36 @@ func _fixed_process(delta):
 	#flow_effect.set_param(Particles2D.PARAM_DIRECTION, rad2deg(angle))
 	set_global_rot(angle)
 
+var dead_sprite_parts = Array()
+func update_death(secs_since_death):
+	for part in dead_sprite_parts:
+		var max_time = 1.5
+		var w = clamp(secs_since_death / max_time, 0.0, 1.0)
+		part.set_pos(part.get_pos() + 3.0 * w * part.get_pos().normalized())
+		part.rotate(sign(part.get_pos().angle() + 0.001) * 0.07)
+		part.set_opacity(1.0 - w)
+	
 func start_death():
 	if dead_timestamp != -1:
 		return
 	dead_timestamp = OS.get_ticks_msec()
 	death_effect.set_emitting(true)
-	flow_effect.set_emitting(false)
-	sprite.hide()
+	# go over all children of sprite, which are the visible parts of this enemy
+	var multipart = false
+	if sprite.get_child_count() > 0:
+		for part in sprite.get_children():
+			if part extends Sprite:
+				multipart = true
+				dead_sprite_parts.push_back(part)
+				sprite.remove_child(part) # break hierarchy so that parts will flow independently
+				add_child(part)
+				part.set_owner(self)
+			if part extends Particles2D:
+				part.set_emitting(false)
+	if multipart:		
+		dead_sprite_parts.push_back(sprite)
+	else:
+		sprite.hide()
 	set_layer_mask(0)
 	set_collision_mask(0)
 	hitbox.set_layer_mask(0)

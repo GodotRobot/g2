@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=1]
+[gd_scene load_steps=42 format=1]
 
 [ext_resource path="res://Entities/Enemy/EnemyBase.gd" type="Script" id=1]
 [ext_resource path="res://DefaultShader.tres" type="Shader" id=2]
@@ -113,6 +113,11 @@ shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 9 )
+
+[sub_resource type="ColorRamp" id=30]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 0.375, 0, 1, 1, 0.470078, 0.0196078, 0 )
 
 [sub_resource type="SampleLibrary" id=19]
 
@@ -301,26 +306,20 @@ randomness/initial_size = 0.25
 randomness/final_size = 0.22
 color/color_ramp = SubResource( 13 )
 
-[node name="Sprite2" type="Sprite" parent="Sprite" groups=[
-"enemy_part",
-]]
+[node name="Sprite2" type="Sprite" parent="Sprite"]
 
 material/material = SubResource( 14 )
 transform/pos = Vector2( -55, -56 )
 texture = ExtResource( 6 )
 flip_h = true
 
-[node name="Sprite3" type="Sprite" parent="Sprite" groups=[
-"enemy_part",
-]]
+[node name="Sprite3" type="Sprite" parent="Sprite"]
 
 material/material = SubResource( 15 )
 transform/pos = Vector2( 55, -56 )
 texture = ExtResource( 6 )
 
-[node name="Sprite4" type="Sprite" parent="Sprite" groups=[
-"enemy_part",
-]]
+[node name="Sprite4" type="Sprite" parent="Sprite"]
 
 visibility/behind_parent = true
 material/material = SubResource( 16 )
@@ -328,9 +327,7 @@ transform/pos = Vector2( 0, -36 )
 z/z = 1
 texture = ExtResource( 8 )
 
-[node name="Sprite 2" type="Sprite" parent="Sprite" groups=[
-"enemy_part",
-]]
+[node name="Sprite 2" type="Sprite" parent="Sprite"]
 
 visibility/behind_parent = true
 material/material = SubResource( 17 )
@@ -338,9 +335,7 @@ transform/pos = Vector2( 43, 14 )
 z/z = 1
 texture = ExtResource( 10 )
 
-[node name="Sprite1" type="Sprite" parent="Sprite" groups=[
-"enemy_part",
-]]
+[node name="Sprite1" type="Sprite" parent="Sprite"]
 
 visibility/behind_parent = true
 material/material = SubResource( 18 )
@@ -352,6 +347,70 @@ flip_h = true
 [node name="DroneHome" type="Node2D" parent="Sprite"]
 
 transform/pos = Vector2( 0, 50.708 )
+
+[node name="DroneFactory1" type="Particles2D" parent="Sprite"]
+
+transform/pos = Vector2( 0, 52 )
+config/amount = 16
+config/lifetime = 0.5
+config/process_mode = 1
+config/offset = Vector2( -23, 0 )
+config/half_extents = Vector2( 0, 2 )
+config/local_space = false
+params/direction = 90.0
+params/spread = 20.0
+params/linear_velocity = 50.0
+params/spin_velocity = 1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 40.0
+params/initial_angle = 0.0
+params/initial_size = 2.0
+params/final_size = 3.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 0.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 1.0
+randomness/initial_size = 0.25
+randomness/final_size = 0.22
+randomness/hue_variation = 0.1
+color/color = Color( 0, 0.015625, 1, 1 )
+color/color_ramp = SubResource( 30 )
+
+[node name="DroneFactory2" type="Particles2D" parent="Sprite"]
+
+transform/pos = Vector2( 0, 52 )
+config/amount = 16
+config/lifetime = 0.5
+config/process_mode = 1
+config/offset = Vector2( 23, 0 )
+config/half_extents = Vector2( 0, 2 )
+config/local_space = false
+params/direction = -90.0
+params/spread = 20.0
+params/linear_velocity = 50.0
+params/spin_velocity = 1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 40.0
+params/initial_angle = 0.0
+params/initial_size = 2.0
+params/final_size = 3.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 0.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 1.0
+randomness/initial_size = 0.25
+randomness/final_size = 0.22
+randomness/hue_variation = 0.1
+color/color = Color( 0, 0.015625, 1, 1 )
+color/color_ramp = SubResource( 30 )
 
 [node name="CourseTimer" type="Timer" parent="."]
 

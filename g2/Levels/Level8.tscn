@@ -6,10 +6,6 @@
 
 [node name="Level8" instance=ExtResource( 1 )]
 
-[node name="GameLayer" parent="."]
-
-editor/display_folded = false
-
 [node name="EnemyDrone" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( -63.0185, 52.0922 )
