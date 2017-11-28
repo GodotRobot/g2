@@ -343,6 +343,4 @@ autostart = false
 
 [connection signal="toggled" from="HUD/CkbxDebug" to="." method="_on_CheckBox_toggled"]
 
-[connection signal="timeout" from="HUD/WarpBlinkTimer" to="." method="_on_WarpBlinkTimer_timeout"]
-
 

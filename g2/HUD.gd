@@ -5,15 +5,15 @@ onready var level_text = get_node("HUD/Level")
 onready var score_text = get_node("HUD/Score")
 onready var lives_container = get_node("HUD/LivesLeft")
 
-#onready var warp_text = get_node("HUD/Warp")
-#onready var warp_label = get_node("HUD/WarpLabel")
-
 onready var warp_container = get_node("HUD/WarpsLeft")
-onready var warp_blink_timer = get_node("HUD/WarpBlinkTimer")
-onready var warp_blink = true
+
+onready var warp_container_warp = null
+onready var warp_container_sep = null
 
 func _ready():
-	pass
+	warp_container_warp = get_node("HUD/WarpsLeft/Warp").duplicate()
+	warp_container_sep = get_node("HUD/WarpsLeft/Sep").duplicate()
+	
 
 func set_level(level):
 	level_text.set_text(str(level).pad_zeros(2))
@@ -33,8 +33,8 @@ func set_warps(count):
 
 func add_warps(count):
 		for i in range(count):
-			warp_container.add_child(get_node("HUD/WarpsLeft/Warp").duplicate()) # icon
-			warp_container.add_child(get_node("HUD/WarpsLeft/Sep").duplicate()) # separator
+			warp_container.add_child(warp_container_warp.duplicate()) # icon
+			warp_container.add_child(warp_container_sep.duplicate()) # separator
 
 func remove_warps(count):
 	var children = warp_container.get_children()
@@ -81,14 +81,3 @@ func remove_life(count):
 
 func _on_CheckBox_toggled( pressed ):
 	GameManager.debug = pressed
-
-func _on_WarpBlinkTimer_timeout():
-	pass
-	#if warp_blink:
-	#	warp_text.hide()
-	#	warp_label.hide()
-	#	warp_blink = false
-	#else:
-	#	warp_text.show()
-	#	warp_label.show()
-	#	warp_blink = true
