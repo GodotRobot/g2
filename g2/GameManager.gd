@@ -174,6 +174,8 @@ func _ready():
 	# ready set go
 	set_process(true)
 	set_process_input(true)
+	set_music_level(music_level)
+	set_sfx_level(sfx_level)
 
 func get_current_ship():
 	var ships = get_tree().get_nodes_in_group("ship")
@@ -295,8 +297,8 @@ func set_full_screen(new_state):
 	full_screen = new_state
 func set_music_level(new_level):
 	music_level = new_level
-	# TODO
+	AudioServer.set_stream_global_volume_scale(music_level / 10.0)
 func set_sfx_level(new_level):
 	sfx_level = new_level
-	# TODO
+	AudioServer.set_fx_global_volume_scale(sfx_level / 10.0)
 #############################################################
