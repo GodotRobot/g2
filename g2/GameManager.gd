@@ -199,7 +199,8 @@ func start_game():
 	score = 0
 	get_node("/root/TransitionScreen/AnimationPlayer").stop()
 	get_node("/root/TransitionScreen/AnimationPlayer").seek(0.0, true)
-	goto_scene(LEVEL_PATH.replace("<N>", "1"))
+	#goto_scene(LEVEL_PATH.replace("<N>", "1"))
+	transition_to_level(1)
 	warp_to_start_level = true
 
 func quit_game():
