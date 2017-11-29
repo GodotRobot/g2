@@ -51,7 +51,6 @@ func _ready():
 		get_node("Instructions").hide()
 		get_node("PauseBG").show()
 
-	music_player.play()
 	start_button.grab_focus()
 	if mode == MODE.pause:
 		context.set_text("Paused")
