@@ -13,6 +13,7 @@ enum SHIP_STATE {
 	warp_end = 2
 	death_start = 3
 	death_end = 4
+	on_hold = 5
 }
 
 var ship_state = SHIP_STATE.active
@@ -49,7 +50,7 @@ const BULLET_BASE = preload("res://Entities/Bullet/BulletBase.gd")
 const ENEMY_BASE = preload("res://Entities/Enemy/EnemyBase.gd")
 
 func active():
-	return ship_state == SHIP_STATE.active and ship_activation_timer.get_time_left() <= 0.0
+	return ship_state in [SHIP_STATE.active, SHIP_STATE.on_hold]  and ship_activation_timer.get_time_left() <= 0.0
 
 func bullet_instance():
 	# TODO another type of bullet?
@@ -83,6 +84,8 @@ func _ready():
 	ship_activation_timer.start()
 	set_fixed_process(true)
 	
+func on_hold():
+	ship_state = SHIP_STATE.on_hold
 
 func start_death():
 	if ship_state == SHIP_STATE.death_start:
@@ -259,7 +262,6 @@ func _on_WarpTransparencyTimer_timeout():
 		if (ship_opacity < 1.0):
 				ship_opacity += 0.1
 	sprite.set_opacity(ship_opacity)
-
 
 func _on_ShipBlinkingTimer_timeout():
 	if sprite.is_visible():
