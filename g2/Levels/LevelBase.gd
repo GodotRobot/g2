@@ -119,6 +119,8 @@ func level_lost():
 
 # called by GameManager
 func level_won():
+	if GameManager.debug and Input.is_key_pressed(KEY_TAB):
+		return true
 	var ship = GameManager.get_current_ship()
 	if !ship or !ship.active():
 		return false
