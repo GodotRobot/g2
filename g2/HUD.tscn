@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://Backgrounds/HUD_bg01.png" type="Texture" id=2]
@@ -7,6 +7,32 @@
 [ext_resource path="res://Backgrounds/HUD_bg02.png" type="Texture" id=5]
 [ext_resource path="res://HUD_WarpAlert.gd" type="Script" id=6]
 [ext_resource path="res://sheet/sheet.bolt_gold.atex" type="Texture" id=7]
+
+[sub_resource type="StyleBoxFlat" id=3]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+bg_color = Color( 1, 0.316406, 0.316406, 1 )
+light_color = Color( 1, 0.503906, 0.503906, 1 )
+dark_color = Color( 1, 0, 0, 1 )
+border_size = 1
+border_blend = true
+draw_bg = true
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+light_color = Color( 0.8, 0.8, 0.8, 0 )
+dark_color = Color( 0.8, 0.8, 0.8, 0 )
+border_size = 0
+border_blend = true
+draw_bg = true
 
 [node name="HUD_CanvasLayer" type="CanvasLayer" groups=[
 "hud",
@@ -380,6 +406,60 @@ process_mode = 1
 wait_time = 0.2
 one_shot = false
 autostart = false
+
+[node name="BossHP" type="Node2D" parent="HUD"]
+
+visibility/visible = false
+transform/pos = Vector2( 1092.64, 60.4518 )
+
+[node name="BG" type="Sprite" parent="HUD/BossHP"]
+
+visibility/behind_parent = true
+visibility/light_mask = 0
+transform/pos = Vector2( -53.7519, 0.876536 )
+transform/rot = 90.0
+transform/scale = Vector2( 1.05844, 1.33595 )
+texture = ExtResource( 5 )
+
+[node name="Progress" type="ProgressBar" parent="HUD/BossHP"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -173.0
+margin/top = -8.0
+margin/right = 151.0
+margin/bottom = 9.0
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 2 )
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 50.0
+range/exp_edit = false
+range/rounded = false
+percent/visible = false
+
+[node name="Label" type="Label" parent="HUD/BossHP"]
+
+visibility/light_mask = 0
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -251.0
+margin/top = -11.0
+margin/right = -123.0
+margin/bottom = 33.0
+custom_fonts/font = ExtResource( 3 )
+text = "Boss"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="timeout" from="HUD/WarpCriticalAlert/Timer" to="HUD/WarpCriticalAlert" method="_on_Timer_timeout"]
 

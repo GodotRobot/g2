@@ -48,8 +48,15 @@ func setup():
 			ship.set_pos(GameManager.ship_pos_on_level_end)
 			ship.set_rot(GameManager.ship_rot_on_level_end)
 	GameManager.level_ready(self)
-	get_hud().set_time(time_countdown)
+	setup_hud()
 	timer.start()
+
+func setup_hud():
+	get_hud().set_time(time_countdown)
+	var bosses = get_tree().get_nodes_in_group("boss")
+	if not bosses.empty():
+		assert(bosses.size() == 1)
+		get_hud().get_node("HUD/BossHP").show()
 
 func _enter_tree():
 	GameManager = get_node("/root/GameManager")
@@ -69,6 +76,7 @@ func _ready():
 			m.set_fake_speed(level_speed)
 
 func _process(delta):
+	update_hud()
 	var ship = GameManager.get_current_ship()
 	
 	var ship_offset = Vector2(0.0,0.0)
@@ -109,6 +117,12 @@ func _process(delta):
 		
 	parallax_layer1.set_motion_offset(parallax_layer1.get_motion_offset() + asteroids_background_movement0)
 	parallax_layer2.set_motion_offset(parallax_layer2.get_motion_offset() + asteroids_background_movement1)
+
+func update_hud():
+	var bosses = get_tree().get_nodes_in_group("boss")
+	if not bosses.empty():
+		assert(bosses.size() == 1)
+		get_hud().get_node("HUD/BossHP/Progress").set_val(100.0 * bosses[0].HP / bosses[0].initial_HP)
 
 func on_game_over():
 	timer.stop()

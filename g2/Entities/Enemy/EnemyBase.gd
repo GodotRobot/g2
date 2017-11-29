@@ -52,6 +52,7 @@ onready var sprite = get_node("Sprite")
 onready var sfx = get_node("SamplePlayer")
 onready var course_timer = get_node("CourseTimer")
 onready var hitbox = get_node("HitBox")
+onready var initial_HP = HP
 
 func is_dead():
 	return dead_timestamp > 0

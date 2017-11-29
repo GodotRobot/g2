@@ -247,6 +247,7 @@ tracks/5/keys = {
 
 [node name="EnemyBoss" type="KinematicBody2D" groups=[
 "enemies",
+"boss",
 ]]
 
 input/pickable = true
