@@ -5,6 +5,7 @@ onready var context = get_node("VBoxContainer/Context")
 onready var menu_box_container = get_node("VBoxContainer")
 onready var music_player = get_node("StreamPlayer")
 onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
+onready var sfx = get_node("SamplePlayer")
 onready var credits_dialog = get_node("CreditsDialog")
 # buttons
 onready var start_button = get_node("VBoxContainer/StartButton")
@@ -127,6 +128,7 @@ func _on_OptionsMusicButton_pressed():
 func _on_OptionsSfxButton_pressed():
 	var new_level = (GameManager.sfx_level + 1) % 11
 	GameManager.set_sfx_level(new_level)
+	sfx.play("sfx_laser1")
 	update_options_buttons()
 	
 func update_options_buttons():
