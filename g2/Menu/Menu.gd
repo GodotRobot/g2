@@ -5,15 +5,17 @@ onready var context = get_node("VBoxContainer/Context")
 onready var menu_box_container = get_node("VBoxContainer")
 onready var music_player = get_node("StreamPlayer")
 onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
+onready var credits_dialog = get_node("CreditsDialog")
 # buttons
 onready var start_button = get_node("VBoxContainer/StartButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
-onready var quit_button = get_node("VBoxContainer/QuitButton")
 onready var options_button = get_node("VBoxContainer/OptionsButton")
 onready var options_fullscreen_button = get_node("VBoxContainer/OptionsFullScreenButton")
 onready var options_music_button = get_node("VBoxContainer/OptionsMusicButton")
 onready var options_sfx_button = get_node("VBoxContainer/OptionsSfxButton")
 onready var options_return_button = get_node("VBoxContainer/OptionsReturnButton")
+onready var credits_button = get_node("VBoxContainer/CreditsButton")
+onready var quit_button = get_node("VBoxContainer/QuitButton")
 
 const paused_menu_y = 160
 
@@ -41,15 +43,11 @@ func fade_on():
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	GameManager.download_highscores()
-	if (mode == MODE.start):
-		get_node("Title").show()
-		get_node("StartBG").show()
-	else:
+	if (mode != MODE.start):
 		menu_box_container.set_pos(Vector2(menu_box_container.get_pos().x, paused_menu_y))
 		parallax_camera.clear_current()
-		# add a dim background
+		credits_button.hide()
 		get_node("Title").hide()
-		get_node("Credits").hide()
 		get_node("Instructions").hide()
 		get_node("PauseBG").show()
 
@@ -76,8 +74,12 @@ func _ready():
 	set_process_input(true)
 
 func _input(event):
-	if mode == MODE.pause and event.is_action_pressed("ui_cancel"):
-		GameManager.unpause(self)
+	if event.is_action_pressed("ui_cancel"):
+		if options_return_button.is_visible():
+			_on_OptionsReturnButton_pressed()
+		else:
+			if mode == MODE.pause:
+				GameManager.unpause(self)
 
 func update_highscores(result_string):
 	get_node("VBoxContainer/Highscores").update_highscores(result_string)
@@ -108,6 +110,9 @@ func show_popup_and_get_name():
 	get_node("NameDialog").popup_centered()
 	get_node("NameDialog/LineEdit").grab_focus()
 
+func _on_CreditsButton_pressed():
+	credits_dialog.popup()
+	
 ####### options
 var options_state_start = false
 var options_state_restart = false
@@ -145,6 +150,7 @@ func _on_OptionsButton_pressed():
 	start_button.hide()
 	restart_button.hide()
 	options_button.hide()
+	credits_button.hide()
 	quit_button.hide()
 	# show options
 	options_fullscreen_button.show()
@@ -166,5 +172,7 @@ func _on_OptionsReturnButton_pressed():
 	if options_state_restart:
 		restart_button.show()
 	options_button.show()
+	if not get_tree().is_paused():
+		credits_button.show()
 	quit_button.show()
 	start_button.grab_focus()

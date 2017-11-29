@@ -52,7 +52,6 @@ var current_scene = null
 var cur_level = 1
 var lives = INITIAL_LIVES
 var cur_warp = INITIAL_WARP
-var paused = false
 var debug = true
 var score = 0
 var warp_remaining = 5

@@ -112,7 +112,7 @@ func _fixed_process(delta):
 			queue_free()
 		return
 
-	if ship_state != SHIP_STATE.active or GameManager.paused:
+	if ship_state != SHIP_STATE.active or get_tree().is_paused():
 		return
 
 	var v = Vector2(0.0, -1.0).rotated(get_rot())
