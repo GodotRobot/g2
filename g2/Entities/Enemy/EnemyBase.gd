@@ -36,11 +36,14 @@ export(float, 0, 20, 0.5) var course_time_min = 5.0
 export(float, 0, 20, 0.5) var course_time_max = 15.0
 export(float, 0.0, 3.0, 0.1) var acceleration = 0.6
 export(int, 1, 100) var HP = 1
+export(float, 0.0, 30.0, 0.1) var fire_rate_min = 1.0
+export(float, 0.0, 30.0, 0.1) var fire_rate_max = 0.5
 
 var velocity = Vector2()
 var dead_timestamp = -1
 var personality_type
 var drop_type # works with var drop_value
+var shoot_timer = Timer.new()
 
 onready var GameManager = get_node("/root/GameManager")
 onready var death_effect = get_node("DeathEffect")
@@ -70,7 +73,9 @@ func get_dir_to_ship():
 	return (ship.get_pos() - get_pos()).normalized()
 
 func shoot():
-	if personality_type == PERSONALITY_TYPE.shooter and is_ship_in_funnel():
+	if not ready_to_shoot():
+		return
+	if personality_type == PERSONALITY_TYPE.shooter:
 		var new_bullet = BULLET.instance()
 		if new_bullet:
 			# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
@@ -79,13 +84,21 @@ func shoot():
 			new_bullet.velocity = Vector2(0.0, 1.0).rotated(xform.get_rotation())
 			get_parent().add_child(new_bullet)
 			sfx.play("sfx_laser1")
-	elif personality_type == PERSONALITY_TYPE.boss and is_ship_in_funnel():
+	elif personality_type == PERSONALITY_TYPE.boss:
 		if GameManager.get_current_ship():
 			var new_drone = DRONE.instance()
 			if new_drone:
 				var xform = get_node("Sprite/DroneHome").get_global_transform()
 				new_drone.set_global_transform(xform)
 				get_parent().add_child(new_drone)
+
+func init_shoot_timer():
+	# shoot timer - TODO make it a proper node via the scene
+	shoot_timer.set_wait_time(0.5)
+	shoot_timer.set_timer_process_mode(Timer.TIMER_PROCESS_IDLE)
+	shoot_timer.set_one_shot(true)
+	add_child(shoot_timer)
+	shoot_timer.start()
 
 func init_velocity(impulse = null):
 	if personality_type == PERSONALITY_TYPE.random:
@@ -112,6 +125,7 @@ func init_from_exports():
 func _ready():
 	init_from_exports()
 	init_velocity()
+	init_shoot_timer()
 	set_fixed_process(true)
 
 func is_outside():
@@ -127,10 +141,14 @@ func is_outside():
 		impulse = Vector2(0.0, -1.0)
 	return impulse
 
-var a = 0
-func is_ship_in_funnel():
-	a += 1
-	return a  % 50 == 0
+func ready_to_shoot():
+	var time_left = shoot_timer.get_time_left()
+	if time_left > 0.0:
+		return false
+	var next_wait_sec = rand_range(fire_rate_min, fire_rate_max)
+	shoot_timer.set_wait_time(next_wait_sec)
+	shoot_timer.start()
+	return true
 
 func _fixed_process(delta):
 	if dead_timestamp > 0:
