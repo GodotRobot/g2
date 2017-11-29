@@ -35,6 +35,7 @@ export(float, 0, 20, 0.5) var speed_max = 2.0
 export(float, 0, 20, 0.5) var course_time_min = 5.0
 export(float, 0, 20, 0.5) var course_time_max = 15.0
 export(float, 0.0, 3.0, 0.1) var acceleration = 0.6
+export(int, 1, 100) var HP = 1
 
 var velocity = Vector2()
 var dead_timestamp = -1
@@ -207,9 +208,16 @@ func start_death():
 
 func _on_CourseTimer_timeout():
 	init_velocity(null)
+	
+func hit():
+	HP -= 1
+	if HP <= 0:
+		start_death()
+	if has_node("Anim"):
+		get_node("Anim").play("Hit")
 
 func _on_Area2D_body_enter( body ):
 	GameManager.dbg("enemy: " + get_name() + " collision with " + body.get_name())
 	if body extends BULLET_BASE or (body extends SHIP_BASE and body.active()):
 		body.start_death() # we take the bullet / active ship with us
-		start_death()
+		hit()
