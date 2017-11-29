@@ -127,6 +127,10 @@ func ship_destroyed(instance):
 	if hud:
 		hud.remove_life(1)
 
+func add_score(add):
+	score += add
+	current_scene.get_hud().set_score(score)
+
 func enemy_destroyed(instance):
 	score += 1
 	var hud = current_scene.get_hud()
@@ -234,7 +238,9 @@ func _process(delta):
 		assert(cur_ship)
 		ship_pos_on_level_end = cur_ship.get_pos()
 		ship_rot_on_level_end = cur_ship.get_rot()
-		transition_to_level(cur_level + 1)
+		cur_ship.on_hold()
+		if current_scene.time_bonus_cleared():
+			transition_to_level(cur_level + 1)
 	if current_scene.level_lost():
 		print("todo")
 

@@ -23,8 +23,11 @@ const layer2_speed = 7.0
 const layer2_default_speed = 30.0
 const layer3_speed = 3.5
 
+onready var add_time_bonus = false
 onready var time_countdown = 30
 onready var timer = get_node("LevelCountdown")
+onready var time_bonus_label = get_node("TimeBonusLayer/TimeBonusLabel")
+onready var time_bonus_timer = get_node("TimeBonusLayer/TimeBonusTimer")
 
 onready var parallax_layer0 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background0")
 onready var parallax_layer1 = get_node("GameLayer").get_node("ParallaxBackground").get_node("Background1")
@@ -141,7 +144,29 @@ func get_hud():
 		return null
 	return hud[0]
 	
+func time_bonus_cleared():
+	if time_countdown <= 0:
+		return true
+	else:
+		if  not add_time_bonus:
+			time_bonus_label.set_text("TIME BONUS: " + str(time_countdown).pad_zeros(2))
+			timer.stop()
+			time_bonus_label.show()
+			time_bonus_timer.start()
+			add_time_bonus = true
+	
 func _on_LevelCountdown_timeout():
 	if time_countdown > 0:
 		time_countdown -= 1
 		get_hud().set_time(time_countdown)
+
+
+func _on_TimeBonusTimer_timeout():
+	if time_countdown >= 0:
+		time_bonus_label.set_text("TIME BONUS: " + str(time_countdown).pad_zeros(2))
+		GameManager.add_score(10)
+		time_countdown -= 1
+	else:
+		time_bonus_label.hide()
+	
+	
