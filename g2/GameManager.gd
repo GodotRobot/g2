@@ -8,7 +8,8 @@ extends Node
 # levels and entities
 const LEVEL_BASE = preload("res://Levels/LevelBase.gd")
 const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
-const MENU = preload("res://Menu/Menu.tscn")
+const MENU_PATH = "res://Menu/Menu.tscn"
+const MENU = preload(MENU_PATH)
 const MENU_BASE = preload("res://Menu/Menu.gd")
 const LEVEL_PATH = "res://Levels/Level<N>.tscn"
 const SHIP = preload("res://Entities/Ship/Ship.tscn")
@@ -18,6 +19,8 @@ const HTTP = preload("res://Menu/HTTP.gd")
 # initial ships upon starting the game
 const INITIAL_LIVES = 3
 const MAX_LIFE = 5
+# last level in game
+const LAST_LEVEL = 20
 # time to wait between killing the last enemy in the level and going to the next one
 const LEVEL_POST_MORTEM_DELAY_SEC = 1.0
 # bullet speed is contant, so make sure the shooter is never faster than it
@@ -245,12 +248,17 @@ func _input(event):
 var titles = ["null", "prepare to die", "this is easy", "who are you?", "idan did it", "sbx4ever", "show me what you got"]
 
 func transition_to_level(next_level):
-	var transition = get_node("/root/TransitionScreen")
 	cur_level = next_level
+	# prapare transition
+	var transition = get_node("/root/TransitionScreen")
 	var title = "null"
 	if next_level < titles.size():
 		title = titles[next_level]
-	transition.init(next_level, title)
+	var level_txt = "Level " + String(next_level)
+	if cur_level > LAST_LEVEL:
+		level_txt = "nice!"
+		title = "job!"
+	transition.init(next_level, level_txt, title)
 	transition.get_node("AnimationPlayer").play("Anim")
 	if cur_level == 1:
 		# special care for the first level, since it can only be triggered by the menu
@@ -275,7 +283,7 @@ func _deferred_goto_scene(path):
 	current_scene.free()
 	# Load new scene
 	var s = ResourceLoader.load(path)
-	if not s:
+	if not s or cur_level > LAST_LEVEL:
 		# level not found - for now assume this is WIN
 		current_scene = MENU.instance()
 		current_scene.mode = current_scene.win

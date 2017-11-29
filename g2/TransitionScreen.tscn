@@ -20,9 +20,9 @@ func _ready():
 func _enter_tree():
 	GameManager = get_node(\"/root/GameManager\")
 
-func init(level_num, title_txt):
+func init(level_num, level_text, title_txt):
 	next_level = level_num
-	level.set_text(\"Level \" + String(next_level))
+	level.set_text(level_text)
 	title.set_text(title_txt)
 
 func mid():
