@@ -190,6 +190,8 @@ func start_game():
 	lives = INITIAL_LIVES
 	cur_warp = INITIAL_WARP
 	score = 0
+	get_node("/root/TransitionScreen/AnimationPlayer").stop()
+	get_node("/root/TransitionScreen/AnimationPlayer").seek(0.0, true)
 	goto_scene(LEVEL_PATH.replace("<N>", "1"))
 	warp_to_start_level = true
 
