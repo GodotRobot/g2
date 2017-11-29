@@ -176,6 +176,7 @@ func update_death(secs_since_death):
 		var w = clamp(secs_since_death / max_time, 0.0, 1.0)
 		part.set_pos(part.get_pos() + 3.0 * w * part.get_pos().normalized())
 		part.rotate(sign(part.get_pos().angle() + 0.001) * 0.07)
+		part.scale(Vector2(0.99,0.99))
 		part.set_opacity(1.0 - w)
 	
 func start_death():
