@@ -28,7 +28,7 @@ samples/sfx_laser1 = {
 ]]
 
 process/pause_mode = 2
-layer = 99
+layer = 7
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
