@@ -254,6 +254,9 @@ func _input(event):
 var titles = ["null", "prepare to die", "this is easy", "who are you?", "idan did it", "sbx4ever", "show me what you got"]
 
 func transition_to_level(next_level):
+	while next_level < LAST_LEVEL and not File.new().file_exists(LEVEL_PATH.replace("<N>", String(next_level))):
+		dbg("Level " + String(next_level) + " does not exist. skipping!")
+		next_level += 1
 	cur_level = next_level
 	# prapare transition
 	var transition = get_node("/root/TransitionScreen")
@@ -270,6 +273,7 @@ func transition_to_level(next_level):
 		# special care for the first level, since it can only be triggered by the menu
 		transition.set_layer(10)
 
+# called by the transition scene
 func goto_level(level):
 	goto_scene(LEVEL_PATH.replace("<N>", String(level)))
 	
