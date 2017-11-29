@@ -85,7 +85,8 @@ func shoot():
 			get_parent().add_child(new_bullet)
 			sfx.play("sfx_laser1")
 	elif personality_type == PERSONALITY_TYPE.boss:
-		if GameManager.get_current_ship():
+		var cur_ship = GameManager.get_current_ship()
+		if cur_ship and cur_ship.active():
 			var new_drone = DRONE.instance()
 			if new_drone:
 				var xform = get_node("Sprite/DroneHome").get_global_transform()
