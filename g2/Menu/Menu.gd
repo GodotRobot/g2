@@ -2,11 +2,13 @@ extends CanvasLayer
 
 onready var GameManager = get_node("/root/GameManager")
 onready var start_button = get_node("VBoxContainer/StartButton")
+onready var credits_button = get_node("VBoxContainer/CreditsButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
 onready var context = get_node("VBoxContainer/Context")
 onready var menu_box_container = get_node("VBoxContainer")
 onready var music_player = get_node("StreamPlayer")
 onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
+onready var credits_dialog = get_node("CreditsDialog")
 
 const paused_menu_y = 160
 
@@ -33,18 +35,13 @@ func fade_on():
 
 func _ready():
 	GameManager.download_highscores()
-	if (mode == MODE.start):
-		get_node("Title").show()
-		get_node("StartBG").show()
-	else:
+	if (mode != MODE.start):
 		menu_box_container.set_pos(Vector2(menu_box_container.get_pos().x, paused_menu_y))
 		parallax_camera.clear_current()
-		# add a dim background
+		credits_button.hide()
 		get_node("Title").hide()
-		get_node("Credits").hide()
 		get_node("Instructions").hide()
 		get_node("PauseBG").show()
-		
 		
 	music_player.play()
 	start_button.grab_focus()
@@ -100,3 +97,7 @@ func show_popup_and_get_name():
 	get_node("NameDialog").register_text_enter(get_node("NameDialog/LineEdit"))
 	get_node("NameDialog").popup_centered()
 	get_node("NameDialog/LineEdit").grab_focus()
+
+
+func _on_CreditsButton_pressed():
+	credits_dialog.popup()

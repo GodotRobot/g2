@@ -1,16 +1,17 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Backgrounds/Menu_bg_pause.png" type="Texture" id=2]
 [ext_resource path="res://Fonts/sector_034.fnt" type="BitmapFont" id=3]
-[ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://Fonts/radio_stars_font.fnt" type="BitmapFont" id=4]
 [ext_resource path="res://Menu/Camera2D.gd" type="Script" id=5]
 [ext_resource path="res://Backgrounds/stars_bg.png" type="Texture" id=6]
 [ext_resource path="res://Backgrounds/Asteroids_bg.tex" type="Texture" id=7]
 [ext_resource path="res://Backgrounds/Asteroids_bg2.tex" type="Texture" id=8]
-[ext_resource path="res://Fonts/radio_stars_font.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://Fonts/small_radio_stars_font.fnt" type="BitmapFont" id=9]
 [ext_resource path="res://Menu/Highscores.tscn" type="PackedScene" id=10]
 [ext_resource path="res://sfx/Light-Years_V001_Looping.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=12]
 
 [node name="Menu" type="CanvasLayer" groups=[
 "menu",
@@ -54,10 +55,10 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 415.0
-margin/top = 68.0
-margin/right = 875.0
-margin/bottom = 178.0
+margin/left = 421.0
+margin/top = 63.0
+margin/right = 881.0
+margin/bottom = 173.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.65098, 0.270588, 0.0862745, 1 )
 text = "WARP"
@@ -69,16 +70,16 @@ max_lines_visible = -1
 
 [node name="Instructions" type="VBoxContainer" parent="."]
 
-editor/display_folded = true
 visibility/opacity = 0.8
+rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 395.0
-margin/top = 255.0
-margin/right = 894.0
-margin/bottom = 311.0
+margin/left = 417.0
+margin/top = 182.0
+margin/right = 1331.0
+margin/bottom = 322.0
 alignment = 0
 
 [node name="Line0" type="Label" parent="Instructions"]
@@ -89,8 +90,8 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 499.0
-margin/bottom = 16.0
+margin/right = 914.0
+margin/bottom = 44.0
 custom_fonts/font = ExtResource( 4 )
 text = "Use the arrow keys to move around"
 align = 1
@@ -105,9 +106,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
-margin/top = 20.0
-margin/right = 499.0
-margin/bottom = 36.0
+margin/top = 48.0
+margin/right = 914.0
+margin/bottom = 92.0
 custom_fonts/font = ExtResource( 4 )
 text = "press space or x to fire"
 align = 1
@@ -122,9 +123,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
-margin/top = 40.0
-margin/right = 499.0
-margin/bottom = 56.0
+margin/top = 96.0
+margin/right = 914.0
+margin/bottom = 140.0
 custom_fonts/font = ExtResource( 4 )
 text = "Press left ctrl or z to warp"
 align = 1
@@ -132,56 +133,9 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Credits" type="VBoxContainer" parent="."]
-
-editor/display_folded = true
-visibility/opacity = 0.8
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 395.0
-margin/top = 173.0
-margin/right = 894.0
-margin/bottom = 229.0
-alignment = 0
-
-[node name="Line0" type="Label" parent="Credits"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 499.0
-margin/bottom = 16.0
-custom_fonts/font = ExtResource( 4 )
-text = "By"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Line1" type="Label" parent="Credits"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 20.0
-margin/right = 499.0
-margin/bottom = 36.0
-custom_fonts/font = ExtResource( 4 )
-text = "Lior David & Idan Gal"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
+editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -293,10 +247,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 465.0
-margin/top = 286.0
-margin/right = 817.0
-margin/bottom = 626.0
+margin/left = 471.0
+margin/top = 216.0
+margin/right = 823.0
+margin/bottom = 556.0
 alignment = 0
 
 [node name="Context" type="Label" parent="VBoxContainer"]
@@ -311,7 +265,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 352.0
 margin/bottom = 44.0
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 4 )
 align = 1
 valign = 1
 percent_visible = 1.0
@@ -348,12 +302,15 @@ margin/left = 0.0
 margin/top = 66.0
 margin/right = 352.0
 margin/bottom = 106.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 9 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "start"
 flat = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="RestartButton" type="Button" parent="VBoxContainer"]
 
@@ -368,7 +325,7 @@ margin/left = 0.0
 margin/top = 150.0
 margin/right = 352.0
 margin/bottom = 190.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 9 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -387,15 +344,18 @@ margin/left = 0.0
 margin/top = 110.0
 margin/right = 352.0
 margin/bottom = 150.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 9 )
 disabled = true
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Options"
 flat = false
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="CreditsButton" type="Button" parent="VBoxContainer"]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -407,17 +367,20 @@ margin/left = 0.0
 margin/top = 154.0
 margin/right = 352.0
 margin/bottom = 194.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 9 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Quit"
+text = "Credits"
 flat = false
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="sep1" type="Label" parent="VBoxContainer"]
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
 
 visibility/light_mask = 0
-rect/min_size = Vector2( 0, 10 )
+rect/min_size = Vector2( 0, 40 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -425,18 +388,22 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 198.0
 margin/right = 352.0
-margin/bottom = 212.0
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+margin/bottom = 238.0
+custom_fonts/font = ExtResource( 9 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Quit"
+flat = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Highscores" parent="VBoxContainer" instance=ExtResource( 10 )]
 
 rect/min_size = Vector2( 352, 0 )
-margin/top = 216.0
-margin/bottom = 216.0
+margin/top = 242.0
+margin/bottom = 242.0
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
@@ -477,7 +444,7 @@ margin/left = 7.0
 margin/top = 42.0
 margin/right = 847.0
 margin/bottom = 101.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 12 )
 text = "You won! Enter name for high scores table"
 align = 1
 valign = 1
@@ -497,7 +464,7 @@ margin/left = 7.0
 margin/top = 87.0
 margin/right = 847.0
 margin/bottom = 146.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 12 )
 text = "Final score: "
 align = 1
 valign = 1
@@ -517,7 +484,7 @@ margin/left = 327.0
 margin/top = 157.0
 margin/right = 526.0
 margin/bottom = 183.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 12 )
 placeholder/alpha = 0.6
 align = 1
 max_length = 8
@@ -525,9 +492,46 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
+[node name="CreditsDialog" type="AcceptDialog" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 472.0
+margin/top = 303.0
+margin/right = 827.0
+margin/bottom = 460.0
+popup/exclusive = false
+window/title = ""
+dialog/hide_on_ok = true
+
+[node name="Title" type="Label" parent="CreditsDialog"]
+
+rect/scale = Vector2( 0.45, 0.45 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = -22.0
+margin/right = 779.0
+margin/bottom = 24.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Credits"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_Start_Button_pressed"]
 
 [connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_CreditsButton_pressed"]
 
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 
