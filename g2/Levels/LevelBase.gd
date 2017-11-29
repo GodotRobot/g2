@@ -59,6 +59,7 @@ func _enter_tree():
 	seed(h)
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	init_type()
 	setup()
 	set_process(true)

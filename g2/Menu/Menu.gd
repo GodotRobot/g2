@@ -1,12 +1,19 @@
 extends CanvasLayer
 
 onready var GameManager = get_node("/root/GameManager")
-onready var start_button = get_node("VBoxContainer/StartButton")
-onready var restart_button = get_node("VBoxContainer/RestartButton")
 onready var context = get_node("VBoxContainer/Context")
 onready var menu_box_container = get_node("VBoxContainer")
 onready var music_player = get_node("StreamPlayer")
 onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
+# buttons
+onready var start_button = get_node("VBoxContainer/StartButton")
+onready var restart_button = get_node("VBoxContainer/RestartButton")
+onready var quit_button = get_node("VBoxContainer/QuitButton")
+onready var options_button = get_node("VBoxContainer/OptionsButton")
+onready var options_fullscreen_button = get_node("VBoxContainer/OptionsFullScreenButton")
+onready var options_music_button = get_node("VBoxContainer/OptionsMusicButton")
+onready var options_sfx_button = get_node("VBoxContainer/OptionsSfxButton")
+onready var options_return_button = get_node("VBoxContainer/OptionsReturnButton")
 
 const paused_menu_y = 160
 
@@ -32,6 +39,7 @@ func fade_on():
 	pass
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	GameManager.download_highscores()
 	if (mode == MODE.start):
 		get_node("Title").show()
@@ -44,8 +52,7 @@ func _ready():
 		get_node("Credits").hide()
 		get_node("Instructions").hide()
 		get_node("PauseBG").show()
-		
-		
+
 	music_player.play()
 	start_button.grab_focus()
 	if mode == MODE.pause:
@@ -100,3 +107,64 @@ func show_popup_and_get_name():
 	get_node("NameDialog").register_text_enter(get_node("NameDialog/LineEdit"))
 	get_node("NameDialog").popup_centered()
 	get_node("NameDialog/LineEdit").grab_focus()
+
+####### options
+var options_state_start = false
+var options_state_restart = false
+func _on_OptionsFullScreenButton_pressed():
+	GameManager.set_full_screen(!GameManager.full_screen)
+	update_options_buttons()
+
+func _on_OptionsMusicButton_pressed():
+	var new_level = (GameManager.music_level + 1) % 11
+	GameManager.set_music_level(new_level)
+	update_options_buttons()
+	
+func _on_OptionsSfxButton_pressed():
+	var new_level = (GameManager.sfx_level + 1) % 11
+	GameManager.set_sfx_level(new_level)
+	update_options_buttons()
+	
+func update_options_buttons():
+	options_music_button.set_text("Music Volume: " + String(GameManager.music_level))
+	options_sfx_button.set_text("Sfx Volume: " + String(GameManager.sfx_level))
+	if GameManager.full_screen:
+		options_fullscreen_button.set_text("Go Window Mode")
+	else:
+		options_fullscreen_button.set_text("Go Full Screen")
+
+func _on_OptionsButton_pressed():
+	# store menu
+	options_state_start = false
+	if start_button.is_visible():
+		options_state_start = true
+	options_state_restart = false
+	if restart_button.is_visible():
+		options_state_restart = true
+	# hide menu
+	start_button.hide()
+	restart_button.hide()
+	options_button.hide()
+	quit_button.hide()
+	# show options
+	options_fullscreen_button.show()
+	options_music_button.show()
+	options_sfx_button.show()
+	options_return_button.show()
+	update_options_buttons()
+	options_return_button.grab_focus()
+
+func _on_OptionsReturnButton_pressed():
+	# hide options
+	options_fullscreen_button.hide()
+	options_music_button.hide()
+	options_sfx_button.hide()
+	options_return_button.hide()
+	# restore menu
+	if options_state_start:
+		start_button.show()
+	if options_state_restart:
+		restart_button.show()
+	options_button.show()
+	quit_button.show()
+	start_button.grab_focus()

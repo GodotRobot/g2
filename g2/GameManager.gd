@@ -36,6 +36,12 @@ const SHIP_ANGULAR_DRAG = 0.92
 const SHIP_MAX_ANGULAR_SPEED = 10.0
 ######################################################################
 
+#################### options #########################################
+var full_screen = false setget set_full_screen
+var music_level = 4 setget set_music_level
+var sfx_level = 6 setget set_sfx_level
+######################################################################
+
 var ship_pos_on_level_end
 var ship_rot_on_level_end
 
@@ -199,6 +205,7 @@ func quit_game():
 	get_tree().quit()
 
 func pause():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if current_scene extends MENU_BASE:
 		return
 	if not get_tree().get_nodes_in_group("menu").empty():
@@ -211,6 +218,7 @@ func pause():
 	menu_displayed.raise()
 
 func unpause(pause_menu_instance):
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	current_scene.remove_child(pause_menu_instance)
 	set_process_input(true)
 	get_tree().set_pause(false)
@@ -281,6 +289,15 @@ func _deferred_goto_scene(path):
 	var level_name = current_scene.get_name()
 	var expeced_level_name = "Level" + String(cur_level)
 	assert(level_name == expeced_level_name)
-	
 
-	
+############### options functions ###########################
+func set_full_screen(new_state):
+	OS.set_window_fullscreen(new_state)
+	full_screen = new_state
+func set_music_level(new_level):
+	music_level = new_level
+	# TODO
+func set_sfx_level(new_level):
+	sfx_level = new_level
+	# TODO
+#############################################################

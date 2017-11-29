@@ -388,11 +388,90 @@ margin/top = 110.0
 margin/right = 352.0
 margin/bottom = 150.0
 custom_fonts/font = ExtResource( 4 )
-disabled = true
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Options"
+flat = false
+
+[node name="OptionsFullScreenButton" type="Button" parent="VBoxContainer"]
+
+visibility/visible = false
+visibility/light_mask = 0
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 154.0
+margin/right = 352.0
+margin/bottom = 194.0
+custom_fonts/font = ExtResource( 4 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Options"
+flat = false
+
+[node name="OptionsMusicButton" type="Button" parent="VBoxContainer"]
+
+visibility/visible = false
+visibility/light_mask = 0
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 154.0
+margin/right = 352.0
+margin/bottom = 194.0
+custom_fonts/font = ExtResource( 4 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Options"
+flat = false
+
+[node name="OptionsSfxButton" type="Button" parent="VBoxContainer"]
+
+visibility/visible = false
+visibility/light_mask = 0
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 154.0
+margin/right = 352.0
+margin/bottom = 194.0
+custom_fonts/font = ExtResource( 4 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Options"
+flat = false
+
+[node name="OptionsReturnButton" type="Button" parent="VBoxContainer"]
+
+visibility/visible = false
+visibility/light_mask = 0
+rect/min_size = Vector2( 0, 40 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 154.0
+margin/right = 352.0
+margin/bottom = 194.0
+custom_fonts/font = ExtResource( 4 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Return to menu"
 flat = false
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
@@ -528,6 +607,16 @@ caret/caret_blink_speed = 0.65
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_Start_Button_pressed"]
 
 [connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/OptionsFullScreenButton" to="." method="_on_OptionsFullScreenButton_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/OptionsMusicButton" to="." method="_on_OptionsMusicButton_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/OptionsSfxButton" to="." method="_on_OptionsSfxButton_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/OptionsReturnButton" to="." method="_on_OptionsReturnButton_pressed"]
 
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 
