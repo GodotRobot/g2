@@ -30,7 +30,7 @@ func _process(delta):
 				remove_from_group("meteors")
 		return
 	if !anim.is_playing():
-		anim.set_speed(rand_range(1.0, 2.0))
+		anim.set_speed(rand_range(0.7, 2.0))
 		anim.play("ModulateLightColor")
 
 func set_fake_speed(speed):

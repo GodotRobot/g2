@@ -9,13 +9,13 @@
 [ext_resource path="res://sheet/sheet.meteor_brown_big4.atex" type="Texture" id=7]
 [ext_resource path="res://gfx/radial_light.png" type="Texture" id=8]
 [ext_resource path="res://default_shader.tres" type="Shader" id=9]
-[ext_resource path="res://gfx/k2x/spacemeteors_001.normal.png" type="Texture" id=10]
-[ext_resource path="res://gfx/k2x/spacemeteors_001.png" type="Texture" id=11]
+[ext_resource path="res://gfx/k2x/spacemeteors_002.normal.png" type="Texture" id=10]
+[ext_resource path="res://gfx/k2x/spacemeteors_002.png" type="Texture" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 42.4228, -9.59364, 40.8417, 17.8124, 27.4022, 40.4752, -0.530945, 44.955, -27.1465, 37.5765, -40.8495, 13.8596, -42.4306, -14.337, -24.2478, -32.5199, 1.05017, -45.9594, 27.4022, -33.574 )
+points = Vector2Array( 25.4805, -6.79619, 24.199, 9.57932, 15.6552, 20.5438, -0.862701, 25.5276, -17.2382, 23.3917, -24.358, 8.72494, -25.3548, -7.79296, -16.9534, -19.1846, 0.561256, -24.8805, 14.9432, -20.4662 )
 
 [sub_resource type="ColorRamp" id=2]
 
@@ -37,9 +37,9 @@ shader_param/normal = ExtResource( 10 )
 [sub_resource type="ConvexPolygonShape2D" id=5]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 42.4228, -9.59364, 40.8417, 17.8124, 27.4022, 40.4752, -0.530945, 44.955, -27.1465, 37.5765, -40.8495, 13.8596, -42.4306, -14.337, -24.2478, -32.5199, 1.05017, -45.9594, 27.4022, -33.574 )
+points = Vector2Array( 25.4805, -6.79619, 24.199, 9.57932, 15.6552, 20.5438, -0.862701, 25.5276, -17.2382, 23.3917, -24.358, 8.72494, -25.3548, -7.79296, -16.9534, -19.1846, 0.561256, -24.8805, 14.9432, -20.4662 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 
 length = 0.1
 loop = false
@@ -55,7 +55,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 255, 255, 255, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 
 resource/name = "ModulateLightColor"
 length = 1.0
@@ -82,7 +82,7 @@ tracks/1/keys = {
 "values": [ Color( 0.617188, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.804688, 0.528076, 0, 1 ), Color( 0.628906, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 0.984375, 0, 1 ) ]
 }
 
-[node name="meteor_big_brown_1" type="RigidBody2D" groups=[
+[node name="meteor_med_brown_1" type="RigidBody2D" groups=[
 "meteors",
 ]]
 
@@ -113,6 +113,7 @@ HP = 5
 [node name="FlowEffect1" type="Particles2D" parent="."]
 
 visibility/light_mask = 2
+transform/scale = Vector2( 0.7, 0.7 )
 config/amount = 32
 config/lifetime = 2.0
 config/process_mode = 1
@@ -131,7 +132,7 @@ params/tangential_accel = 0.0
 params/damping = 0.0
 params/initial_angle = 0.0
 params/initial_size = 0.05
-params/final_size = 0.3
+params/final_size = 0.2
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
@@ -140,6 +141,7 @@ color/color_ramp = SubResource( 2 )
 [node name="FlowEffect2" type="Particles2D" parent="."]
 
 visibility/light_mask = 2
+transform/scale = Vector2( 0.7, 0.7 )
 config/amount = 32
 config/lifetime = 2.0
 config/process_mode = 1
@@ -158,7 +160,7 @@ params/tangential_accel = 0.0
 params/damping = 1.0
 params/initial_angle = 0.0
 params/initial_size = 0.01
-params/final_size = 0.1
+params/final_size = 0.07
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
@@ -167,6 +169,7 @@ color/color_ramp = SubResource( 2 )
 [node name="FlowEffect3" type="Particles2D" parent="."]
 
 visibility/light_mask = 2
+transform/scale = Vector2( 0.7, 0.7 )
 config/amount = 32
 config/lifetime = 2.0
 config/process_mode = 1
@@ -185,7 +188,7 @@ params/tangential_accel = 0.0
 params/damping = 1.0
 params/initial_angle = 0.0
 params/initial_size = 0.01
-params/final_size = 0.1
+params/final_size = 0.07
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
@@ -194,6 +197,7 @@ color/color_ramp = SubResource( 2 )
 [node name="DeathEffect3" type="Particles2D" parent="."]
 
 visibility/light_mask = 3
+transform/scale = Vector2( 0.7, 0.7 )
 config/amount = 8
 config/lifetime = 1.0
 config/emit_timeout = 1.0
@@ -227,6 +231,7 @@ color/color_ramp = SubResource( 3 )
 [node name="DeathEffect1" type="Particles2D" parent="."]
 
 visibility/light_mask = 3
+transform/scale = Vector2( 0.7, 0.7 )
 config/amount = 8
 config/lifetime = 1.0
 config/emit_timeout = 1.0
@@ -260,6 +265,7 @@ color/color_ramp = SubResource( 3 )
 [node name="DeathEffect2" type="Particles2D" parent="."]
 
 visibility/light_mask = 3
+transform/scale = Vector2( 0.7, 0.7 )
 config/amount = 8
 config/lifetime = 1.0
 config/emit_timeout = 1.0
@@ -292,13 +298,13 @@ color/color_ramp = SubResource( 3 )
 
 [node name="Light2D" type="Light2D" parent="."]
 
-transform/pos = Vector2( 17.3204, -51.4948 )
+transform/pos = Vector2( 15.3204, -39.4948 )
 enabled = true
 editor_only = false
 texture = ExtResource( 8 )
 offset = Vector2( 0, 0 )
-scale = 1.0
-color = Color( 1, 0.960938, 0, 1 )
+scale = 0.7
+color = Color( 0.954174, 0.916902, 0, 1 )
 energy = 8.0
 mode = 0
 range/height = 0.0
@@ -315,13 +321,13 @@ shadow/item_mask = 1
 
 [node name="Light2D1" type="Light2D" parent="."]
 
-transform/pos = Vector2( -19.6796, -70.4948 )
+transform/pos = Vector2( -15.6796, -41.4948 )
 enabled = true
 editor_only = false
 texture = ExtResource( 8 )
 offset = Vector2( 0, 0 )
-scale = 1.0
-color = Color( 1, 0, 0, 1 )
+scale = 0.7
+color = Color( 0.63473, 0.0458258, 0.0458258, 1 )
 energy = 8.0
 mode = 0
 range/height = 0.0
@@ -339,7 +345,7 @@ shadow/item_mask = 1
 [node name="Sprite" type="Sprite" parent="."]
 
 material/material = SubResource( 4 )
-transform/scale = Vector2( 0.2, 0.2 )
+transform/scale = Vector2( 0.12, 0.12 )
 texture = ExtResource( 11 )
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -359,7 +365,7 @@ collision/mask = 9
 
 visibility/visible = false
 build_mode = 0
-polygon = Vector2Array( 42.4228, -9.59364, 40.8417, 17.8124, 27.4022, 40.4752, -0.530945, 44.955, -27.1465, 37.5765, -40.8495, 13.8596, -42.4306, -14.337, -24.2478, -32.5199, 1.05017, -45.9594, 27.4022, -33.574 )
+polygon = Vector2Array( 25.4805, -6.79619, 24.199, 9.57932, 15.6552, 20.5438, -0.862701, 25.5276, -17.2382, 23.3917, -24.358, 8.72494, -25.3548, -7.79296, -16.9534, -19.1846, 0.561256, -24.8805, 14.9432, -20.4662 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
@@ -368,8 +374,8 @@ trigger = false
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Hit = SubResource( 7 )
-anims/ModulateLightColor = SubResource( 8 )
+anims/Hit = SubResource( 6 )
+anims/ModulateLightColor = SubResource( 7 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -379,7 +385,7 @@ autoplay = ""
 
 visibility/visible = false
 build_mode = 0
-polygon = Vector2Array( 42.4228, -9.59364, 40.8417, 17.8124, 27.4022, 40.4752, -0.530945, 44.955, -27.1465, 37.5765, -40.8495, 13.8596, -42.4306, -14.337, -24.2478, -32.5199, 1.05017, -45.9594, 27.4022, -33.574 )
+polygon = Vector2Array( 25.4805, -6.79619, 24.199, 9.57932, 15.6552, 20.5438, -0.862701, 25.5276, -17.2382, 23.3917, -24.358, 8.72494, -25.3548, -7.79296, -16.9534, -19.1846, 0.561256, -24.8805, 14.9432, -20.4662 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
