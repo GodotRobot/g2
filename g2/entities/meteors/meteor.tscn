@@ -1,0 +1,378 @@
+[gd_scene load_steps=22 format=1]
+
+[ext_resource path="res://entities/meteors/meteor.gd" type="Script" id=1]
+[ext_resource path="res://gfx/particles/blacksmoke00.tex" type="Texture" id=2]
+[ext_resource path="res://gfx/particles/flash08.tex" type="Texture" id=3]
+[ext_resource path="res://gfx/particles/explosion00.tex" type="Texture" id=4]
+[ext_resource path="res://gfx/particles/blacksmoke20.tex" type="Texture" id=5]
+[ext_resource path="res://sheet/sheet.meteor_brown_big2.atex" type="Texture" id=6]
+[ext_resource path="res://sheet/sheet.meteor_brown_big4.atex" type="Texture" id=7]
+[ext_resource path="res://default_shader.tres" type="Shader" id=8]
+[ext_resource path="res://sheet/normal.meteor_brown_big2.atex" type="Texture" id=9]
+[ext_resource path="res://sheet/sheet.meteor_brown_big1.atex" type="Texture" id=10]
+[ext_resource path="res://entities/bullet/radial_light.png" type="Texture" id=11]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, -22.2249, 40.03, -49.732, 9.81094, -33.4602, -41.1353, 23.1037, -41.1353, 49.8359, -1.23064 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, 49.8359, -1.23064, 34.339, 31.8941 )
+
+[sub_resource type="ColorRamp" id=3]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 0, 0, 0, 1, 1, 1, 1, 0 )
+
+[sub_resource type="ColorRamp" id=4]
+
+offsets = FloatArray( 0, 0.437653, 1 )
+colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="CanvasItemMaterial" id=5]
+
+shader/shader = ExtResource( 8 )
+shader/shading_mode = 0
+shader_param/BLINKING_SPEED = 0.0
+shader_param/normal = ExtResource( 9 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, -22.2249, 40.03, -49.732, 9.81094, -33.4602, -41.1353, 23.1037, -41.1353, 49.8359, -1.23064 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 10.7061, 29.1821, 49.8359, -1.23064, 34.339, 31.8941 )
+
+[sub_resource type="Animation" id=8]
+
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:transform/scale")
+tracks/0/interp = 2
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 3, 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+
+length = 0.1
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.05, 0.1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 255, 255, 255, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+
+resource/name = "ModulateLightColor"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:color")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.960938, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 0.992188, 1, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 0.992188, 1, 0, 1 ) ]
+}
+
+[node name="meteor" type="RigidBody2D" groups=[
+"meteors",
+]]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+collision/layers = 2
+collision/mask = 2
+mode = 0
+mass = 0.001
+friction = 0.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = 0.0
+damp_override/angular = 0.0
+script/script = ExtResource( 1 )
+HP = 5
+
+[node name="FlowEffect1" type="Particles2D" parent="."]
+
+visibility/light_mask = 2
+config/amount = 32
+config/lifetime = 2.0
+config/process_mode = 1
+config/half_extents = Vector2( 20, 20 )
+config/local_space = false
+config/texture = ExtResource( 2 )
+params/direction = 180.0
+params/spread = 360.0
+params/linear_velocity = 10.0
+params/spin_velocity = 1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 180.0
+params/gravity_strength = 40.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.05
+params/final_size = 0.3
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 3 )
+
+[node name="FlowEffect2" type="Particles2D" parent="."]
+
+visibility/light_mask = 2
+config/amount = 32
+config/lifetime = 2.0
+config/process_mode = 1
+config/half_extents = Vector2( 20, 20 )
+config/local_space = false
+config/texture = ExtResource( 3 )
+params/direction = 180.0
+params/spread = 45.0
+params/linear_velocity = 20.0
+params/spin_velocity = -1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 180.0
+params/gravity_strength = 20.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 1.0
+params/initial_angle = 0.0
+params/initial_size = 0.01
+params/final_size = 0.1
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 3 )
+
+[node name="FlowEffect3" type="Particles2D" parent="."]
+
+visibility/light_mask = 2
+config/amount = 32
+config/lifetime = 2.0
+config/process_mode = 1
+config/half_extents = Vector2( 20, 20 )
+config/local_space = false
+config/texture = ExtResource( 4 )
+params/direction = 180.0
+params/spread = 45.0
+params/linear_velocity = 20.0
+params/spin_velocity = -1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 180.0
+params/gravity_strength = 20.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 1.0
+params/initial_angle = 0.0
+params/initial_size = 0.01
+params/final_size = 0.1
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 3 )
+
+[node name="DeathEffect3" type="Particles2D" parent="."]
+
+config/amount = 8
+config/lifetime = 1.0
+config/emit_timeout = 1.0
+config/emitting = false
+config/process_mode = 1
+config/half_extents = Vector2( 15, 15 )
+config/local_space = false
+config/explosiveness = 0.01
+config/texture = ExtResource( 5 )
+params/direction = 180.0
+params/spread = 150.0
+params/linear_velocity = 80.0
+params/spin_velocity = 0.6
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 300.0
+params/initial_angle = 0.0
+params/initial_size = 0.1
+params/final_size = 0.1
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/linear_velocity = 1.0
+randomness/spin_velocity = -1.0
+randomness/initial_size = 0.3
+color/color_ramp = SubResource( 4 )
+
+[node name="DeathEffect1" type="Particles2D" parent="."]
+
+config/amount = 8
+config/lifetime = 1.0
+config/emit_timeout = 1.0
+config/emitting = false
+config/process_mode = 1
+config/half_extents = Vector2( 15, 15 )
+config/local_space = false
+config/explosiveness = 0.01
+config/texture = ExtResource( 6 )
+params/direction = 180.0
+params/spread = 150.0
+params/linear_velocity = 80.0
+params/spin_velocity = 0.6
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 300.0
+params/initial_angle = 0.0
+params/initial_size = 0.2
+params/final_size = 0.01
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/linear_velocity = 1.0
+randomness/spin_velocity = -1.0
+randomness/initial_size = 0.3
+color/color_ramp = SubResource( 4 )
+
+[node name="DeathEffect2" type="Particles2D" parent="."]
+
+config/amount = 8
+config/lifetime = 1.0
+config/emit_timeout = 1.0
+config/emitting = false
+config/process_mode = 1
+config/half_extents = Vector2( 15, 15 )
+config/local_space = false
+config/explosiveness = 0.01
+config/texture = ExtResource( 7 )
+params/direction = 180.0
+params/spread = 150.0
+params/linear_velocity = 80.0
+params/spin_velocity = 0.6
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 300.0
+params/initial_angle = 0.0
+params/initial_size = 0.2
+params/final_size = 0.01
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/linear_velocity = 1.0
+randomness/spin_velocity = -1.0
+randomness/initial_size = 0.3
+color/color_ramp = SubResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+material/material = SubResource( 5 )
+texture = ExtResource( 10 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 7 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/layers = 0
+collision/mask = 9
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Death = SubResource( 8 )
+anims/Hit = SubResource( 9 )
+anims/ModulateLightColor = SubResource( 10 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="Light2D" type="Light2D" parent="."]
+
+transform/pos = Vector2( 0, -53 )
+enabled = true
+editor_only = false
+texture = ExtResource( 11 )
+offset = Vector2( 0, 0 )
+scale = 1.5
+color = Color( 0.999493, 0.0648636, 0, 1 )
+energy = 4.0
+mode = 0
+range/height = 0.0
+range/z_min = -1024
+range/z_max = 1024
+range/layer_min = 0
+range/layer_max = 0
+range/item_mask = 1
+shadow/enabled = false
+shadow/color = Color( 0, 0, 0, 0 )
+shadow/buffer_size = 2048
+shadow/esm_multiplier = 80.0
+shadow/item_mask = 1
+
+[connection signal="body_enter" from="Hitbox" to="." method="_on_Hitbox_body_enter"]
+
+
