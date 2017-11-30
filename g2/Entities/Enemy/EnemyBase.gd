@@ -36,8 +36,8 @@ export(float, 0, 20, 0.5) var course_time_min = 5.0
 export(float, 0, 20, 0.5) var course_time_max = 15.0
 export(float, 0.0, 3.0, 0.1) var acceleration = 0.6
 export(int, 1, 100) var HP = 1
-export(float, 0.0, 30.0, 0.1) var fire_rate_min = 1.0
-export(float, 0.0, 30.0, 0.1) var fire_rate_max = 0.5
+export(float, 0.0, 30.0, 0.1) var fire_rate_min = 0.5
+export(float, 0.0, 30.0, 0.1) var fire_rate_max = 1.5
 
 var velocity = Vector2()
 var dead_timestamp = -1
