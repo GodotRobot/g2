@@ -9,13 +9,13 @@ onready var flow_effect3 = get_node("FlowEffect3")
 onready var death_effect1 = get_node("DeathEffect1")
 onready var death_effect2 = get_node("DeathEffect2")
 onready var death_effect3 = get_node("DeathEffect3")
+onready var sprite = get_node("Sprite")
 
 export(int, 5) var HP = 5
 
 var dead_timestamp = -1
 
 func _ready():
-	anim.play("ModulateLightColor")
 	set_process(true)
 
 func _process(delta):
@@ -30,7 +30,7 @@ func _process(delta):
 				remove_from_group("meteors")
 		return
 	if !anim.is_playing():
-		anim.set_speed(rand_range(0.6, 1.4))
+		anim.set_speed(rand_range(1.0, 2.0))
 		anim.play("ModulateLightColor")
 
 func set_fake_speed(speed):
@@ -40,7 +40,7 @@ func start_death():
 	if dead_timestamp != -1:
 		return
 	dead_timestamp = OS.get_ticks_msec()
-	anim.play("Death")
+	sprite.hide()
 	flow_effect1.set_emitting(false)
 	flow_effect2.set_emitting(false)
 	flow_effect3.set_emitting(false)

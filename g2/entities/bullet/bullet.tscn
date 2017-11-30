@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://entities/bullet/bullet_base.gd" type="Script" id=1]
-[ext_resource path="res://entities/bullet/radial_light.png" type="Texture" id=2]
+[ext_resource path="res://gfx/radial_light.png" type="Texture" id=2]
 [ext_resource path="res://sheet/sheet.laser_blue15.atex" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
