@@ -176,4 +176,4 @@ func _on_OptionsReturnButton_pressed():
 	if not get_tree().is_paused():
 		credits_button.show()
 	quit_button.show()
-	start_button.grab_focus()
+	options_button.grab_focus()

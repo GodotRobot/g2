@@ -20,7 +20,7 @@ const HTTP = preload("res://Menu/HTTP.gd")
 const INITIAL_LIVES = 3
 const MAX_LIFE = 5
 # last level in game
-const LAST_LEVEL = 20
+const LAST_LEVEL = 12
 # time to wait between killing the last enemy in the level and going to the next one
 const LEVEL_POST_MORTEM_DELAY_SEC = 1.0
 # bullet speed is contant, so make sure the shooter is never faster than it

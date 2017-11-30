@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://Levels/LevelBase.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Entities/Enemy/EnemyShooter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/Enemy/EnemyBase.tscn" type="PackedScene" id=2]
 
 [node name="Level1" instance=ExtResource( 1 )]
 
@@ -9,10 +9,20 @@ initial_pos = Vector2( 640, 500 )
 
 [node name="GameLayer" parent="."]
 
-editor/display_folded = true
+editor/display_folded = false
 
-[node name="EnemyShooter 2" parent="GameLayer" instance=ExtResource( 2 )]
+[node name="EnemyBase" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1175.56, 241.92 )
+transform/pos = Vector2( 232.815, 194.306 )
+HP = 1
+fire_rate_min = 1.0
+fire_rate_max = 0.5
+
+[node name="EnemyBase 2" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 986.464, 197.027 )
+HP = 1
+fire_rate_min = 1.0
+fire_rate_max = 0.5
 
 

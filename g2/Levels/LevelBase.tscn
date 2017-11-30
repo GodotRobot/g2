@@ -142,7 +142,7 @@ max_lines_visible = -1
 [node name="TimeBonusTimer" type="Timer" parent="TimeBonusLayer"]
 
 process_mode = 1
-wait_time = 0.15
+wait_time = 0.07
 one_shot = false
 autostart = false
 

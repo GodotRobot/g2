@@ -8,7 +8,7 @@
 
 [node name="GameLayer" parent="."]
 
-editor/display_folded = true
+editor/display_folded = false
 
 [node name="ParallaxBackground" parent="GameLayer"]
 
@@ -17,9 +17,14 @@ editor/display_folded = true
 [node name="EnemyBase" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1003.03, 222.167 )
+HP = 1
+fire_rate_min = 0.5
+fire_rate_max = 1.5
 
 [node name="EnemyShooter" parent="GameLayer" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 887.159, 181.27 )
+transform/pos = Vector2( 344.133, 208.535 )
+fire_rate_min = 0.5
+fire_rate_max = 1.5
 
 

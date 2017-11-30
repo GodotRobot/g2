@@ -1,12 +1,80 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://Levels/LevelBase.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Entities/Meteors/meteorBrown_big1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/Meteors/meteorBrown_small2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/Meteors/meteorBrown_med3.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Entities/Meteors/meteorBrown_big1.tscn" type="PackedScene" id=4]
 
 [node name="Level3" instance=ExtResource( 1 )]
 
-[node name="meteorBrown_big1" parent="GameLayer" instance=ExtResource( 2 )]
+level_type = "obstacles"
+level_speed = 60.0
 
-transform/pos = Vector2( 632.723, 239.135 )
+[node name="GameLayer" parent="."]
+
+editor/display_folded = false
+
+[node name="ShipArea2D" parent="GameLayer"]
+
+free_movement = false
+
+[node name="meteorBrown_small2" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 639.341, -646.591 )
+velocity/linear = Vector2( -60, 80 )
+velocity/angular = 2.0
+
+[node name="meteorBrown_small6 4" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1078.72, -891.594 )
+velocity/linear = Vector2( -60, 80 )
+velocity/angular = 2.0
+
+[node name="meteorBrown_small3" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1142.23, -602.18 )
+velocity/linear = Vector2( -60, 80 )
+velocity/angular = 2.0
+
+[node name="meteorBrown_small4" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1273.36, -162.534 )
+velocity/linear = Vector2( -60, 80 )
+velocity/angular = 2.0
+
+[node name="meteorBrown_small6 2" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 893.584, -715.625 )
+velocity/linear = Vector2( -60, 80 )
+velocity/angular = 2.0
+
+[node name="meteorBrown_small5" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1297.42, -137.468 )
+velocity/linear = Vector2( -60, 80 )
+velocity/angular = 2.0
+
+[node name="meteorBrown_small6 3" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 233.255, -518.478 )
+velocity/linear = Vector2( -60, 80 )
+velocity/angular = 2.0
+
+[node name="meteorBrown_med3" parent="GameLayer" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 140.458, -704.682 )
+velocity/linear = Vector2( 30, 80 )
+velocity/angular = 0.7
+
+[node name="meteorBrown_big3" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 431.854, -256.497 )
+velocity/linear = Vector2( 10, 60 )
+velocity/angular = 1.0
+
+[node name="meteorBrown_big4" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 883.586, -250.478 )
+velocity/angular = -0.4
 
 
