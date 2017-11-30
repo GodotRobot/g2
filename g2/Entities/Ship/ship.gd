@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 const LASER_RECOVERY_MS = 200
+const blinking_opacity_delta = 0.08
 
 enum AMMO_TYPE {
 	regular = 0
@@ -25,6 +26,7 @@ var movement_offset = Vector2(0.0,0.0)
 var velocity = Vector2()
 var angular_velocity = float()
 
+
 export(bool) var free_movement = true
 export(bool) var can_shoot = true
 export(float) var fake_speed = 0.0
@@ -37,11 +39,10 @@ onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
 onready var ship_activation_timer = get_node("ShipActivationTimer")
 onready var ship_blinking_timer = get_node("ShipBlinkingTimer")
-onready var warp_transparency_timer = get_node("WarpTransparencyTimer")
 onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
 onready var hitbox = get_node("HitBox")
-
+onready var fade_out = true
 
 
 const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
@@ -212,7 +213,7 @@ func warp_ship(pos_x, pos_y):
 		warp_animation.set_frame(0)
 		warp_animation.show()
 		warp_animation.play()
-		warp_transparency_timer.start()
+		sprite.hide()
 		sfx.play("WarpDrive")
 
 func add_shield(shield):
@@ -237,12 +238,14 @@ func _on_HitBoxArea_body_enter( body ):
 
 func _on_ShipActivationTimer_timeout():
 	ship_blinking_timer.stop()
+	sprite.set_opacity(1.0)
 	sprite.show()
 
 func _on_WarpAnimation_finished():
 	if (ship_state == SHIP_STATE.warp_start):
 		set_pos(warp_dest) # actual warp
 		ship_state = SHIP_STATE.warp_end
+		sprite.show()
 		warp_animation.set_frame(0)
 		warp_animation.show()
 		warp_animation.play()
@@ -253,18 +256,14 @@ func _on_WarpAnimation_finished():
 		ship_blinking_timer.start()
 		ship_activation_timer.start()
 
-func _on_WarpTransparencyTimer_timeout():
-	var ship_opacity = sprite.get_opacity()
-	if (ship_state == SHIP_STATE.warp_start):
-			if (ship_opacity > 0):
-				ship_opacity -= 0.1
-	if (ship_state == SHIP_STATE.warp_end):
-		if (ship_opacity < 1.0):
-				ship_opacity += 0.1
-	sprite.set_opacity(ship_opacity)
-
 func _on_ShipBlinkingTimer_timeout():
-	if sprite.is_visible():
-		sprite.hide()
+	var cur_ship_opacity = sprite.get_opacity()
+	if fade_out:
+		cur_ship_opacity -= blinking_opacity_delta
+		if cur_ship_opacity <= 0.0:
+			fade_out = false
 	else:
-		sprite.show()
+		cur_ship_opacity += blinking_opacity_delta
+		if cur_ship_opacity >= 1.0:
+			fade_out = true
+	sprite.set_opacity(cur_ship_opacity)
