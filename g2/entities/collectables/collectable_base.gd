@@ -12,12 +12,17 @@ export(int, 0, 100) var warp = 0
 export(int, 0, 100) var shield = 0
 export(int, 0, 100) var boom = 0
 
+export(int, 0, 50) var score_bonus = 5
+
 onready var GameManager = get_node("/root/GameManager")
 
 var fake_speed = 0 setget set_fake_speed
 
 func _ready():
 	set_fixed_process(true)
+	
+func get_score():
+	return score_bonus
 
 func _fixed_process(delta):
 	translate(Vector2(0, fake_speed * delta))

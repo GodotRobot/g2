@@ -7,6 +7,6 @@
 
 texture = ExtResource( 2 )
 shield = 10
-boom = 0
+score_bonus = 5
 
 
