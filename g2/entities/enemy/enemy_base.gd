@@ -54,6 +54,7 @@ onready var sfx = get_node("SamplePlayer")
 onready var course_timer = get_node("CourseTimer")
 onready var hitbox = get_node("HitBox")
 onready var initial_HP = HP
+onready var engine_anim = get_node("Sprite/Engine/AnimationPlayer")
 
 func is_dead():
 	return dead_timestamp > 0
@@ -129,6 +130,8 @@ func _ready():
 	init_from_exports()
 	init_velocity()
 	init_shoot_timer()
+	if engine_anim != null:
+		engine_anim.play("EngineBurn")
 	set_fixed_process(true)
 
 func is_outside():

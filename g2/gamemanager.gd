@@ -173,8 +173,8 @@ func set_singletons():
 	download_highscores()
 
 func _ready():
-	if debug:
-		preload_all_levels()
+	#if debug:
+		#preload_all_levels()
 	# discover initial scene
 	var root = get_tree().get_root()
 	current_scene = root.get_child( root.get_child_count() -1 )

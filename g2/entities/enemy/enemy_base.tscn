@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://entities/enemy/enemy_base.gd" type="Script" id=1]
 [ext_resource path="res://default_shader.tres" type="Shader" id=2]
-[ext_resource path="res://sheet/normal.enemy_red4.atex" type="Texture" id=3]
-[ext_resource path="res://sheet/sheet.enemy_black4.atex" type="Texture" id=4]
-[ext_resource path="res://entities/enemy/enemy_sfx.tres" type="SampleLibrary" id=5]
+[ext_resource path="res://gfx/k2x/spaceships_009.normal.png" type="Texture" id=3]
+[ext_resource path="res://gfx/k2x/spaceships_009.png" type="Texture" id=4]
+[ext_resource path="res://gfx/k2x/spaceeffects_008.png" type="Texture" id=5]
+[ext_resource path="res://entities/enemy/enemy_sfx.tres" type="SampleLibrary" id=6]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=5]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.69406, 41.2027, -10.2583, 41.009, -39.5089, 19.1195, -39.7026, -27.9526, -17.6194, -41.125 )
+points = Vector2Array( 17.7777, -25.5486, 27.0335, -22.9855, 35.15, 5.06648, 19.0593, 25.8563, -18.6756, 25.8563, -35.1935, 5.20888, -26.9345, -22.9855, -18.2484, -25.4062 )
 
 [sub_resource type="ColorRamp" id=2]
 
@@ -28,18 +29,35 @@ shader_param/normal = ExtResource( 3 )
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="Animation" id=7]
+
+resource/name = "EngineBurn"
+length = 0.2
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, -4, 1 ),
+"update": 0,
+"values": [ 1.0, 0.4, 1.0 ]
+}
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.69406, 41.2027, -10.2583, 41.009, -39.5089, 19.1195, -39.7026, -27.9526, -17.6194, -41.125 )
+points = Vector2Array( 17.7777, -25.5486, 27.0335, -22.9855, 35.15, 5.06648, 19.0593, 25.8563, -18.6756, 25.8563, -35.1935, 5.20888, -26.9345, -22.9855, -18.2484, -25.4062 )
 
 [node name="EnemyBase" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.750591, 0, 0, 0.746646, -0.527582, 0.586169 )
+shapes/0/shape = SubResource( 5 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 2
 collision/mask = 0
@@ -60,10 +78,9 @@ fire_rate_max = 1.5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
-transform/pos = Vector2( -0.527582, 0.586169 )
-transform/scale = Vector2( 0.750591, 0.746646 )
+visibility/visible = false
 build_mode = 0
-polygon = Vector2Array( -17.6194, -41.125, -39.7026, -27.9526, -39.5089, 19.1195, -10.2583, 41.009, 9.69406, 41.2027, 39.5258, 19.7007, 39.5258, -28.1463, 17.4426, -41.125 )
+polygon = Vector2Array( -18.2484, -25.4062, -26.9345, -22.9855, -35.1935, 5.20888, -18.6756, 25.8563, 19.0593, 25.8563, 35.15, 5.06648, 27.0335, -22.9855, 17.7777, -25.5486 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
@@ -105,7 +122,7 @@ color/color_ramp = SubResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 
 material/material = SubResource( 3 )
-transform/scale = Vector2( 0.75, 0.75 )
+transform/scale = Vector2( 0.35, 0.35 )
 texture = ExtResource( 4 )
 
 [node name="FlowEffect" type="Particles2D" parent="Sprite"]
@@ -139,6 +156,37 @@ randomness/initial_size = 0.25
 randomness/final_size = 0.22
 color/color_ramp = SubResource( 4 )
 
+[node name="Engine" type="Node2D" parent="Sprite"]
+
+visibility/behind_parent = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite/Engine"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/EngineBurn = SubResource( 7 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="EngineR" type="Sprite" parent="Sprite/Engine"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( -40, -113.532 )
+transform/rot = -180.0
+transform/scale = Vector2( 1, 0.540506 )
+texture = ExtResource( 5 )
+
+[node name="EngineL" type="Sprite" parent="Sprite/Engine"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 40, -113.532 )
+transform/rot = -180.0
+transform/scale = Vector2( 1, 0.540506 )
+texture = ExtResource( 5 )
+
 [node name="CourseTimer" type="Timer" parent="."]
 
 process_mode = 1
@@ -154,16 +202,14 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 5
-config/samples = ExtResource( 5 )
+config/samples = ExtResource( 6 )
 config/pitch_random = 0.0
 
 [node name="HitBox" type="Area2D" parent="."]
 
-transform/pos = Vector2( 0.33695, -1.44548 )
-transform/scale = Vector2( 1.2495, 1.21808 )
 input/pickable = true
-shapes/0/shape = SubResource( 5 )
-shapes/0/transform = Matrix32( 0.653293, 0, 0, 0.672703, -0.536185, 0.589043 )
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -176,10 +222,8 @@ collision/mask = 9
 [node name="HitBoxCollision" type="CollisionPolygon2D" parent="HitBox"]
 
 visibility/visible = false
-transform/pos = Vector2( -0.536185, 0.589043 )
-transform/scale = Vector2( 0.653293, 0.672703 )
 build_mode = 0
-polygon = Vector2Array( -17.6194, -41.125, -39.7026, -27.9526, -39.5089, 19.1195, -10.2583, 41.009, 9.69406, 41.2027, 39.5258, 19.7007, 39.5258, -28.1463, 17.4426, -41.125 )
+polygon = Vector2Array( -18.2484, -25.4062, -26.9345, -22.9855, -35.1935, 5.20888, -18.6756, 25.8563, 19.0593, 25.8563, 35.15, 5.06648, 27.0335, -22.9855, 17.7777, -25.5486 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
