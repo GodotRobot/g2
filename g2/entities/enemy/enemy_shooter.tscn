@@ -116,6 +116,7 @@ HP = 1
 kill_score = 50
 fire_rate_min = 1.0
 fire_rate_max = 0.5
+bullets_left = -1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 

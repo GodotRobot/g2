@@ -39,13 +39,14 @@ export(int, 1, 100) var HP = 1
 export(int, 1, 100) var kill_score = 5
 export(float, 0.0, 30.0, 0.1) var fire_rate_min = 0.5
 export(float, 0.0, 30.0, 0.1) var fire_rate_max = 1.5
+export(int, -1, 100) var bullets_left = -1 # -1 is infinite
 
 var velocity = Vector2()
 var dead_timestamp = -1
 var personality_type
 var drop_type # works with var drop_value
 var shoot_timer = Timer.new()
-var shots_fires = 0
+var shots_fired = 0
 
 onready var GameManager = get_node("/root/GameManager")
 onready var death_effect = get_node("DeathEffect")
@@ -78,7 +79,7 @@ func get_dir_to_ship():
 
 func get_bullet_spawn_point():
 	var spawn_points = get_tree().get_nodes_in_group("spawn")
-	return spawn_points[shots_fires % spawn_points.size()]
+	return spawn_points[shots_fired % spawn_points.size()]
 
 func shoot():
 	if not ready_to_shoot():
@@ -101,7 +102,7 @@ func shoot():
 				var xform = bullet_spawn_point.get_global_transform()
 				new_drone.set_global_transform(xform)
 				get_parent().add_child(new_drone)
-	shots_fires += 1
+	shots_fired += 1
 
 func init_shoot_timer():
 	# shoot timer - TODO make it a proper node via the scene
@@ -155,6 +156,8 @@ func is_outside():
 	return impulse
 
 func ready_to_shoot():
+	if bullets_left != -1 and shots_fired >= bullets_left:
+		return false
 	var time_left = shoot_timer.get_time_left()
 	if time_left > 0.0:
 		return false
