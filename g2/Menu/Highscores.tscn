@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://Menu/Highscores.gd" type="Script" id=1]
-[ext_resource path="res://Fonts/scores_radio_stars_font.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://menu/highscores.gd" type="Script" id=1]
+[ext_resource path="res://fonts/scores_radio_stars_font.fnt" type="BitmapFont" id=2]
 
 [node name="Highscores" type="Panel"]
 

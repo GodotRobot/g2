@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 const LASER_RECOVERY_MS = 200
+const blinking_opacity_delta = 0.08
 
 enum AMMO_TYPE {
 	regular = 0
@@ -30,24 +31,24 @@ export(bool) var can_shoot = true
 export(float) var fake_speed = 0.0
 
 onready var GameManager = get_node("/root/GameManager")
-onready var bullet = preload("res://Entities/Bullet/Bullet.tscn")
+onready var bullet = preload("res://entities/bullet/bullet.tscn")
 onready var death_particle_effect = get_node("ShipDeathParticles2D")
 onready var flowing_particle_effect = get_node("ShipParticles2D")
 onready var sprite = get_node("ShipSprite")
 onready var col = get_node("ShipCollisionShape2D")
 onready var ship_activation_timer = get_node("ShipActivationTimer")
 onready var ship_blinking_timer = get_node("ShipBlinkingTimer")
-onready var warp_transparency_timer = get_node("WarpTransparencyTimer")
 onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
 onready var hitbox = get_node("HitBox")
+onready var fade_out = true
 
 
 
-const SHIELD = preload("res://Entities/Ship/Addons/AddonShield.tscn")
-const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
-const BULLET_BASE = preload("res://Entities/Bullet/BulletBase.gd")
-const ENEMY_BASE = preload("res://Entities/Enemy/EnemyBase.gd")
+const SHIELD = preload("res://entities/ship/addons/addon_shield.tscn")
+const COLLECTABLE_BASE = preload("res://entities/collectables/collectable_base.gd")
+const BULLET_BASE = preload("res://entities/bullet/bullet_base.gd")
+const ENEMY_BASE = preload("res://entities/enemy/enemy_base.gd")
 
 func active():
 	return ship_state in [SHIP_STATE.active, SHIP_STATE.on_hold]  and ship_activation_timer.get_time_left() <= 0.0
@@ -93,7 +94,7 @@ func start_death():
 	
 	movement_offset = Vector2(0.0,0.0)
 	ship_state = SHIP_STATE.death_start
-	sfx.play("Ship_Explosion")
+	sfx.play("ship_explosion")
 	dead_timestamp = OS.get_ticks_msec()
 	death_particle_effect.set_emitting(true)
 	flowing_particle_effect.set_emitting(false)
@@ -212,8 +213,8 @@ func warp_ship(pos_x, pos_y):
 		warp_animation.set_frame(0)
 		warp_animation.show()
 		warp_animation.play()
-		warp_transparency_timer.start()
-		sfx.play("WarpDrive")
+		sprite.hide()
+		sfx.play("warp_drive_02")
 
 func add_shield(shield):
 	GameManager.dbg(get_name() + " adding " + String(shield) + " shield")
@@ -237,12 +238,14 @@ func _on_HitBoxArea_body_enter( body ):
 
 func _on_ShipActivationTimer_timeout():
 	ship_blinking_timer.stop()
+	sprite.set_opacity(1.0)
 	sprite.show()
 
 func _on_WarpAnimation_finished():
 	if (ship_state == SHIP_STATE.warp_start):
 		set_pos(warp_dest) # actual warp
 		ship_state = SHIP_STATE.warp_end
+		sprite.show()
 		warp_animation.set_frame(0)
 		warp_animation.show()
 		warp_animation.play()
@@ -252,19 +255,16 @@ func _on_WarpAnimation_finished():
 		warp_animation.hide()
 		ship_blinking_timer.start()
 		ship_activation_timer.start()
-
-func _on_WarpTransparencyTimer_timeout():
-	var ship_opacity = sprite.get_opacity()
-	if (ship_state == SHIP_STATE.warp_start):
-			if (ship_opacity > 0):
-				ship_opacity -= 0.1
-	if (ship_state == SHIP_STATE.warp_end):
-		if (ship_opacity < 1.0):
-				ship_opacity += 0.1
-	sprite.set_opacity(ship_opacity)
-
+		
 func _on_ShipBlinkingTimer_timeout():
-	if sprite.is_visible():
-		sprite.hide()
+	var cur_ship_opacity = sprite.get_opacity()
+	if fade_out:
+		cur_ship_opacity -= blinking_opacity_delta
+		if cur_ship_opacity <= 0.0:
+			fade_out = false
 	else:
-		sprite.show()
+		cur_ship_opacity += blinking_opacity_delta
+		if cur_ship_opacity >= 1.0:
+			fade_out = true
+	sprite.set_opacity(cur_ship_opacity)
+

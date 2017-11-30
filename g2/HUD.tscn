@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=1]
 
-[ext_resource path="res://HUD.gd" type="Script" id=1]
-[ext_resource path="res://Backgrounds/HUD_bg01.png" type="Texture" id=2]
-[ext_resource path="res://Fonts/radio_stars_font.fnt" type="BitmapFont" id=3]
-[ext_resource path="res://sheet/sheet.playerLife1_blue.atex" type="Texture" id=4]
-[ext_resource path="res://Backgrounds/HUD_bg02.png" type="Texture" id=5]
-[ext_resource path="res://HUD_WarpAlert.gd" type="Script" id=6]
+[ext_resource path="res://hud.gd" type="Script" id=1]
+[ext_resource path="res://backgrounds/hud_bg01.png" type="Texture" id=2]
+[ext_resource path="res://fonts/radio_stars_font.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://sheet/sheet.player_life1_blue.atex" type="Texture" id=4]
+[ext_resource path="res://backgrounds/hud_bg02.png" type="Texture" id=5]
+[ext_resource path="res://hud_warp_alert.gd" type="Script" id=6]
 [ext_resource path="res://sheet/sheet.bolt_gold.atex" type="Texture" id=7]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -431,7 +431,7 @@ margin/left = -173.0
 margin/top = -8.0
 margin/right = 151.0
 margin/bottom = 9.0
-custom_styles/fg = SubResource( 3 )
+custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 range/min = 0.0
 range/max = 100.0

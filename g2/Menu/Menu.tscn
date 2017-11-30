@@ -1,18 +1,17 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=14 format=1]
 
-[ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
-[ext_resource path="res://Backgrounds/Menu_bg_pause.png" type="Texture" id=2]
-[ext_resource path="res://Fonts/sector_034.fnt" type="BitmapFont" id=3]
-[ext_resource path="res://Fonts/radio_stars_font.fnt" type="BitmapFont" id=4]
-[ext_resource path="res://Menu/Camera2D.gd" type="Script" id=5]
-[ext_resource path="res://Backgrounds/stars_bg.png" type="Texture" id=6]
-[ext_resource path="res://Backgrounds/Asteroids_bg.tex" type="Texture" id=7]
-[ext_resource path="res://Backgrounds/Asteroids_bg2.tex" type="Texture" id=8]
-[ext_resource path="res://Fonts/small_radio_stars_font.fnt" type="BitmapFont" id=9]
-[ext_resource path="res://Menu/Highscores.tscn" type="PackedScene" id=10]
-[ext_resource path="res://sfx/Light-Years_V001_Looping.ogg" type="AudioStream" id=11]
-[ext_resource path="res://Menu/kenvector_future_font.fnt" type="BitmapFont" id=12]
-[ext_resource path="res://sfx/sfx_laser1.wav" type="Sample" id=13]
+[ext_resource path="res://menu/menu.gd" type="Script" id=1]
+[ext_resource path="res://backgrounds/menu_bg_pause.png" type="Texture" id=2]
+[ext_resource path="res://fonts/sector_034.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://fonts/radio_stars_font.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://menu/camera2d.gd" type="Script" id=5]
+[ext_resource path="res://backgrounds/stars_bg.png" type="Texture" id=6]
+[ext_resource path="res://backgrounds/asteroids_bg.tex" type="Texture" id=7]
+[ext_resource path="res://backgrounds/asteroids_bg2.tex" type="Texture" id=8]
+[ext_resource path="res://fonts/small_radio_stars_font.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://menu/highscores.tscn" type="PackedScene" id=10]
+[ext_resource path="res://menu/kenvector_future_font.fnt" type="BitmapFont" id=11]
+[ext_resource path="res://sfx/sfx_laser1.smp" type="Sample" id=12]
 
 [sub_resource type="SampleLibrary" id=1]
 
@@ -20,10 +19,10 @@ samples/sfx_laser1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 13 )
+"sample": ExtResource( 12 )
 }
 
-[node name="Menu" type="CanvasLayer" groups=[
+[node name="menu" type="CanvasLayer" groups=[
 "menu",
 ]]
 
@@ -497,17 +496,6 @@ rect/min_size = Vector2( 352, 0 )
 margin/top = 242.0
 margin/bottom = 242.0
 
-[node name="StreamPlayer" type="StreamPlayer" parent="."]
-
-stream/stream = ExtResource( 11 )
-stream/play = false
-stream/loop = true
-stream/volume_db = 0.0
-stream/autoplay = false
-stream/paused = false
-stream/loop_restart_time = 0.0
-stream/buffering_ms = 500
-
 [node name="NameDialog" type="AcceptDialog" parent="."]
 
 editor/display_folded = true
@@ -536,7 +524,7 @@ margin/left = 7.0
 margin/top = 42.0
 margin/right = 847.0
 margin/bottom = 101.0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 11 )
 text = "You won! Enter name for high scores table"
 align = 1
 valign = 1
@@ -556,7 +544,7 @@ margin/left = 7.0
 margin/top = 87.0
 margin/right = 847.0
 margin/bottom = 146.0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 11 )
 text = "Final score: "
 align = 1
 valign = 1
@@ -576,7 +564,7 @@ margin/left = 327.0
 margin/top = 157.0
 margin/right = 526.0
 margin/bottom = 183.0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 11 )
 placeholder/alpha = 0.6
 align = 1
 max_length = 8

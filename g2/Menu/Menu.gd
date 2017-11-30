@@ -3,7 +3,6 @@ extends CanvasLayer
 onready var GameManager = get_node("/root/GameManager")
 onready var context = get_node("VBoxContainer/Context")
 onready var menu_box_container = get_node("VBoxContainer")
-onready var music_player = get_node("StreamPlayer")
 onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
 onready var sfx = get_node("SamplePlayer")
 onready var credits_dialog = get_node("CreditsDialog")

@@ -6,14 +6,14 @@
 extends Node
 
 # levels and entities
-const LEVEL_BASE = preload("res://Levels/LevelBase.gd")
-const COLLECTABLE_BASE = preload("res://Entities/Collectables/CollectableBase.gd")
-const MENU_PATH = "res://Menu/Menu.tscn"
+const LEVEL_BASE = preload("res://levels/level_base.gd")
+const COLLECTABLE_BASE = preload("res://entities/collectables/collectable_base.gd")
+const MENU_PATH = "res://menu/menu.tscn"
 const MENU = preload(MENU_PATH)
-const MENU_BASE = preload("res://Menu/Menu.gd")
-const LEVEL_PATH = "res://Levels/Level<N>.tscn"
-const SHIP = preload("res://Entities/Ship/Ship.tscn")
-const HTTP = preload("res://Menu/HTTP.gd")
+const MENU_BASE = preload("res://menu/menu.gd")
+const LEVEL_PATH = "res://levels/level<N>.tscn"
+const SHIP = preload("res://entities/ship/ship.tscn")
+const HTTP = preload("res://menu/http.gd")
 
 ################### game consts and balance ##########################
 # initial ships upon starting the game
@@ -135,9 +135,9 @@ func add_score(add):
 	current_scene.get_hud().set_score(score)
 
 func enemy_destroyed(instance):
-	score += 1
 	var hud = current_scene.get_hud()
 	if hud:
+		score += instance.kill_score
 		hud.set_score(score)
 	dbg("enemy " + instance.get_name() + " destoryed!")
 	if instance.drop_type:
@@ -173,6 +173,8 @@ func set_singletons():
 	download_highscores()
 
 func _ready():
+	if debug:
+		preload_all_levels()
 	# discover initial scene
 	var root = get_tree().get_root()
 	current_scene = root.get_child( root.get_child_count() -1 )
@@ -183,6 +185,7 @@ func _ready():
 	set_process_input(true)
 	set_music_level(music_level)
 	set_sfx_level(sfx_level)
+	get_node("/root/Player/StreamPlayer").play()
 
 func get_current_ship():
 	var ships = get_tree().get_nodes_in_group("ship")
@@ -205,7 +208,6 @@ func start_game():
 	cur_warp = INITIAL_WARP
 	score = 0
 	get_node("/root/TransitionScreen/AnimationPlayer").stop()
-	#goto_scene(LEVEL_PATH.replace("<N>", "1"))
 	transition_to_level(1)
 	warp_to_start_level = true
 
@@ -246,17 +248,38 @@ func _process(delta):
 			transition_to_level(cur_level + 1)
 	if current_scene.level_lost():
 		print("todo")
-
+		
+const SCENETYPE = ['tscn', 'tscn.converted.scn', 'scn']
+# return path that is guerateed to be found on disk, or null
+func get_level_path(level_number):
+	var file = File.new()
+	var basename = LEVEL_PATH.replace("<N>", String(level_number)).basename()
+	for ext in SCENETYPE:
+		var path = basename + "." + ext
+		if file.file_exists(path):
+			return path
+	return null
+	
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		pause()
 
+func preload_all_levels():
+	print("preload_all_levels")
+	for level in range(0, LAST_LEVEL):
+		print("Trying to preload level " + str(level+1))
+		var path = get_level_path(level+1)
+		if path != null:
+			ResourceLoader.load(path)
+
 var titles = ["null", "prepare to die", "this is easy", "who are you?", "idan did it", "sbx4ever", "show me what you got"]
 
 func transition_to_level(next_level):
-	while next_level < LAST_LEVEL and not File.new().file_exists(LEVEL_PATH.replace("<N>", String(next_level))):
-		dbg("Level " + String(next_level) + " does not exist. skipping!")
+	var level_path = get_level_path(next_level)
+	while next_level < LAST_LEVEL and level_path == null:
+		dbg("Could not find level resource " + level_path + ". Skipping!")
 		next_level += 1
+		level_path = get_level_path(next_level)
 	cur_level = next_level
 	# prapare transition
 	var transition = get_node("/root/TransitionScreen")
@@ -275,7 +298,7 @@ func transition_to_level(next_level):
 
 # called by the transition scene
 func goto_level(level):
-	goto_scene(LEVEL_PATH.replace("<N>", String(level)))
+	goto_scene(get_level_path(level))
 	
 func goto_scene(path):
 	# This function will usually be called from a signal callback,
