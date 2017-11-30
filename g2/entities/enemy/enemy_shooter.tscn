@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://entities/enemy/enemy_base.gd" type="Script" id=1]
 [ext_resource path="res://default_shader.tres" type="Shader" id=2]
-[ext_resource path="res://sheet/normal.enemy_green5.atex" type="Texture" id=3]
-[ext_resource path="res://sheet/sheet.enemy_green5.atex" type="Texture" id=4]
-[ext_resource path="res://entities/enemy/enemy_sfx.tres" type="SampleLibrary" id=5]
+[ext_resource path="res://gfx/k2x/spaceships_006.normal.png" type="Texture" id=3]
+[ext_resource path="res://gfx/k2x/spaceships_006.png" type="Texture" id=4]
+[ext_resource path="res://gfx/k2x/spaceeffects_008.png" type="Texture" id=5]
+[ext_resource path="res://entities/enemy/enemy_sfx.tres" type="SampleLibrary" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -38,17 +39,34 @@ shader_param/normal = ExtResource( 3 )
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
+[sub_resource type="Animation" id=7]
 
-custom_solver_bias = 0.0
-points = Vector2Array( 5.15975, -7.27281, 7.801, -7.27281, 4.85719, 5.65838, 2.55606, -5.68802 )
+resource/name = "EngineBurn"
+length = 0.2
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, -4, 1 ),
+"update": 0,
+"values": [ 1.0, 0.4, 1.0 ]
+}
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
 
 custom_solver_bias = 0.0
-points = Vector2Array( -4.68407, 5.59959, -7.80194, -7.21808, -4.67157, -7.27281, -2.21457, -5.57044, 4.85719, 5.65838, 1.99481, 7.48086, -1.87782, 7.48086 )
+points = Vector2Array( 5.15975, -7.27281, 7.801, -7.27281, 4.85719, 5.65838, 2.55606, -5.68802 )
 
 [sub_resource type="ConvexPolygonShape2D" id=9]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -4.68407, 5.59959, -7.80194, -7.21808, -4.67157, -7.27281, -2.21457, -5.57044, 4.85719, 5.65838, 1.99481, 7.48086, -1.87782, 7.48086 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -2.21457, -5.57044, 2.55606, -5.68802, 4.85719, 5.65838 )
@@ -132,7 +150,7 @@ color/color_ramp = SubResource( 4 )
 [node name="Sprite" type="Sprite" parent="."]
 
 material/material = SubResource( 5 )
-transform/scale = Vector2( 0.75, 0.75 )
+transform/scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 
 [node name="FlowEffect" type="Particles2D" parent="Sprite"]
@@ -166,6 +184,38 @@ randomness/initial_size = 0.25
 randomness/final_size = 0.22
 color/color_ramp = SubResource( 6 )
 
+[node name="Engine" type="Node2D" parent="Sprite"]
+
+visibility/opacity = 0.966223
+visibility/behind_parent = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite/Engine"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/EngineBurn = SubResource( 7 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="EngineR" type="Sprite" parent="Sprite/Engine"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( -28.9286, -146.032 )
+transform/rot = -180.0
+transform/scale = Vector2( 1, 0.540506 )
+texture = ExtResource( 5 )
+
+[node name="EngineL" type="Sprite" parent="Sprite/Engine"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 28.9286, -146.032 )
+transform/rot = -180.0
+transform/scale = Vector2( 1, 0.540506 )
+texture = ExtResource( 5 )
+
 [node name="CourseTimer" type="Timer" parent="."]
 
 process_mode = 1
@@ -181,7 +231,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 5
-config/samples = ExtResource( 5 )
+config/samples = ExtResource( 6 )
 config/pitch_random = 0.0
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -189,13 +239,13 @@ config/pitch_random = 0.0
 transform/pos = Vector2( 0.33695, -1.44548 )
 transform/scale = Vector2( 1.2034, 1.14533 )
 input/pickable = true
-shapes/0/shape = SubResource( 7 )
+shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 4.04051, 0, 0, 3.79369, -0.510536, 0.552844 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 8 )
+shapes/1/shape = SubResource( 9 )
 shapes/1/transform = Matrix32( 4.04051, 0, 0, 3.79369, -0.510536, 0.552844 )
 shapes/1/trigger = false
-shapes/2/shape = SubResource( 9 )
+shapes/2/shape = SubResource( 10 )
 shapes/2/transform = Matrix32( 4.04051, 0, 0, 3.79369, -0.510536, 0.552844 )
 shapes/2/trigger = false
 gravity_vec = Vector2( 0, 1 )
