@@ -2,9 +2,9 @@
 
 [ext_resource path="res://levels/level_base.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/collectables/collectable_health.tscn" type="PackedScene" id=2]
-[ext_resource path="res://entities/meteors/meteor_brown_big1.tscn" type="PackedScene" id=3]
-[ext_resource path="res://entities/meteors/meteor_brown_big2.tscn" type="PackedScene" id=4]
-[ext_resource path="res://entities/meteors/meteor_grey_big2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/meteors/meteor_big_brown_1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/meteors/meteor_small_brown_1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/meteors/meteor_med_brown_1.tscn" type="PackedScene" id=5]
 
 [node name="Level6" instance=ExtResource( 1 )]
 
@@ -20,22 +20,138 @@ free_movement = false
 
 [node name="CollectableBase" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 189.109, -167.39 )
+transform/pos = Vector2( 351.902, -284.851 )
+score_bonus = 5
+
+[node name="CollectableBase1" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 518.53, -989.109 )
+score_bonus = 5
 
 [node name="meteor_brown_big1" parent="GameLayer" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 785.72, -83.151 )
+transform/pos = Vector2( 886.974, -394.6 )
+velocity/linear = Vector2( 6, 20 )
+velocity/angular = 4.0
 
-[node name="meteor_brown_big2" parent="GameLayer" instance=ExtResource( 4 )]
+[node name="meteor_brown_big3" parent="GameLayer" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 426.164, -183.691 )
+transform/pos = Vector2( 1022.78, -1276.95 )
+velocity/linear = Vector2( 6, 20 )
+velocity/angular = 4.0
+
+[node name="meteor_brown_big2" parent="GameLayer" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 352.926, -379.685 )
+velocity/linear = Vector2( 0, 20 )
+velocity/angular = -2.0
+
+[node name="meteor_brown_big3 2" parent="GameLayer" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 663.396, -1323.68 )
+velocity/linear = Vector2( 0, 20 )
+velocity/angular = -2.0
 
 [node name="CollectableBase 2" parent="GameLayer" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 568.539, 107.487 )
+transform/pos = Vector2( 942.072, -294.84 )
+score_bonus = 5
+
+[node name="CollectableBase3" parent="GameLayer" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1050.48, -930.602 )
+score_bonus = 5
+
+[node name="meteor_small_brown_1" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 257.642, -215.375 )
+
+[node name="meteor_small_brown_3" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 410.572, -1323.76 )
+
+[node name="meteor_small_brown_2" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 189.48, -649.775 )
+
+[node name="meteor_small_brown_3 2" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 321.861, -1494.45 )
+
+[node name="meteor_small_brown_1 2" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 550.74, -188.111 )
+
+[node name="meteor_small_brown_14 2" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 580.377, -751.952 )
+
+[node name="meteor_small_brown_13" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 640.118, -468.395 )
+
+[node name="meteor_small_brown_14" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 337.55, -1001.41 )
 
 [node name="meteor_grey_big2" parent="GameLayer" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 433.675, 112.142 )
+transform/pos = Vector2( 931.847, -496.706 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big7" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 916.962, -1406.45 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big3" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 1095.3, -223.438 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big7 2" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 1080.42, -780.43 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big4" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 133.382, -196.558 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big7 3" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 281.22, -1298.09 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big5" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 789.593, -819.055 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big7 4" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 826.079, -1554.14 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big6" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 799.333, -280.992 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
+
+[node name="meteor_grey_big7 5" parent="GameLayer" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 931.714, -1043.47 )
+velocity/linear = Vector2( -10, -5 )
+velocity/angular = 0.9
 
 
