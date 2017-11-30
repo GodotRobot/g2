@@ -77,6 +77,9 @@ func _ready():
 		var meteors = get_tree().get_nodes_in_group("meteors")
 		for m in meteors:
 			m.set_fake_speed(level_speed)
+		var collectables = get_tree().get_nodes_in_group("collectables")
+		for c in collectables:
+			c.set_fake_speed(level_speed)
 
 func _process(delta):
 	update_hud()

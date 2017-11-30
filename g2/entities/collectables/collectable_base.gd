@@ -14,9 +14,17 @@ export(int, 0, 100) var boom = 0
 
 onready var GameManager = get_node("/root/GameManager")
 
-func _ready():
-	pass
+var fake_speed = 0 setget set_fake_speed
 
+func _ready():
+	set_fixed_process(true)
+
+func _fixed_process(delta):
+	translate(Vector2(0, fake_speed * delta))
+
+func set_fake_speed(speed):
+	fake_speed = speed
+	
 func _on_Area2D_body_enter( body ):
 	GameManager.collectable_collected(self, body)
 	queue_free()
