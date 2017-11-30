@@ -75,6 +75,7 @@ func level_ready(level):
 		hud.get_node("HUD/CkbxDebug").set_pressed(debug)
 
 func collectable_collected(collectable, who):
+	add_score(collectable.get_score())
 	dbg(collectable.get_name() + " was hit by " + who.get_name())
 	if collectable.health > 0:
 		dbg("additional health: " + String(collectable.health))

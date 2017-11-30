@@ -16,5 +16,6 @@ shader_param/normal = ExtResource( 3 )
 material/material = SubResource( 1 )
 texture = ExtResource( 4 )
 boom = 1
+score_bonus = 5
 
 
