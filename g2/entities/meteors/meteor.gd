@@ -11,7 +11,7 @@ onready var death_effect2 = get_node("DeathEffect2")
 onready var death_effect3 = get_node("DeathEffect3")
 onready var sprite = get_node("Sprite")
 
-export(int, 5) var HP = 5
+export(int, 1, 50) var HP = 5
 
 var dead_timestamp = -1
 
