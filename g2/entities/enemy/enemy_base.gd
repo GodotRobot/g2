@@ -45,6 +45,7 @@ var dead_timestamp = -1
 var personality_type
 var drop_type # works with var drop_value
 var shoot_timer = Timer.new()
+var shots_fires = 0
 
 onready var GameManager = get_node("/root/GameManager")
 onready var death_effect = get_node("DeathEffect")
@@ -75,14 +76,18 @@ func get_dir_to_ship():
 		return (get_viewport().get_rect().size / 2 - get_pos()).normalized()
 	return (ship.get_pos() - get_pos()).normalized()
 
+func get_bullet_spawn_point():
+	var spawn_points = get_tree().get_nodes_in_group("spawn")
+	return spawn_points[shots_fires % spawn_points.size()]
+
 func shoot():
 	if not ready_to_shoot():
 		return
 	if personality_type == PERSONALITY_TYPE.shooter:
 		var new_bullet = BULLET.instance()
 		if new_bullet:
-			# IDFK why sprite is needed, but calling the root's get_global_transform gives Identity for rotation :|
-			var xform = sprite.get_global_transform()
+			var bullet_spawn_point = get_bullet_spawn_point()
+			var xform = bullet_spawn_point.get_global_transform()
 			new_bullet.set_global_transform(xform)
 			new_bullet.velocity = Vector2(0.0, 1.0).rotated(xform.get_rotation())
 			get_parent().add_child(new_bullet)
@@ -92,9 +97,11 @@ func shoot():
 		if cur_ship and cur_ship.active():
 			var new_drone = DRONE.instance()
 			if new_drone:
-				var xform = get_node("Sprite/DroneHome").get_global_transform()
+				var bullet_spawn_point = get_bullet_spawn_point()
+				var xform = bullet_spawn_point.get_global_transform()
 				new_drone.set_global_transform(xform)
 				get_parent().add_child(new_drone)
+	shots_fires += 1
 
 func init_shoot_timer():
 	# shoot timer - TODO make it a proper node via the scene

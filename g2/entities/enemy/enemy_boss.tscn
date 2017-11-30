@@ -407,13 +407,15 @@ z/z = 1
 texture = ExtResource( 10 )
 flip_h = true
 
-[node name="DroneHome" type="Node2D" parent="Sprite"]
+[node name="DroneHome1" type="Node2D" parent="Sprite" groups=[
+"spawn",
+]]
 
 transform/pos = Vector2( 0, 50.708 )
 
-[node name="DroneFactory1" type="Particles2D" parent="Sprite"]
+[node name="DroneFactory1" type="Particles2D" parent="Sprite/DroneHome1"]
 
-transform/pos = Vector2( 0, 52 )
+transform/pos = Vector2( 0, 1.29199 )
 config/amount = 16
 config/lifetime = 0.5
 config/process_mode = 1
@@ -443,9 +445,79 @@ randomness/hue_variation = 0.1
 color/color = Color( 0, 0.015625, 1, 1 )
 color/color_ramp = SubResource( 19 )
 
-[node name="DroneFactory2" type="Particles2D" parent="Sprite"]
+[node name="DroneFactory2" type="Particles2D" parent="Sprite/DroneHome1"]
 
-transform/pos = Vector2( 0, 52 )
+transform/pos = Vector2( 0, 1.292 )
+config/amount = 16
+config/lifetime = 0.5
+config/process_mode = 1
+config/offset = Vector2( 23, 0 )
+config/half_extents = Vector2( 0, 2 )
+config/local_space = false
+params/direction = -90.0
+params/spread = 20.0
+params/linear_velocity = 50.0
+params/spin_velocity = 1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 40.0
+params/initial_angle = 0.0
+params/initial_size = 2.0
+params/final_size = 3.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 0.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 1.0
+randomness/initial_size = 0.25
+randomness/final_size = 0.22
+randomness/hue_variation = 0.1
+color/color = Color( 0, 0.015625, 1, 1 )
+color/color_ramp = SubResource( 19 )
+
+[node name="DroneHome2" type="Node2D" parent="Sprite" groups=[
+"spawn",
+]]
+
+transform/pos = Vector2( 0, -77.292 )
+
+[node name="DroneFactory3 2" type="Particles2D" parent="Sprite/DroneHome2"]
+
+transform/pos = Vector2( -16, -5.708 )
+config/amount = 16
+config/lifetime = 0.5
+config/process_mode = 1
+config/offset = Vector2( -23, 0 )
+config/half_extents = Vector2( 0, 2 )
+config/local_space = false
+params/direction = 90.0
+params/spread = 20.0
+params/linear_velocity = 50.0
+params/spin_velocity = 1.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 40.0
+params/initial_angle = 0.0
+params/initial_size = 2.0
+params/final_size = 3.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 0.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 1.0
+randomness/initial_size = 0.25
+randomness/final_size = 0.22
+randomness/hue_variation = 0.1
+color/color = Color( 0, 0.015625, 1, 1 )
+color/color_ramp = SubResource( 19 )
+
+[node name="DroneFactory3" type="Particles2D" parent="Sprite/DroneHome2"]
+
+transform/pos = Vector2( 17, -5.708 )
 config/amount = 16
 config/lifetime = 0.5
 config/process_mode = 1
