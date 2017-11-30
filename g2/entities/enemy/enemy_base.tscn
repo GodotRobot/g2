@@ -7,7 +7,7 @@
 [ext_resource path="res://gfx/k2x/spaceeffects_008.png" type="Texture" id=5]
 [ext_resource path="res://entities/enemy/enemy_sfx.tres" type="SampleLibrary" id=6]
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 17.7777, -25.5486, 27.0335, -22.9855, 35.15, 5.06648, 19.0593, 25.8563, -18.6756, 25.8563, -35.1935, 5.20888, -26.9345, -22.9855, -18.2484, -25.4062 )
@@ -29,7 +29,7 @@ shader_param/normal = ExtResource( 3 )
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 
 resource/name = "EngineBurn"
 length = 0.2
@@ -56,7 +56,7 @@ points = Vector2Array( 17.7777, -25.5486, 27.0335, -22.9855, 35.15, 5.06648, 19.
 ]]
 
 input/pickable = true
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 2
@@ -165,7 +165,7 @@ visibility/behind_parent = true
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/EngineBurn = SubResource( 7 )
+anims/EngineBurn = SubResource( 5 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
