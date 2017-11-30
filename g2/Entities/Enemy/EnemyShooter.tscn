@@ -89,6 +89,7 @@ course_time_min = 5.0
 course_time_max = 15.0
 acceleration = 0.6
 HP = 1
+kill_score = 50
 fire_rate_min = 1.0
 fire_rate_max = 0.5
 

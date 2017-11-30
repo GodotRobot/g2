@@ -36,6 +36,7 @@ export(float, 0, 20, 0.5) var course_time_min = 5.0
 export(float, 0, 20, 0.5) var course_time_max = 15.0
 export(float, 0.0, 3.0, 0.1) var acceleration = 0.6
 export(int, 1, 100) var HP = 1
+export(int, 1, 200) var kill_score = 5
 export(float, 0.0, 30.0, 0.1) var fire_rate_min = 0.5
 export(float, 0.0, 30.0, 0.1) var fire_rate_max = 1.5
 
@@ -56,6 +57,9 @@ onready var initial_HP = HP
 
 func is_dead():
 	return dead_timestamp > 0
+	
+func get_kill_score():
+	return kill_score
 
 func calc_random_velocity(impulse):
 	var v = Vector2(rand_range(-1, 1), rand_range(-1, 1))

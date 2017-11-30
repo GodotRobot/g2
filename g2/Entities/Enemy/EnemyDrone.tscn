@@ -36,14 +36,14 @@ points = Vector2Array( -34.394, -2.28256, -16.7508, -24.4055, -7.64461, 15.8353,
 offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
 colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
 
-[sub_resource type="CanvasItemMaterial" id=8]
+[sub_resource type="CanvasItemMaterial" id=7]
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 3 )
 
-[sub_resource type="ColorRamp" id=7]
+[sub_resource type="ColorRamp" id=8]
 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -119,6 +119,10 @@ speed_max = 2.0
 course_time_min = 5.0
 course_time_max = 15.0
 acceleration = 0.6
+HP = 1
+kill_score = 5
+fire_rate_min = 0.5
+fire_rate_max = 1.5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -166,7 +170,7 @@ color/color_ramp = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
-material/material = SubResource( 8 )
+material/material = SubResource( 7 )
 transform/scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 4 )
 
@@ -199,7 +203,7 @@ randomness/linear_velocity = 0.22
 randomness/damping = 0.51
 randomness/initial_size = 0.25
 randomness/final_size = 0.22
-color/color_ramp = SubResource( 7 )
+color/color_ramp = SubResource( 8 )
 
 [node name="CourseTimer" type="Timer" parent="."]
 

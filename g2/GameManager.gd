@@ -135,9 +135,9 @@ func add_score(add):
 	current_scene.get_hud().set_score(score)
 
 func enemy_destroyed(instance):
-	score += 1
 	var hud = current_scene.get_hud()
 	if hud:
+		score += instance.get_kill_score()
 		hud.set_score(score)
 	dbg("enemy " + instance.get_name() + " destoryed!")
 	if instance.drop_type:

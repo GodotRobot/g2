@@ -11,19 +11,19 @@
 custom_solver_bias = 0.0
 points = Vector2Array( 17.4426, -41.125, 39.5258, -28.1463, 39.5258, 19.7007, 9.69406, 41.2027, -10.2583, 41.009, -39.5089, 19.1195, -39.7026, -27.9526, -17.6194, -41.125 )
 
-[sub_resource type="ColorRamp" id=4]
+[sub_resource type="ColorRamp" id=2]
 
 offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
 colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
 
-[sub_resource type="CanvasItemMaterial" id=7]
+[sub_resource type="CanvasItemMaterial" id=3]
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 3 )
 
-[sub_resource type="ColorRamp" id=3]
+[sub_resource type="ColorRamp" id=4]
 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -62,6 +62,10 @@ speed_max = 2.0
 course_time_min = 5.0
 course_time_max = 15.0
 acceleration = 0.6
+HP = 1
+kill_score = 10
+fire_rate_min = 0.5
+fire_rate_max = 1.5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -105,11 +109,12 @@ randomness/radial_accel = 0.71
 randomness/damping = 0.61
 randomness/initial_size = 1.0
 color/color = Color( 0, 0, 0, 1 )
-color/color_ramp = SubResource( 4 )
+color/color_ramp = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
-material/material = SubResource( 7 )
+editor/display_folded = true
+material/material = SubResource( 3 )
 transform/scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 4 )
 
@@ -142,7 +147,7 @@ randomness/linear_velocity = 0.22
 randomness/damping = 0.51
 randomness/initial_size = 0.25
 randomness/final_size = 0.22
-color/color_ramp = SubResource( 3 )
+color/color_ramp = SubResource( 4 )
 
 [node name="CourseTimer" type="Timer" parent="."]
 
@@ -164,6 +169,7 @@ config/pitch_random = 0.0
 
 [node name="HitBox" type="Area2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 0.33695, -1.44548 )
 transform/scale = Vector2( 1.2495, 1.21808 )
 input/pickable = true
