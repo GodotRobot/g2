@@ -97,6 +97,7 @@ max_lines_visible = -1
 
 [node name="Instructions" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 visibility/opacity = 0.8
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = false
@@ -269,7 +270,6 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 
-editor/display_folded = true
 visibility/light_mask = 0
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -318,7 +318,9 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
+[node name="StartButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -340,7 +342,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RestartButton" type="Button" parent="VBoxContainer"]
+[node name="RestartButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/visible = false
 visibility/light_mask = 0
@@ -360,7 +364,9 @@ shortcut = null
 text = "Restart"
 flat = false
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -462,7 +468,9 @@ shortcut = null
 text = "Return To Menu"
 flat = false
 
-[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+[node name="CreditsButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -481,7 +489,9 @@ shortcut = null
 text = "Credits"
 flat = false
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -822,6 +832,8 @@ default/chorus_send = 0.0
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 
 [connection signal="confirmed" from="NameDialog" to="." method="_on_NameDialog_confirmed"]
+
+[connection signal="confirmed" from="CreditsDialog" to="." method="_on_CreditsDialog_confirmed"]
 
 [connection signal="pressed" from="CreditsDialog/Line2/ProjectLink" to="." method="_on_ProjectLink_pressed"]
 
