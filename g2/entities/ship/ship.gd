@@ -41,7 +41,6 @@ onready var ship_blinking_timer = get_node("ShipBlinkingTimer")
 onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
 onready var hitbox = get_node("HitBox")
-onready var warp_sector = get_parent().get_node("WarpSector")
 onready var fade_out = true
 
 

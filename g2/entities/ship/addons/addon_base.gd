@@ -13,7 +13,11 @@ const KIND_TO_TYPE = {
 export(int, 0, 100) var power = 0
 export(String, "Shield", "Cannon") var kind = "Shield"
 
+const ALERT_TIME = 2.0
+
 onready var timer = get_node("Timer")
+onready var anim = get_node("AnimationPlayer")
+
 var type = TYPE.shield
 
 func _ready():
@@ -26,12 +30,13 @@ func _ready():
 
 func start():
 	if type == TYPE.shield:
-		get_node("AnimationPlayer").play("ShieldGrow")
+		anim.play("ShieldGrow")
 
 func _process(delta):
-	if type == TYPE.shield:
-		pass
-
+	if timer.get_time_left() < ALERT_TIME and not anim.is_playing():
+		print("anim started")
+		anim.play("ShieldAlert")
+	
 func _on_Timer_timeout():
 	queue_free()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=1]
+[gd_scene load_steps=57 format=1]
 
 [ext_resource path="res://default_shader.tres" type="Shader" id=1]
 [ext_resource path="res://gfx/free/shield/shield.normal.png" type="Texture" id=2]
@@ -73,9 +73,26 @@ animations = [ {
 custom_solver_bias = 0.0
 radius = 55.0
 
+[sub_resource type="Animation" id=7]
+
+resource/name = "ShieldAlert"
+length = 1.0
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+
 [sub_resource type="Animation" id=3]
 
-length = 0.5
+length = 1.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -83,8 +100,8 @@ tracks/0/path = NodePath(".:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.5 ),
-"transitions": FloatArray( -0.25, -0.25 ),
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0 ]
 }
@@ -96,7 +113,8 @@ visibility/light_mask = 2
 material/material = SubResource( 6 )
 frames = SubResource( 4 )
 animation = "default"
-frame = 44
+frame = 39
+playing = true
 script/script = ExtResource( 51 )
 power = 10
 kind = "Shield"
@@ -137,11 +155,14 @@ _update_shape_index = 0
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
+anims/ShieldAlert = SubResource( 7 )
 anims/ShieldGrow = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 [connection signal="body_enter" from="ShieldArea" to="." method="_on_ShieldArea_body_enter"]
 
