@@ -132,22 +132,8 @@ func _fixed_process(delta):
 	if Input.is_action_pressed("ui_warp") and ship_state == SHIP_STATE.active:
 		var ship_width = sprite.get_texture().get_width()
 		var ship_height = sprite.get_texture().get_height()
-		var rand_x
-		var rand_y
-		var warp_cleared = false
-		while not warp_cleared:
-			rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
-			rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
-			warp_sector.set_pos(Vector2(rand_x, rand_y))
-			var bodies = warp_sector.get_overlapping_bodies()
-			if bodies.empty():
-				warp_cleared = true;
-			else:
-				for body in bodies:
-					var bad_warp = body.has_group("meteors") or body.has_group("enemies")
-					if not bad_warp:
-						warp_cleared = true;
-						
+		var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
+		var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
 		warp_ship(rand_x, rand_y)
 		return
 
