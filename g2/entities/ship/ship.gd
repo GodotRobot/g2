@@ -42,6 +42,7 @@ onready var warp_animation = get_node("WarpAnimation")
 onready var sfx = get_node("SamplePlayer")
 onready var hitbox = get_node("HitBox")
 onready var fade_out = true
+onready var flowing_particle_amount = 64
 
 
 
@@ -49,6 +50,9 @@ const SHIELD = preload("res://entities/ship/addons/addon_shield.tscn")
 const COLLECTABLE_BASE = preload("res://entities/collectables/collectable_base.gd")
 const BULLET_BASE = preload("res://entities/bullet/bullet_base.gd")
 const ENEMY_BASE = preload("res://entities/enemy/enemy_base.gd")
+
+func is_warping():
+	return ship_state in [SHIP_STATE.warp_start, SHIP_STATE.warp_end]
 
 func active():
 	return ship_state in [SHIP_STATE.active, SHIP_STATE.on_hold]  and ship_activation_timer.get_time_left() <= 0.0
@@ -77,12 +81,10 @@ func clone(instance):
 	return instance
 
 func _ready():
-	ship_state = SHIP_STATE.active
-	if GameManager.warp_to_start_level:
-		warp_ship(GameManager.current_scene.initial_pos.x,GameManager.current_scene.initial_pos.y)
-		GameManager.warp_to_start_level = false
-	ship_blinking_timer.start()
-	ship_activation_timer.start()
+	sprite.hide()
+	flowing_particle_effect.hide()
+	#ship_blinking_timer.start()
+	#ship_activation_timer.start()
 	set_fixed_process(true)
 	
 func on_hold():
@@ -134,6 +136,8 @@ func _fixed_process(delta):
 		var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
 		var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
 		warp_ship(rand_x, rand_y)
+		# reduce 1 warp from the HUD
+		GameManager.ship_warped()
 		return
 
 	if Input.is_action_pressed("ui_up"):
@@ -168,21 +172,25 @@ func _fixed_process(delta):
 	if new_pos.x > get_viewport_rect().size.x:
 		var pos_x = 1
 		var pos_y = get_pos().y
+		GameManager.ship_warped()
 		warp_ship(pos_x,pos_y)
 
 	elif new_pos.x < 0:
 		var pos_x = get_viewport_rect().size.x - 1
 		var pos_y = get_pos().y
+		GameManager.ship_warped()
 		warp_ship(pos_x,pos_y)
 
 	elif new_pos.y < 0:
 		var pos_x = get_pos().x
 		var pos_y = get_viewport_rect().size.y - 1
+		GameManager.ship_warped()
 		warp_ship(pos_x,pos_y)
 
 	elif new_pos.y > get_viewport_rect().size.y:
 		var pos_x = get_pos().x
 		var pos_y = 1
+		GameManager.ship_warped()
 		warp_ship(pos_x,pos_y)
 
 	if GameManager.SHIP_ACCELERATION == 0.0:
@@ -206,9 +214,6 @@ func warp_ship(pos_x, pos_y):
 		start_death()
 	else:
 		ship_state = SHIP_STATE.warp_start
-		if not GameManager.warp_to_start_level:
-			# tell GameManager the ship warped only after the initial level warp
-			GameManager.ship_warped()
 		GameManager.dbg("warping to " + str(pos_x) + "," + str(pos_y))
 		warp_dest = Vector2(pos_x, pos_y)
 		warp_animation.set_frame(0)
@@ -235,7 +240,7 @@ func _on_HitBoxArea_body_enter( body ):
 	GameManager.dbg("ship: " + get_name() + " collision with " + body.get_name() + ". Starting death!")
 	if body extends BULLET_BASE or body extends ENEMY_BASE:
 		body.start_death()
-	start_death()
+		start_death()
 
 func _on_ShipActivationTimer_timeout():
 	ship_blinking_timer.stop()
@@ -252,6 +257,8 @@ func _on_WarpAnimation_finished():
 		warp_animation.play()
 	elif (ship_state == SHIP_STATE.warp_end):
 		ship_state = SHIP_STATE.active
+		flowing_particle_effect.set_amount(0)
+		flowing_particle_effect.show()
 		warp_animation.stop()
 		warp_animation.hide()
 		ship_blinking_timer.start()
@@ -268,4 +275,7 @@ func _on_ShipBlinkingTimer_timeout():
 		if cur_ship_opacity >= 1.0:
 			fade_out = true
 	sprite.set_opacity(cur_ship_opacity)
+	# restart the flowing particle effect
+	if flowing_particle_effect.get_amount() < flowing_particle_amount:
+		flowing_particle_effect.set_amount(flowing_particle_amount)
 

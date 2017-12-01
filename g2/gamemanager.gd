@@ -58,7 +58,6 @@ var cur_warp = INITIAL_WARP
 var debug = false
 var score = 0
 var warp_remaining = 5
-var warp_to_start_level = true
 
 func dbg(msg):
 	if debug:
@@ -120,11 +119,11 @@ func ship_destroyed(instance):
 		var new_ship = instance.clone(SHIP.instance())
 		new_ship.set_pos(current_scene.initial_pos)
 		new_ship.set_rot(current_scene.initial_rot)
-		warp_to_start_level = true
 		cur_warp = INITIAL_WARP
 		if hud:
 			hud.set_warps(cur_warp)
 		instance.get_parent().add_child(new_ship) # old ship will be (self-)deleted once its death animation ends
+		GameManager.warp_to_start_level()
 	else:
 		game_over()
 		
@@ -210,7 +209,6 @@ func start_game():
 	score = 0
 	get_node("/root/TransitionScreen/AnimationPlayer").stop()
 	transition_to_level(1)
-	warp_to_start_level = true
 
 func quit_game():
 	get_tree().quit()
@@ -235,6 +233,13 @@ func unpause(pause_menu_instance):
 	set_process_input(true)
 	get_tree().set_pause(false)
 
+func warp_to_start_level():
+	if current_scene extends LEVEL_BASE:
+		var cur_ship = get_current_ship()
+		cur_ship.set_pos(Vector2(current_scene.initial_pos.x, current_scene.initial_pos.y))
+		cur_ship.show()
+		cur_ship.warp_ship(current_scene.initial_pos.x, current_scene.initial_pos.y)
+	
 func _process(delta):
 	if not (current_scene extends LEVEL_BASE):
 		return # do nothing for menu level
@@ -272,6 +277,7 @@ func preload_all_levels():
 		var path = get_level_path(level+1)
 		if path != null:
 			ResourceLoader.load(path)
+	
 
 var titles = ["null", "prepare to die", "this is easy", "who are you?", "idan did it", "sbx4ever", "show me what you got"]
 

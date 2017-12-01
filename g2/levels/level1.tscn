@@ -7,22 +7,18 @@
 
 initial_pos = Vector2( 640, 500 )
 
-[node name="GameLayer" parent="."]
-
-editor/display_folded = false
-
 [node name="EnemyBase" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 232.815, 194.306 )
-HP = 1
 fire_rate_min = 1.0
 fire_rate_max = 0.5
+bullets_left = -1
 
 [node name="EnemyBase 2" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 986.464, 197.027 )
-HP = 1
 fire_rate_min = 1.0
 fire_rate_max = 0.5
+bullets_left = -1
 
 

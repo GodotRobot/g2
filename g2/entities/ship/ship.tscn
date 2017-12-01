@@ -231,6 +231,7 @@ frame = 2
 
 [node name="HitBox" type="Area2D" parent="."]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 10 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )

@@ -23,6 +23,8 @@ const layer2_speed = 7.0
 const layer2_default_speed = 30.0
 const layer3_speed = 3.5
 
+onready var start_level_warp_timer = get_node("StartLevelWarpTimer")
+
 onready var add_time_bonus = false
 onready var time_countdown = 30
 onready var timer = get_node("LevelCountdown")
@@ -81,6 +83,7 @@ func _ready():
 		var collectables = get_tree().get_nodes_in_group("collectables")
 		for c in collectables:
 			c.set_fake_speed(level_speed)
+	start_level_warp_timer.start()
 
 func _process(delta):
 	update_hud()
@@ -190,4 +193,7 @@ func _on_TimeBonusTimer_timeout():
 	else:
 		time_bonus_label.hide()
 	
-	
+
+func _on_StartLevelWarpTimer_timeout():
+	start_level_warp_timer.stop()
+	GameManager.warp_to_start_level()

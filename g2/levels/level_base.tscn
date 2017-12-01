@@ -26,7 +26,6 @@ scale = Vector2( 1, 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="GameLayer"]
 
-editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -87,7 +86,6 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="Background3" type="ParallaxLayer" parent="GameLayer/ParallaxBackground"]
 
-editor/display_folded = true
 motion/scale = Vector2( 2, 2 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1280, 720 )
@@ -103,7 +101,7 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="ShipArea2D" parent="GameLayer" instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 1521.74, 384.607 )
+transform/pos = Vector2( 640, 360 )
 
 [node name="HUD" parent="." instance=ExtResource( 7 )]
 
@@ -118,6 +116,7 @@ autostart = false
 
 [node name="TimeBonusLayer" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 4
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -170,8 +169,17 @@ wait_time = 0.07
 one_shot = false
 autostart = false
 
+[node name="StartLevelWarpTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 [connection signal="timeout" from="LevelCountdown" to="." method="_on_LevelCountdown_timeout"]
 
 [connection signal="timeout" from="TimeBonusLayer/TimeBonusTimer" to="." method="_on_TimeBonusTimer_timeout"]
+
+[connection signal="timeout" from="StartLevelWarpTimer" to="." method="_on_StartLevelWarpTimer_timeout"]
 
 
