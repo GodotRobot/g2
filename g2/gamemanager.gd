@@ -217,7 +217,7 @@ func start_game():
 	cur_warp = INITIAL_WARP
 	score = 0
 	get_node("/root/TransitionScreen/AnimationPlayer").stop()
-	transition_to_level(1)
+	transition_to_level(cur_level)
 
 func quit_game():
 	get_tree().quit()
@@ -331,7 +331,9 @@ func _deferred_goto_scene(path):
 	# there is no risk here.
 	current_scene.free()
 	# Load new scene
-	var s = ResourceLoader.load(path)
+	var s = null
+	if path != null:
+		s = ResourceLoader.load(path)
 	if not s or cur_level > LAST_LEVEL:
 		# level not found - for now assume this is WIN
 		current_scene = MENU.instance()
