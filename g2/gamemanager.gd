@@ -288,7 +288,7 @@ func preload_all_levels():
 			ResourceLoader.load(path)
 	
 
-var titles = ["null", "prepare to die", "this is easy", "who are you?", "idan did it", "sbx4ever", "show me what you got"]
+var titles = ["null", "Use warp to evade enemy ships", "make sure your warpdrive is charged", "beware of flying rocks", "moving too far will trigger a warp", "evading your enemies can be dangerous"]
 
 func transition_to_level(next_level):
 	var level_path = get_level_path(next_level)
@@ -299,7 +299,7 @@ func transition_to_level(next_level):
 	cur_level = next_level
 	# prapare transition
 	var transition = get_node("/root/TransitionScreen")
-	var title = "null"
+	var title = "Get ready!"
 	if next_level < titles.size():
 		title = titles[next_level]
 	var level_txt = "Level " + String(next_level)
