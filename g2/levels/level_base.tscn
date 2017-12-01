@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://levels/level_base.gd" type="Script" id=1]
 [ext_resource path="res://backgrounds/stars_bg.png" type="Texture" id=2]
@@ -8,6 +8,16 @@
 [ext_resource path="res://entities/ship/ship.tscn" type="PackedScene" id=6]
 [ext_resource path="res://hud.tscn" type="PackedScene" id=7]
 [ext_resource path="res://fonts/radio_stars_font.fnt" type="BitmapFont" id=8]
+[ext_resource path="res://sfx/time_bonus.smp" type="Sample" id=9]
+
+[sub_resource type="SampleLibrary" id=1]
+
+samples/time_bonus = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 9 )
+}
 
 [node name="LevelBase" type="Node2D"]
 
@@ -19,6 +29,7 @@ initial_rot = 0.0
 
 [node name="GameLayer" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -26,6 +37,7 @@ scale = Vector2( 1, 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="GameLayer"]
 
+editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -175,6 +187,17 @@ process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
+
+[node name="SamplePlayer" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 10
+config/samples = SubResource( 1 )
+config/pitch_random = 0.0
 
 [connection signal="timeout" from="LevelCountdown" to="." method="_on_LevelCountdown_timeout"]
 

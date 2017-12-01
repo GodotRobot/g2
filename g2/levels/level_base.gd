@@ -25,6 +25,8 @@ const layer3_speed = 3.5
 
 onready var start_level_warp_timer = get_node("StartLevelWarpTimer")
 
+onready var sound = get_node("SamplePlayer")
+
 onready var add_time_bonus = false
 onready var time_countdown = 30
 onready var timer = get_node("LevelCountdown")
@@ -188,6 +190,7 @@ func _on_LevelCountdown_timeout():
 func _on_TimeBonusTimer_timeout():
 	if time_countdown >= 0:
 		time_bonus_label.set_text(str(time_countdown).pad_zeros(2))
+		sound.play("time_bonus")
 		GameManager.add_score(10)
 		time_countdown -= 1
 	else:
