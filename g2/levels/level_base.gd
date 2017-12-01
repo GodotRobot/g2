@@ -26,6 +26,7 @@ const layer3_speed = 3.5
 onready var add_time_bonus = false
 onready var time_countdown = 30
 onready var timer = get_node("LevelCountdown")
+onready var time_bonus_title = get_node("TimeBonusLayer/TimeBonusTitle")
 onready var time_bonus_label = get_node("TimeBonusLayer/TimeBonusLabel")
 onready var time_bonus_timer = get_node("TimeBonusLayer/TimeBonusTimer")
 
@@ -168,8 +169,9 @@ func time_bonus_cleared():
 		return true
 	else:
 		if  not add_time_bonus:
-			time_bonus_label.set_text("TIME BONUS: " + str(time_countdown).pad_zeros(2))
+			time_bonus_label.set_text(str(time_countdown).pad_zeros(2))
 			timer.stop()
+			time_bonus_title.show()
 			time_bonus_label.show()
 			time_bonus_timer.start()
 			add_time_bonus = true
@@ -182,7 +184,7 @@ func _on_LevelCountdown_timeout():
 
 func _on_TimeBonusTimer_timeout():
 	if time_countdown >= 0:
-		time_bonus_label.set_text("TIME BONUS: " + str(time_countdown).pad_zeros(2))
+		time_bonus_label.set_text(str(time_countdown).pad_zeros(2))
 		GameManager.add_score(10)
 		time_countdown -= 1
 	else:
