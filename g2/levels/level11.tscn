@@ -10,6 +10,10 @@
 
 editor/display_folded = false
 
+[node name="ParallaxBackground" parent="GameLayer"]
+
+editor/display_folded = false
+
 [node name="EnemyShooter" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 218.88, 302.971 )
@@ -19,16 +23,10 @@ drop = "Health"
 
 transform/pos = Vector2( 636.704, 169.404 )
 drop = "Warp"
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
 
 [node name="EnemyDrone 2" parent="GameLayer" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 1157.27, 152.28 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
 
 [node name="EnemyShooter 2" parent="GameLayer" instance=ExtResource( 2 )]
 

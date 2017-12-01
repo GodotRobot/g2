@@ -39,7 +39,7 @@ shader_param/normal = ExtResource( 10 )
 custom_solver_bias = 0.0
 points = Vector2Array( 42.4228, -9.59364, 40.8417, 17.8124, 27.4022, 40.4752, -0.530945, 44.955, -27.1465, 37.5765, -40.8495, 13.8596, -42.4306, -14.337, -24.2478, -32.5199, 1.05017, -45.9594, 27.4022, -33.574 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 
 length = 0.1
 loop = false
@@ -55,7 +55,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 255, 255, 255, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 
 resource/name = "ModulateLightColor"
 length = 1.0
@@ -368,8 +368,8 @@ trigger = false
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Hit = SubResource( 7 )
-anims/ModulateLightColor = SubResource( 8 )
+anims/Hit = SubResource( 6 )
+anims/ModulateLightColor = SubResource( 7 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

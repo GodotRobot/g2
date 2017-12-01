@@ -52,7 +52,7 @@ const BULLET_BASE = preload("res://entities/bullet/bullet_base.gd")
 const ENEMY_BASE = preload("res://entities/enemy/enemy_base.gd")
 
 func is_blinking():
-	return ship_activation_timer.get_time_left() > 0.0
+	return (ship_activation_timer.get_time_left() > 0.0) or (not sprite.is_visible())
 
 func active():
 	return ship_state in [SHIP_STATE.active, SHIP_STATE.on_hold]  and ship_activation_timer.get_time_left() <= 0.0
@@ -109,6 +109,16 @@ func start_death():
 	ship_blinking_timer.stop()
 	ship_activation_timer.stop()
 	
+func get_random_pos_x():
+	var ship_width = sprite.get_texture().get_width()
+	var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
+	return rand_x
+	
+func get_random_pos_y():
+	var ship_height = sprite.get_texture().get_height()
+	var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
+	return rand_y
+	
 func _fixed_process(delta):
 	if ship_state == SHIP_STATE.death_start:
 		var secs_since_death = (OS.get_ticks_msec() - dead_timestamp) / 1000.0
@@ -131,11 +141,7 @@ func _fixed_process(delta):
 	movement_offset = Vector2(0,0)
 	
 	if Input.is_action_pressed("ui_warp") and ship_state == SHIP_STATE.active:
-		var ship_width = sprite.get_texture().get_width()
-		var ship_height = sprite.get_texture().get_height()
-		var rand_x = rand_range(ship_width, get_viewport_rect().size.x - ship_width)
-		var rand_y = rand_range(ship_height, get_viewport_rect().size.y - ship_height)
-		warp_ship(rand_x, rand_y)
+		warp_ship(get_random_pos_x(), get_random_pos_y())
 		# reduce 1 warp from the HUD
 		GameManager.ship_warped()
 		return
@@ -173,25 +179,25 @@ func _fixed_process(delta):
 		var pos_x = 1
 		var pos_y = get_pos().y
 		GameManager.ship_warped()
-		warp_ship(pos_x,pos_y)
+		warp_ship(get_random_pos_x(), get_random_pos_y())
 
 	elif new_pos.x < 0:
 		var pos_x = get_viewport_rect().size.x - 1
 		var pos_y = get_pos().y
 		GameManager.ship_warped()
-		warp_ship(pos_x,pos_y)
+		warp_ship(get_random_pos_x(), get_random_pos_y())
 
 	elif new_pos.y < 0:
 		var pos_x = get_pos().x
 		var pos_y = get_viewport_rect().size.y - 1
 		GameManager.ship_warped()
-		warp_ship(pos_x,pos_y)
+		warp_ship(get_random_pos_x(), get_random_pos_y())
 
 	elif new_pos.y > get_viewport_rect().size.y:
 		var pos_x = get_pos().x
 		var pos_y = 1
 		GameManager.ship_warped()
-		warp_ship(pos_x,pos_y)
+		warp_ship(get_random_pos_x(), get_random_pos_y())
 
 	if GameManager.SHIP_ACCELERATION == 0.0:
 		move_to(new_pos)
@@ -238,7 +244,7 @@ func _on_HitBoxArea_body_enter( body ):
 	if not active():
 		return
 	GameManager.dbg("ship: " + get_name() + " collision with " + body.get_name() + ". Starting death!")
-	if body extends BULLET_BASE or body extends ENEMY_BASE:
+	if body extends BULLET_BASE or body extends ENEMY_BASE and not is_blinking():
 		body.start_death()
 		start_death()
 
