@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://levels/level_base.gd" type="Script" id=1]
 [ext_resource path="res://backgrounds/stars_bg.png" type="Texture" id=2]
@@ -8,6 +8,11 @@
 [ext_resource path="res://entities/ship/ship.tscn" type="PackedScene" id=6]
 [ext_resource path="res://hud.tscn" type="PackedScene" id=7]
 [ext_resource path="res://fonts/radio_stars_font.fnt" type="BitmapFont" id=8]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 99.9935, 30.9016, 99.9935, 139.202, -4.69673, 139.202, -4.69673, 30.9016 )
 
 [node name="LevelBase" type="Node2D"]
 
@@ -19,7 +24,6 @@ initial_rot = 0.0
 
 [node name="GameLayer" type="CanvasLayer" parent="."]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -27,6 +31,7 @@ scale = Vector2( 1, 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="GameLayer"]
 
+editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -40,6 +45,7 @@ scroll/ignore_camera_zoom = false
 
 [node name="Background0" type="ParallaxLayer" parent="GameLayer/ParallaxBackground"]
 
+editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1280, 720 )
@@ -54,6 +60,7 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="Background1" type="ParallaxLayer" parent="GameLayer/ParallaxBackground"]
 
+editor/display_folded = true
 visibility/light_mask = 0
 motion/scale = Vector2( 5, 0 )
 motion/offset = Vector2( 0, 0 )
@@ -69,6 +76,7 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="Background2" type="ParallaxLayer" parent="GameLayer/ParallaxBackground"]
 
+editor/display_folded = true
 visibility/light_mask = 0
 motion/scale = Vector2( 5, 0 )
 motion/offset = Vector2( 0, 0 )
@@ -84,6 +92,7 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="Background3" type="ParallaxLayer" parent="GameLayer/ParallaxBackground"]
 
+editor/display_folded = true
 motion/scale = Vector2( 2, 2 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1280, 720 )
@@ -101,6 +110,25 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 transform/pos = Vector2( 1521.74, 384.607 )
 
+[node name="WarpSector" type="Area2D" parent="GameLayer"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 173.98, 136.642 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameLayer/WarpSector"]
+
+transform/pos = Vector2( 173.98, 136.642 )
+build_mode = 0
+polygon = Vector2Array( 99.9935, 30.9016, 99.9935, 139.202, -4.69673, 139.202, -4.69673, 30.9016 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
 [node name="HUD" parent="." instance=ExtResource( 7 )]
 
 layer = 2
@@ -114,6 +142,7 @@ autostart = false
 
 [node name="TimeBonusLayer" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 10
 offset = Vector2( 0, 0 )
 rotation = 0.0
