@@ -79,7 +79,11 @@ func get_dir_to_ship():
 
 func get_bullet_spawn_point():
 	var spawn_points = get_tree().get_nodes_in_group("spawn")
-	return spawn_points[shots_fired % spawn_points.size()]
+	var spawn_points_self = Array()
+	for p in spawn_points:
+		if p.get_parent() == self:
+			spawn_points_self.append(p)
+	return spawn_points_self[shots_fired % spawn_points_self.size()]
 
 func shoot():
 	if not ready_to_shoot():
@@ -92,6 +96,7 @@ func shoot():
 			new_bullet.set_global_transform(xform)
 			new_bullet.velocity = Vector2(0.0, 1.0).rotated(xform.get_rotation())
 			get_parent().add_child(new_bullet)
+			#new_bullet.set_name("bullet by " + get_name())
 			sfx.play("sfx_laser1")
 	elif personality_type == PERSONALITY_TYPE.boss:
 		var cur_ship = GameManager.get_current_ship()
@@ -160,6 +165,8 @@ func ready_to_shoot():
 		return false
 	var time_left = shoot_timer.get_time_left()
 	if time_left > 0.0:
+		return false
+	if dead_timestamp != -1:
 		return false
 	var next_wait_sec = rand_range(fire_rate_min, fire_rate_max)
 	shoot_timer.set_wait_time(next_wait_sec)
@@ -230,7 +237,7 @@ func start_death():
 				part.set_owner(self)
 			if part extends Particles2D:
 				part.set_emitting(false)
-	if multipart:		
+	if multipart:
 		dead_sprite_parts.push_back(sprite)
 	else:
 		sprite.hide()
