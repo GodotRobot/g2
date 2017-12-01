@@ -1,6 +1,7 @@
-[gd_resource type="SampleLibrary" load_steps=2 format=1]
+[gd_resource type="SampleLibrary" load_steps=3 format=1]
 
 [ext_resource path="res://sfx/enemy_explosion1.smp" type="Sample" id=1]
+[ext_resource path="res://sfx/enemy_laser1.smp" type="Sample" id=2]
 
 [resource]
 
@@ -9,5 +10,11 @@ samples/enemy_explosion1 = {
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 1 )
+}
+samples/enemy_laser1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 2 )
 }
 

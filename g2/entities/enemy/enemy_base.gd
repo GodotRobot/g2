@@ -97,7 +97,7 @@ func shoot():
 			new_bullet.velocity = Vector2(0.0, 1.0).rotated(xform.get_rotation())
 			get_parent().add_child(new_bullet)
 			#new_bullet.set_name("bullet by " + get_name())
-			sfx.play("sfx_laser1")
+			sfx.play("enemy_laser1")
 	elif personality_type == PERSONALITY_TYPE.boss:
 		var cur_ship = GameManager.get_current_ship()
 		if cur_ship and cur_ship.active():
