@@ -71,6 +71,8 @@ func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		if options_return_button.is_visible():
 			_on_OptionsReturnButton_pressed()
+		elif credits_dialog.is_visible():
+			credits_dialog.hide()
 		else:
 			if mode == MODE.pause:
 				GameManager.unpause(self)
@@ -169,6 +171,7 @@ func _on_OptionsReturnButton_pressed():
 	options_button.show()
 	if not get_tree().is_paused():
 		credits_button.show()
+	credits_button.show()
 	quit_button.show()
 	options_button.grab_focus()
 
@@ -180,7 +183,6 @@ func _on_KenneyLink_pressed():
 
 func _on_ProjectLink_pressed():
 	OS.shell_open("https://godotrobot.itch.io/warp")
-
 
 func _on_CreditsDialog_confirmed():
 	pass
