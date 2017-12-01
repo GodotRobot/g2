@@ -40,7 +40,7 @@ const SHIP_MAX_ANGULAR_SPEED = 10.0
 ######################################################################
 
 #################### options #########################################
-var full_screen = false setget set_full_screen
+var full_screen = true setget set_full_screen
 var music_level = 4 setget set_music_level
 var sfx_level = 6 setget set_sfx_level
 ######################################################################
@@ -55,7 +55,7 @@ var current_scene = null
 var cur_level = 1
 var lives = INITIAL_LIVES
 var cur_warp = INITIAL_WARP
-var debug = true
+var debug = false
 var score = 0
 var warp_remaining = 5
 var warp_to_start_level = true
