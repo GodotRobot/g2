@@ -1,4 +1,4 @@
-extends Sprite
+extends AnimatedSprite
 
 enum TYPE {
 	shield = 0,
