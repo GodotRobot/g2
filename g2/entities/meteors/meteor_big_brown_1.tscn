@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=1]
+[gd_scene load_steps=20 format=1]
 
 [ext_resource path="res://entities/meteors/meteor.gd" type="Script" id=1]
 [ext_resource path="res://gfx/particles/blacksmoke00.tex" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://default_shader.tres" type="Shader" id=9]
 [ext_resource path="res://gfx/k2x/spacemeteors_001.normal.png" type="Texture" id=10]
 [ext_resource path="res://gfx/k2x/spacemeteors_001.png" type="Texture" id=11]
+[ext_resource path="res://entities/meteors/sfx.tres" type="SampleLibrary" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -344,6 +345,7 @@ texture = ExtResource( 11 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -382,6 +384,17 @@ build_mode = 0
 polygon = Vector2Array( 42.4228, -9.59364, 40.8417, 17.8124, 27.4022, 40.4752, -0.530945, 44.955, -27.1465, 37.5765, -40.8495, 13.8596, -42.4306, -14.337, -24.2478, -32.5199, 1.05017, -45.9594, 27.4022, -33.574 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = ExtResource( 12 )
+config/pitch_random = 0.0
 
 [connection signal="body_enter" from="Hitbox" to="." method="_on_Hitbox_body_enter"]
 

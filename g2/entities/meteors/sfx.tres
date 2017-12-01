@@ -1,0 +1,20 @@
+[gd_resource type="SampleLibrary" load_steps=3 format=1]
+
+[ext_resource path="res://sfx/asteroid_hit.smp" type="Sample" id=1]
+[ext_resource path="res://sfx/small_asteroid_explosion.smp" type="Sample" id=2]
+
+[resource]
+
+samples/asteroid_hit = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 1 )
+}
+samples/small_asteroid_explosion = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 2 )
+}
+
