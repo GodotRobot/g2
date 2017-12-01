@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=1]
+[gd_scene load_steps=44 format=1]
 
 [ext_resource path="res://entities/enemy/enemy_base.gd" type="Script" id=1]
 [ext_resource path="res://default_shader.tres" type="Shader" id=2]
@@ -6,11 +6,12 @@
 [ext_resource path="res://sheet/sheet.cockpit_yellow_1.atex" type="Texture" id=4]
 [ext_resource path="res://sheet/normal.wing_yellow_5.atex" type="Texture" id=5]
 [ext_resource path="res://sheet/sheet.wing_yellow_5.atex" type="Texture" id=6]
-[ext_resource path="res://sheet/normal.engine5.atex" type="Texture" id=7]
-[ext_resource path="res://sheet/sheet.engine1.atex" type="Texture" id=8]
-[ext_resource path="res://sheet/normal.wing_yellow_4.atex" type="Texture" id=9]
-[ext_resource path="res://sheet/sheet.wing_yellow_4.atex" type="Texture" id=10]
-[ext_resource path="res://entities/enemy/enemy_sfx.tres" type="SampleLibrary" id=11]
+[ext_resource path="res://gfx/k2x/spaceeffects_008.png" type="Texture" id=7]
+[ext_resource path="res://sheet/normal.engine5.atex" type="Texture" id=8]
+[ext_resource path="res://sheet/sheet.engine1.atex" type="Texture" id=9]
+[ext_resource path="res://sheet/normal.wing_yellow_4.atex" type="Texture" id=10]
+[ext_resource path="res://sheet/sheet.wing_yellow_4.atex" type="Texture" id=11]
+[ext_resource path="res://entities/enemy/enemy_sfx.tres" type="SampleLibrary" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -67,24 +68,17 @@ points = Vector2Array( -28.5967, 12.1714, -17.92, -26.9764, 28.9926, 11.5243, -0
 offsets = FloatArray( 0, 0.285714, 0.766234, 1 )
 colors = ColorArray( 1, 0, 0, 1, 0.921875, 1, 0, 1, 0.43792, 0.18219, 0.777344, 1, 0.210938, 0.24176, 1, 1 )
 
-[sub_resource type="CanvasItemMaterial" id=12]
+[sub_resource type="CanvasItemMaterial" id=13]
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
 shader_param/normal = ExtResource( 3 )
 
-[sub_resource type="ColorRamp" id=13]
+[sub_resource type="ColorRamp" id=14]
 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
-
-[sub_resource type="CanvasItemMaterial" id=14]
-
-shader/shader = ExtResource( 2 )
-shader/shading_mode = 0
-shader_param/BLINKING_SPEED = 0.0
-shader_param/normal = ExtResource( 5 )
 
 [sub_resource type="CanvasItemMaterial" id=15]
 
@@ -98,26 +92,50 @@ shader_param/normal = ExtResource( 5 )
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
-shader_param/normal = ExtResource( 7 )
+shader_param/normal = ExtResource( 5 )
 
 [sub_resource type="CanvasItemMaterial" id=17]
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
-shader_param/normal = ExtResource( 9 )
+shader_param/normal = ExtResource( 8 )
 
 [sub_resource type="CanvasItemMaterial" id=18]
 
 shader/shader = ExtResource( 2 )
 shader/shading_mode = 0
 shader_param/BLINKING_SPEED = 0.0
-shader_param/normal = ExtResource( 9 )
+shader_param/normal = ExtResource( 10 )
 
-[sub_resource type="ColorRamp" id=19]
+[sub_resource type="CanvasItemMaterial" id=19]
+
+shader/shader = ExtResource( 2 )
+shader/shading_mode = 0
+shader_param/BLINKING_SPEED = 0.0
+shader_param/normal = ExtResource( 10 )
+
+[sub_resource type="ColorRamp" id=12]
 
 offsets = FloatArray( 0, 1 )
 colors = ColorArray( 1, 0.375, 0, 1, 1, 0.470078, 0.0196078, 0 )
+
+[sub_resource type="Animation" id=31]
+
+resource/name = "EngineBurn"
+length = 0.2
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, -4, 1 ),
+"update": 0,
+"values": [ 1.0, 0.4, 1.0 ]
+}
 
 [sub_resource type="ConvexPolygonShape2D" id=20]
 
@@ -288,7 +306,7 @@ HP = 5
 kill_score = 100
 fire_rate_min = 1.0
 fire_rate_max = 0.5
-bullets_left = 10
+bullets_left = 50
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -331,11 +349,23 @@ randomness/initial_size = 1.0
 color/color = Color( 0, 0, 0, 1 )
 color/color_ramp = SubResource( 11 )
 
+[node name="DroneHome1" type="Node2D" parent="." groups=[
+"spawn",
+]]
+
+transform/pos = Vector2( 0, 50.708 )
+
+[node name="DroneHome2" type="Node2D" parent="." groups=[
+"spawn",
+]]
+
+transform/pos = Vector2( 0, -77.292 )
+
 [node name="Sprite" type="Sprite" parent="." groups=[
 "enemy_part",
 ]]
 
-material/material = SubResource( 12 )
+material/material = SubResource( 13 )
 z/z = -1
 texture = ExtResource( 4 )
 
@@ -368,55 +398,65 @@ randomness/linear_velocity = 0.22
 randomness/damping = 0.51
 randomness/initial_size = 0.25
 randomness/final_size = 0.22
-color/color_ramp = SubResource( 13 )
+color/color_ramp = SubResource( 14 )
 
 [node name="Sprite2" type="Sprite" parent="Sprite"]
 
-material/material = SubResource( 14 )
+material/material = SubResource( 15 )
 transform/pos = Vector2( -55, -56 )
 texture = ExtResource( 6 )
 flip_h = true
 
+[node name="EngineR" type="Sprite" parent="Sprite/Sprite2"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( -4.00003, -73.6724 )
+transform/rot = 180.0
+transform/scale = Vector2( 0.7, 0.378354 )
+texture = ExtResource( 7 )
+
 [node name="Sprite3" type="Sprite" parent="Sprite"]
 
-material/material = SubResource( 15 )
+material/material = SubResource( 16 )
 transform/pos = Vector2( 55, -56 )
 texture = ExtResource( 6 )
+
+[node name="EngineL" type="Sprite" parent="Sprite/Sprite3"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 4.00003, -73.6724 )
+transform/rot = 180.0
+transform/scale = Vector2( 0.7, 0.378354 )
+texture = ExtResource( 7 )
 
 [node name="Sprite4" type="Sprite" parent="Sprite"]
 
 visibility/behind_parent = true
-material/material = SubResource( 16 )
+material/material = SubResource( 17 )
 transform/pos = Vector2( 0, -36 )
 z/z = 1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="Sprite 2" type="Sprite" parent="Sprite"]
 
 visibility/behind_parent = true
-material/material = SubResource( 17 )
+material/material = SubResource( 18 )
 transform/pos = Vector2( 43, 14 )
 z/z = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Sprite1" type="Sprite" parent="Sprite"]
 
 visibility/behind_parent = true
-material/material = SubResource( 18 )
+material/material = SubResource( 19 )
 transform/pos = Vector2( -43, 14 )
 z/z = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 flip_h = true
 
-[node name="DroneHome1" type="Node2D" parent="Sprite" groups=[
-"spawn",
-]]
+[node name="DroneFactory2_1" type="Particles2D" parent="Sprite"]
 
-transform/pos = Vector2( 0, 50.708 )
-
-[node name="DroneFactory1" type="Particles2D" parent="Sprite/DroneHome1"]
-
-transform/pos = Vector2( 0, 1.29199 )
+transform/pos = Vector2( -16, -83 )
 config/amount = 16
 config/lifetime = 0.5
 config/process_mode = 1
@@ -444,11 +484,11 @@ randomness/initial_size = 0.25
 randomness/final_size = 0.22
 randomness/hue_variation = 0.1
 color/color = Color( 0, 0.015625, 1, 1 )
-color/color_ramp = SubResource( 19 )
+color/color_ramp = SubResource( 12 )
 
-[node name="DroneFactory2" type="Particles2D" parent="Sprite/DroneHome1"]
+[node name="DroneFactory2_2" type="Particles2D" parent="Sprite"]
 
-transform/pos = Vector2( 0, 1.292 )
+transform/pos = Vector2( 17, -83 )
 config/amount = 16
 config/lifetime = 0.5
 config/process_mode = 1
@@ -476,17 +516,11 @@ randomness/initial_size = 0.25
 randomness/final_size = 0.22
 randomness/hue_variation = 0.1
 color/color = Color( 0, 0.015625, 1, 1 )
-color/color_ramp = SubResource( 19 )
+color/color_ramp = SubResource( 12 )
 
-[node name="DroneHome2" type="Node2D" parent="Sprite" groups=[
-"spawn",
-]]
+[node name="DroneFactory1_1" type="Particles2D" parent="Sprite"]
 
-transform/pos = Vector2( 0, -77.292 )
-
-[node name="DroneFactory3 2" type="Particles2D" parent="Sprite/DroneHome2"]
-
-transform/pos = Vector2( -16, -5.708 )
+transform/pos = Vector2( 0, 52 )
 config/amount = 16
 config/lifetime = 0.5
 config/process_mode = 1
@@ -514,11 +548,11 @@ randomness/initial_size = 0.25
 randomness/final_size = 0.22
 randomness/hue_variation = 0.1
 color/color = Color( 0, 0.015625, 1, 1 )
-color/color_ramp = SubResource( 19 )
+color/color_ramp = SubResource( 12 )
 
-[node name="DroneFactory3" type="Particles2D" parent="Sprite/DroneHome2"]
+[node name="DroneFactory1_2" type="Particles2D" parent="Sprite"]
 
-transform/pos = Vector2( 17, -5.708 )
+transform/pos = Vector2( 0, 52 )
 config/amount = 16
 config/lifetime = 0.5
 config/process_mode = 1
@@ -546,7 +580,23 @@ randomness/initial_size = 0.25
 randomness/final_size = 0.22
 randomness/hue_variation = 0.1
 color/color = Color( 0, 0.015625, 1, 1 )
-color/color_ramp = SubResource( 19 )
+color/color_ramp = SubResource( 12 )
+
+[node name="Engine" type="Node2D" parent="Sprite"]
+
+visibility/behind_parent = true
+transform/scale = Vector2( 0.7, 0.7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite/Engine"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/EngineBurn = SubResource( 31 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
 
 [node name="CourseTimer" type="Timer" parent="."]
 
@@ -563,7 +613,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 5
-config/samples = ExtResource( 11 )
+config/samples = ExtResource( 12 )
 config/pitch_random = 0.0
 
 [node name="HitBox" type="Area2D" parent="."]
