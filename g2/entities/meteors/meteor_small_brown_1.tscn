@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=19 format=1]
 
 [ext_resource path="res://entities/meteors/meteor.gd" type="Script" id=1]
 [ext_resource path="res://gfx/particles/blacksmoke00.tex" type="Texture" id=2]
@@ -11,8 +11,6 @@
 [ext_resource path="res://default_shader.tres" type="Shader" id=9]
 [ext_resource path="res://gfx/k2x/spacemeteors_002.normal.png" type="Texture" id=10]
 [ext_resource path="res://gfx/k2x/spacemeteors_002.png" type="Texture" id=11]
-[ext_resource path="res://sfx/asteroid_hit.smp" type="Sample" id=12]
-[ext_resource path="res://sfx/small_asteroid_explosion.smp" type="Sample" id=13]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -82,21 +80,6 @@ tracks/1/keys = {
 "transitions": FloatArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 0.617188, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.804688, 0.528076, 0, 1 ), Color( 0.628906, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
-}
-
-[sub_resource type="SampleLibrary" id=8]
-
-samples/asteroid_hit = {
-"db": 0.0,
-"pitch": 1.0,
-"priority": 0,
-"sample": ExtResource( 12 )
-}
-samples/small_asteroid_explosion = {
-"db": 0.0,
-"pitch": 1.0,
-"priority": 0,
-"sample": ExtResource( 13 )
 }
 
 [node name="meteor_small_brown_1" type="RigidBody2D" groups=[
@@ -406,17 +389,6 @@ build_mode = 0
 polygon = Vector2Array( 17.0622, -4.49622, 16.0341, 6.29881, 10.6366, 13.624, -0.158432, 16.8368, -11.7245, 15.5517, -16.608, 4.37112, -17.2506, -5.39581, -11.596, -12.721, 0.61264, -16.7049, 10.1225, -13.6206 )
 shape_range = Vector2( 0, 0 )
 trigger = false
-
-[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
-
-params/volume_db = 0.0
-params/pitch_scale = 1.0
-params/attenuation/min_distance = 1.0
-params/attenuation/max_distance = 2048.0
-params/attenuation/distance_exp = 1.0
-config/polyphony = 1
-config/samples = SubResource( 8 )
-config/pitch_random = 0.0
 
 [connection signal="body_enter" from="Hitbox" to="." method="_on_Hitbox_body_enter"]
 

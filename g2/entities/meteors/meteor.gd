@@ -10,7 +10,6 @@ onready var death_effect1 = get_node("DeathEffect1")
 onready var death_effect2 = get_node("DeathEffect2")
 onready var death_effect3 = get_node("DeathEffect3")
 onready var sprite = get_node("Sprite")
-onready var sfx = get_node("SamplePlayer2D")
 
 onready var initial_HP = HP
 
@@ -45,7 +44,6 @@ func start_death():
 		return
 	dead_timestamp = OS.get_ticks_msec()
 	sprite.hide()
-	#sfx.play("small_asteroid_explosion")
 	flow_effect1.set_emitting(false)
 	flow_effect2.set_emitting(false)
 	flow_effect3.set_emitting(false)

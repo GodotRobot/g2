@@ -344,6 +344,7 @@ texture = ExtResource( 11 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
