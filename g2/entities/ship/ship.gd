@@ -93,6 +93,7 @@ func start_death():
 	if ship_state == SHIP_STATE.death_start:
 		return
 	
+	warp_animation.hide()
 	movement_offset = Vector2(0.0,0.0)
 	ship_state = SHIP_STATE.death_start
 	sfx.play("ship_explosion")
