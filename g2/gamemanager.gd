@@ -13,6 +13,7 @@ const MENU = preload(MENU_PATH)
 const MENU_BASE = preload("res://menu/menu.gd")
 const LEVEL_PATH = "res://levels/level<N>.tscn"
 const SHIP = preload("res://entities/ship/ship.tscn")
+const SHIP_CLASS = preload("res://entities/ship/ship.gd")
 const HTTP = preload("res://menu/http.gd")
 
 ################### game consts and balance ##########################
@@ -92,6 +93,12 @@ func collectable_collected(collectable, who):
 		for e in enemies:
 			e.start_death()
 
+func is_destroyed_by_meteor(body):
+	if body extends SHIP_CLASS:
+		return not body.is_blinking()
+	else:
+		return true
+  
 func ship_warped():
 	if cur_warp > 0:
 		cur_warp -= 1

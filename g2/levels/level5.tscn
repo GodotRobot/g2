@@ -6,16 +6,10 @@
 
 [node name="Level5" instance=ExtResource( 1 )]
 
-[node name="GameLayer" parent="."]
-
-editor/display_folded = false
-
 [node name="EnemyBase" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 643.925, 112.386 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
+bullets_left = -1
 
 [node name="CollectableShield" parent="GameLayer" instance=ExtResource( 3 )]
 
@@ -24,19 +18,11 @@ transform/pos = Vector2( 631.866, 291.76 )
 [node name="EnemyBase 2" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 122.385, 122.937 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
+bullets_left = -1
 
 [node name="EnemyBase 3" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1151.9, 107.864 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
-
-[node name="TimeBonusLayer" parent="."]
-
-editor/display_folded = true
+bullets_left = -1
 
 

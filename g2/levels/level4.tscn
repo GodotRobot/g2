@@ -21,8 +21,4 @@ transform/pos = Vector2( 301.074, 590.653 )
 
 transform/pos = Vector2( 1044.25, 580.378 )
 
-[node name="TimeBonusLayer" parent="."]
-
-editor/display_folded = true
-
 

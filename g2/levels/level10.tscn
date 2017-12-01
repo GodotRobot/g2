@@ -5,10 +5,6 @@
 
 [node name="Level10" instance=ExtResource( 1 )]
 
-[node name="GameLayer" parent="."]
-
-editor/display_folded = false
-
 [node name="ParallaxBackground" parent="GameLayer"]
 
 editor/display_folded = true
@@ -16,29 +12,17 @@ editor/display_folded = true
 [node name="EnemyDrone" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 143.534, 152.28 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
 
 [node name="EnemyDrone 2" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 191.481, 292.696 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
 
 [node name="EnemyDrone 3" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1167.55, 124.882 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
 
 [node name="EnemyDrone 4" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1184.67, 621.476 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
 
 

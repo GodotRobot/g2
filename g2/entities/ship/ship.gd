@@ -51,8 +51,8 @@ const COLLECTABLE_BASE = preload("res://entities/collectables/collectable_base.g
 const BULLET_BASE = preload("res://entities/bullet/bullet_base.gd")
 const ENEMY_BASE = preload("res://entities/enemy/enemy_base.gd")
 
-func is_warping():
-	return ship_state in [SHIP_STATE.warp_start, SHIP_STATE.warp_end]
+func is_blinking():
+	return ship_activation_timer.get_time_left() > 0.0
 
 func active():
 	return ship_state in [SHIP_STATE.active, SHIP_STATE.on_hold]  and ship_activation_timer.get_time_left() <= 0.0

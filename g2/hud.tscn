@@ -54,9 +54,6 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 1280.0
 margin/bottom = 720.0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="LifeBox" type="Sprite" parent="HUD"]
 
@@ -132,9 +129,9 @@ margin/bottom = 64.0
 
 visibility/behind_parent = true
 visibility/light_mask = 0
-transform/pos = Vector2( 356.5, 21 )
+transform/pos = Vector2( 362.133, 21 )
 transform/rot = -90.0
-transform/scale = Vector2( 1.13333, 1.13125 )
+transform/scale = Vector2( 1.13333, 1.31416 )
 texture = ExtResource( 2 )
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
@@ -145,9 +142,9 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 281.0
+margin/left = 272.0
 margin/top = 10.0
-margin/right = 449.0
+margin/right = 440.0
 margin/bottom = 54.0
 custom_fonts/font = ExtResource( 3 )
 text = "Score:"
@@ -165,12 +162,13 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 367.0
+margin/left = 358.0
 margin/top = 10.0
-margin/right = 503.0
+margin/right = 550.0
 margin/bottom = 54.0
 custom_fonts/font = ExtResource( 3 )
-text = "0000"
+text = "00000"
+align = 1
 uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
@@ -229,7 +227,7 @@ max_lines_visible = -1
 
 visibility/behind_parent = true
 visibility/light_mask = 0
-transform/pos = Vector2( 561.625, 21 )
+transform/pos = Vector2( 570.625, 21 )
 transform/rot = -90.0
 transform/scale = Vector2( 1.13333, 0.757813 )
 texture = ExtResource( 2 )
@@ -242,9 +240,9 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 512.0
+margin/left = 521.0
 margin/top = 10.0
-margin/right = 630.0
+margin/right = 639.0
 margin/bottom = 54.0
 custom_fonts/font = ExtResource( 3 )
 text = "TIME:"
@@ -261,9 +259,9 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 571.0
+margin/left = 580.0
 margin/top = 10.0
-margin/right = 641.0
+margin/right = 650.0
 margin/bottom = 54.0
 custom_fonts/font = ExtResource( 3 )
 text = "00"
@@ -276,13 +274,10 @@ max_lines_visible = -1
 
 visibility/behind_parent = true
 visibility/light_mask = 0
-transform/pos = Vector2( 870.5, 21 )
+transform/pos = Vector2( 875.5, 21 )
 transform/rot = -90.0
 transform/scale = Vector2( 1.13333, 1.21562 )
 texture = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="WarpLabel" type="Label" parent="HUD"]
 
@@ -292,9 +287,9 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 691.0
+margin/left = 696.0
 margin/top = 10.0
-margin/right = 819.0
+margin/right = 824.0
 margin/bottom = 54.0
 custom_fonts/font = ExtResource( 3 )
 text = "WARP:"
@@ -302,9 +297,6 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="WarpCriticalAlert" type="Label" parent="HUD"]
 
@@ -343,14 +335,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 760.0
+margin/left = 765.0
 margin/top = 12.0
-margin/right = 2349.0
+margin/right = 2354.0
 margin/bottom = 76.0
 alignment = 0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="WarpIcon" type="TextureFrame" parent="HUD"]
 
@@ -411,13 +400,13 @@ autostart = false
 [node name="BossHP" type="Node2D" parent="HUD"]
 
 visibility/visible = false
-transform/pos = Vector2( 1092.64, 60.4518 )
+transform/pos = Vector2( 691, 670 )
 
 [node name="BG" type="Sprite" parent="HUD/BossHP"]
 
 visibility/behind_parent = true
 visibility/light_mask = 0
-transform/pos = Vector2( -53.7519, 0.876536 )
+transform/pos = Vector2( -53.7519, 9.87654 )
 transform/rot = 90.0
 transform/scale = Vector2( 1.05844, 1.33595 )
 texture = ExtResource( 5 )
@@ -429,9 +418,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = -173.0
-margin/top = -8.0
+margin/top = 1.0
 margin/right = 151.0
-margin/bottom = 9.0
+margin/bottom = 18.0
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 range/min = 0.0
@@ -452,9 +441,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = -251.0
-margin/top = -11.0
+margin/top = -2.0
 margin/right = -123.0
-margin/bottom = 33.0
+margin/bottom = 42.0
 custom_fonts/font = ExtResource( 3 )
 text = "Boss"
 align = 1

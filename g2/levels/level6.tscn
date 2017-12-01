@@ -10,10 +10,6 @@
 
 level_type = "obstacles"
 
-[node name="GameLayer" parent="."]
-
-editor/display_folded = false
-
 [node name="ShipArea2D" parent="GameLayer"]
 
 free_movement = false

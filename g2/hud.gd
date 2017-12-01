@@ -61,7 +61,7 @@ func remove_warps(count):
 	return true
 
 func set_score(points):
-	score_text.set_text(str(points).pad_zeros(4))
+	score_text.set_text(str(points).pad_zeros(5))
 
 func set_time(time):
 	time_text.set_text(str(time).pad_zeros(2))

@@ -53,8 +53,9 @@ func start_death():
 	hitbox.set_layer_mask(0)
 
 func _on_Hitbox_body_enter( body ):
-	body.start_death()
-	anim.play("Hit")
-	HP -= 1
-	if HP == 0:
-		start_death()
+	if GameManager.is_destroyed_by_meteor(body):
+		body.start_death()
+		anim.play("Hit")
+		HP -= 1
+		if HP == 0:
+			start_death()
