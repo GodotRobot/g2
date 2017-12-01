@@ -35,14 +35,10 @@ func level_lost():
 	return false
 func get_hud():
 	return null
-func fade_off():
-	pass
-func fade_on():
-	pass
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	GameManager.download_highscores()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if (mode != MODE.start):
 		menu_box_container.set_pos(Vector2(menu_box_container.get_pos().x, paused_menu_y))
 		parallax_camera.clear_current()
@@ -50,9 +46,10 @@ func _ready():
 		get_node("Title").hide()
 		get_node("Instructions").hide()
 		get_node("PauseBG").show()
-
 	start_button.grab_focus()
-	if mode == MODE.pause:
+	if mode == MODE.start:
+		pass
+	elif mode == MODE.pause:
 		context.set_text("Paused")
 		start_button.set_text("Continue")
 		restart_button.show()
@@ -60,6 +57,7 @@ func _ready():
 		context.set_text("GAME OVER")
 		start_button.set_text("Try again")
 		restart_button.hide()
+		show_popup_and_get_name()
 	elif mode == MODE.next_level:
 		context.set_text("Level Completed")
 		start_button.set_text("Next Level")
@@ -69,7 +67,6 @@ func _ready():
 		start_button.set_text("Play again")
 		restart_button.hide()
 		show_popup_and_get_name()
-
 	set_process_input(true)
 
 func _input(event):
@@ -176,3 +173,12 @@ func _on_OptionsReturnButton_pressed():
 		credits_button.show()
 	quit_button.show()
 	options_button.grab_focus()
+
+func _on_MusicLink_pressed():
+	OS.shell_open("http://dig.ccmixter.org/files/cdk/34152")
+
+func _on_KenneyLink_pressed():
+	OS.shell_open("http://www.kenney.nl")
+
+func _on_ProjectLink_pressed():
+	OS.shell_open("https://godotrobot.itch.io/warp")

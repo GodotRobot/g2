@@ -584,16 +584,14 @@ caret/caret_blink_speed = 0.65
 
 [node name="CreditsDialog" type="AcceptDialog" parent="."]
 
-editor/display_folded = true
-visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 472.0
+margin/left = 395.0
 margin/top = 303.0
-margin/right = 827.0
-margin/bottom = 460.0
+margin/right = 903.0
+margin/bottom = 469.0
 popup/exclusive = false
 window/title = ""
 dialog/hide_on_ok = true
@@ -607,7 +605,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = -22.0
-margin/right = 786.0
+margin/right = 1127.0
 margin/bottom = 24.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -627,7 +625,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 7.0
-margin/right = 788.0
+margin/right = 1127.0
 margin/bottom = 53.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -647,7 +645,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 28.0
-margin/right = 788.0
+margin/right = 1127.0
 margin/bottom = 74.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -667,7 +665,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 49.0
-margin/right = 788.0
+margin/right = 1127.0
 margin/bottom = 95.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -678,6 +676,22 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="ProjectLink" type="LinkButton" parent="CreditsDialog/Line2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 986.0
+margin/top = 11.0
+margin/right = 1068.0
+margin/bottom = 39.0
+custom_fonts/font = ExtResource( 9 )
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Link"
+
 [node name="Line3" type="Label" parent="CreditsDialog"]
 
 rect/scale = Vector2( 0.45, 0.45 )
@@ -687,7 +701,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 70.0
-margin/right = 788.0
+margin/right = 1127.0
 margin/bottom = 116.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -707,16 +721,69 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 91.0
-margin/right = 788.0
+margin/right = 1127.0
 margin/bottom = 137.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Art by www.kenney.nl"
+text = "Art: Kenney (c)"
 align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="KenneyLink" type="LinkButton" parent="CreditsDialog/Line4"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 986.0
+margin/top = 11.0
+margin/right = 1068.0
+margin/bottom = 39.0
+custom_fonts/font = ExtResource( 9 )
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Link"
+
+[node name="Line5" type="Label" parent="CreditsDialog"]
+
+rect/scale = Vector2( 0.45, 0.45 )
+hint/tooltip = "test tool tip"
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 111.0
+margin/right = 1127.0
+margin/bottom = 157.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Music: Wired by cdk (c) CC-BY-NC"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="MusicLink" type="LinkButton" parent="CreditsDialog/Line5"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 986.0
+margin/top = 11.0
+margin/right = 1068.0
+margin/bottom = 39.0
+custom_fonts/font = ExtResource( 9 )
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Link"
 
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
@@ -754,5 +821,11 @@ default/chorus_send = 0.0
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 
 [connection signal="confirmed" from="NameDialog" to="." method="_on_NameDialog_confirmed"]
+
+[connection signal="pressed" from="CreditsDialog/Line2/ProjectLink" to="." method="_on_ProjectLink_pressed"]
+
+[connection signal="pressed" from="CreditsDialog/Line4/KenneyLink" to="." method="_on_KenneyLink_pressed"]
+
+[connection signal="pressed" from="CreditsDialog/Line5/MusicLink" to="." method="_on_MusicLink_pressed"]
 
 
