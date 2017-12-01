@@ -10,6 +10,7 @@ onready var death_effect1 = get_node("DeathEffect1")
 onready var death_effect2 = get_node("DeathEffect2")
 onready var death_effect3 = get_node("DeathEffect3")
 onready var sprite = get_node("Sprite")
+onready var initial_HP = HP
 
 export(int, 1, 50) var HP = 5
 
@@ -51,6 +52,7 @@ func start_death():
 	set_layer_mask(0)
 	hitbox.set_collision_mask(0)
 	hitbox.set_layer_mask(0)
+	GameManager.meteor_destroyed(self)
 
 func _on_Hitbox_body_enter( body ):
 	if GameManager.is_destroyed_by_meteor(body):

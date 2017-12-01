@@ -139,13 +139,12 @@ func ship_destroyed(instance):
 
 func add_score(add):
 	score += add
-	current_scene.get_hud().set_score(score)
-
-func enemy_destroyed(instance):
 	var hud = current_scene.get_hud()
 	if hud:
-		score += instance.kill_score
 		hud.set_score(score)
+
+func enemy_destroyed(instance):
+	add_score(instance.kill_score)
 	dbg("enemy " + instance.get_name() + " destoryed!")
 	if instance.drop_type:
 		dbg("enemy " + instance.get_name() + " had drop type " + String(instance.drop_type))
@@ -155,6 +154,9 @@ func enemy_destroyed(instance):
 			collectable.set_pos(instance.get_pos())
 			instance.get_parent().add_child(collectable)
 
+func meteor_destroyed(instance):
+	add_score(instance.initial_HP * 10)
+	
 func download_highscores(update = null):
 	var menu = get_tree().get_nodes_in_group("menu")
 	if not menu.empty():
