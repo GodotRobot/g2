@@ -17,7 +17,6 @@
 [ext_resource path="res://sfx/ship_explosion.smp" type="Sample" id=15]
 [ext_resource path="res://sfx/warp_drive_02.smp" type="Sample" id=16]
 
-
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -261,6 +260,9 @@ build_mode = 0
 polygon = Vector2Array( -6.24852, -28.0479, 5.81438, -28.2228, 9.31087, -8.99205, 26.7933, 1.67226, 33.6115, -4.62143, 37.2828, -4.44661, 34.8353, 19.3295, 30.2898, 16.3575, 9.83534, 20.0288, 5.81438, 27.896, -5.72404, 28.2456, -10.6191, 19.854, -30.8988, 16.5323, -34.5701, 19.1547, -36.668, -4.44661, -33.1715, -4.79625, -27.2275, 1.32261, -9.04572, -8.6424 )
 shape_range = Vector2( 0, 4 )
 trigger = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ShipBlinkingTimer" type="Timer" parent="."]
 
