@@ -1,14 +1,19 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://levels/level_base.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemy/enemy_shooter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemy/enemy_drone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/collectables/collectable_shield.tscn" type="PackedScene" id=4]
 
 [node name="Level11" instance=ExtResource( 1 )]
 
 [node name="GameLayer" parent="."]
 
 editor/display_folded = false
+
+[node name="ShipArea2D" parent="GameLayer"]
+
+transform/pos = Vector2( 388.315, 421.07 )
 
 [node name="EnemyShooter" parent="GameLayer" instance=ExtResource( 2 )]
 
@@ -19,16 +24,10 @@ drop = "Health"
 
 transform/pos = Vector2( 636.704, 169.404 )
 drop = "Warp"
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
 
 [node name="EnemyDrone 2" parent="GameLayer" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 1157.27, 152.28 )
-HP = 1
-fire_rate_min = 0.5
-fire_rate_max = 1.5
 
 [node name="EnemyShooter 2" parent="GameLayer" instance=ExtResource( 2 )]
 
@@ -42,5 +41,9 @@ drop = "Shield"
 [node name="EnemyShooter 4" parent="GameLayer" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 119.561, 135.156 )
+
+[node name="CollectableShield" parent="GameLayer" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 391.667, 336.925 )
 
 
