@@ -10,7 +10,7 @@
 [ext_resource path="res://backgrounds/asteroids_bg2.tex" type="Texture" id=8]
 [ext_resource path="res://fonts/small_radio_stars_font.fnt" type="BitmapFont" id=9]
 [ext_resource path="res://menu/highscores.tscn" type="PackedScene" id=10]
-[ext_resource path="res://menu/kenvector_future_font.fnt" type="BitmapFont" id=11]
+[ext_resource path="res://fonts/scores_radio_stars_font.fnt" type="BitmapFont" id=11]
 [ext_resource path="res://sfx/sfx_laser1.smp" type="Sample" id=12]
 
 [sub_resource type="SampleLibrary" id=1]
@@ -97,6 +97,7 @@ max_lines_visible = -1
 
 [node name="Instructions" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 visibility/opacity = 0.8
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = false
@@ -318,7 +319,9 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
+[node name="StartButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -340,7 +343,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RestartButton" type="Button" parent="VBoxContainer"]
+[node name="RestartButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/visible = false
 visibility/light_mask = 0
@@ -360,7 +365,9 @@ shortcut = null
 text = "Restart"
 flat = false
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -462,7 +469,9 @@ shortcut = null
 text = "Return To Menu"
 flat = false
 
-[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+[node name="CreditsButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -481,7 +490,9 @@ shortcut = null
 text = "Credits"
 flat = false
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitButton" type="Button" parent="VBoxContainer" groups=[
+"menu_button",
+]]
 
 visibility/light_mask = 0
 rect/min_size = Vector2( 0, 40 )
@@ -508,7 +519,6 @@ margin/bottom = 242.0
 
 [node name="NameDialog" type="AcceptDialog" parent="."]
 
-editor/display_folded = true
 visibility/visible = false
 visibility/light_mask = 0
 focus/ignore_mouse = false
@@ -520,45 +530,85 @@ margin/top = 287.0
 margin/right = 1058.0
 margin/bottom = 544.0
 popup/exclusive = true
-window/title = "WIN"
+window/title = ""
 dialog/hide_on_ok = true
 
-[node name="Label 2" type="Label" parent="NameDialog"]
+[node name="Title" type="Label" parent="NameDialog"]
 
-visibility/light_mask = 0
+rect/scale = Vector2( 0.45, 0.45 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 7.0
-margin/top = 42.0
-margin/right = 847.0
-margin/bottom = 101.0
-custom_fonts/font = ExtResource( 11 )
-text = "You won! Enter name for high scores table"
+margin/left = 0.0
+margin/top = -22.0
+margin/right = 1899.0
+margin/bottom = 24.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "High score "
 align = 1
 valign = 1
-autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Line0" type="Label" parent="NameDialog"]
+
+rect/scale = Vector2( 0.45, 0.45 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 26.0
+margin/right = 1901.0
+margin/bottom = 72.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Congratulations! you've reach a new high score!"
+align = 1
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
 [node name="FinalScore" type="Label" parent="NameDialog"]
 
-visibility/light_mask = 0
+rect/scale = Vector2( 0.45, 0.45 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 7.0
-margin/top = 87.0
-margin/right = 847.0
-margin/bottom = 146.0
-custom_fonts/font = ExtResource( 11 )
-text = "Final score: "
+margin/left = 0.0
+margin/top = 55.0
+margin/right = 1901.0
+margin/bottom = 101.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Final Score:"
 align = 1
 valign = 1
-autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Line1" type="Label" parent="NameDialog"]
+
+rect/scale = Vector2( 0.45, 0.45 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 119.0
+margin/right = 1901.0
+margin/bottom = 165.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Enter your name:"
+align = 1
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -573,7 +623,7 @@ size_flags/vertical = 2
 margin/left = 327.0
 margin/top = 157.0
 margin/right = 526.0
-margin/bottom = 183.0
+margin/bottom = 190.0
 custom_fonts/font = ExtResource( 11 )
 placeholder/alpha = 0.6
 align = 1
@@ -822,6 +872,8 @@ default/chorus_send = 0.0
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 
 [connection signal="confirmed" from="NameDialog" to="." method="_on_NameDialog_confirmed"]
+
+[connection signal="confirmed" from="CreditsDialog" to="." method="_on_CreditsDialog_confirmed"]
 
 [connection signal="pressed" from="CreditsDialog/Line2/ProjectLink" to="." method="_on_ProjectLink_pressed"]
 

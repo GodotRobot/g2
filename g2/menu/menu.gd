@@ -6,6 +6,8 @@ onready var menu_box_container = get_node("VBoxContainer")
 onready var parallax_camera = get_node("ParallaxBackground/Camera2D")
 onready var sfx = get_node("SamplePlayer")
 onready var credits_dialog = get_node("CreditsDialog")
+onready var title = get_node("Title")
+
 # buttons
 onready var start_button = get_node("VBoxContainer/StartButton")
 onready var restart_button = get_node("VBoxContainer/RestartButton")
@@ -17,13 +19,14 @@ onready var options_return_button = get_node("VBoxContainer/OptionsReturnButton"
 onready var credits_button = get_node("VBoxContainer/CreditsButton")
 onready var quit_button = get_node("VBoxContainer/QuitButton")
 
-const paused_menu_y = 160
+
+const mid_game_menu_y = 200
+const mid_game_title_y = 90
 
 enum MODE {
 	start,
 	pause,
 	game_over,
-	next_level,
 	win
 }
 var mode = MODE.start
@@ -40,10 +43,9 @@ func _ready():
 	GameManager.download_highscores()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if (mode != MODE.start):
-		menu_box_container.set_pos(Vector2(menu_box_container.get_pos().x, paused_menu_y))
+		menu_box_container.set_pos(Vector2(menu_box_container.get_pos().x, mid_game_menu_y))
+		title.set_pos(Vector2(title.get_pos().x, mid_game_title_y))
 		parallax_camera.clear_current()
-		credits_button.hide()
-		get_node("Title").hide()
 		get_node("Instructions").hide()
 		get_node("PauseBG").show()
 	start_button.grab_focus()
@@ -58,10 +60,6 @@ func _ready():
 		start_button.set_text("Try again")
 		restart_button.hide()
 		show_popup_and_get_name()
-	elif mode == MODE.next_level:
-		context.set_text("Level Completed")
-		start_button.set_text("Next Level")
-		restart_button.hide()
 	elif mode == MODE.win:
 		context.set_text("WIN")
 		start_button.set_text("Play again")
@@ -182,3 +180,7 @@ func _on_KenneyLink_pressed():
 
 func _on_ProjectLink_pressed():
 	OS.shell_open("https://godotrobot.itch.io/warp")
+
+
+func _on_CreditsDialog_confirmed():
+	pass
