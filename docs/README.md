@@ -1,0 +1,1 @@
+This is the export folder of the game.
