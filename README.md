@@ -3,6 +3,8 @@ Retro-style space shooter.
 
 Fly a ship equipped with an experimental warp drive and fight enemy ships. Do you have what it takes to reach our top 5?
 
+#GithubGameOff #GodotEngine #indiedev
+
 # Links
 [itch.io page](https://godotrobot.itch.io/warp)
 
